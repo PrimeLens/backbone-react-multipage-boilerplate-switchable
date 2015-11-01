@@ -20084,7 +20084,7 @@ rc.homePageComponent = React.createClass({
         return React.createElement(
             'div',
             { id: 'homepage' },
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/homepage/ghostshell.png' }),
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/homepage/ghostshell.jpg' }),
             React.createElement(
                 'p',
                 null,

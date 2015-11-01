@@ -285,7 +285,7 @@ rc.homePageComponent = React.createClass({
 
 
 <div id="homepage">
-    <img src={SiteConfig.assetsDirectory+'images/homepage/ghostshell.png'}/>
+    <img src={SiteConfig.assetsDirectory+'images/homepage/ghostshell.jpg'}/>
     <p>
         This is a basic page. The jsx and css for this page level component is 
         stored in <span className='codestyle'>/public/jsx-pages</span>
