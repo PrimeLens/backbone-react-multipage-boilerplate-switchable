@@ -52,7 +52,7 @@ There is a clear line between project files and boilerplate files. When working 
 
 They can also add libs and config files under `/public/js` however inside `/public/js/router` the only file the devs should touch is `router_developer.js`.
 
-`router_developer.js` is where the dev can handle url routing, page level instanciation and access certain hooks.
+`router_developer.js` is where the dev can handle url routing and access certain hooks.
 
 ## Developers FAQ
 * **The Public Folder**<br>Outside the public folder is all the server relevant stuff such as node and grunt files. Inside the public folder is all the site stuff devs would be working on.
@@ -67,9 +67,17 @@ They can also add libs and config files under `/public/js` however inside `/publ
 
 * **Create a page**<br>For example lets create an About page
  1. Edit `nav.jsx` to add the new page
- 2. Open `public/js/router/router_developer.js` and create a route <br>`about(/*path)': function(f, q){ this.routeTunnel('react', 'about', this.aboutView, f, q) },`
+ 2. Open `public/js/router/router_developer.js` and create a route <br>`about(/*path)': function(f, q){ this.routeTunnel('react', 'about', rc.aboutPageComponent, f, q) },`
  4. Create the folder `/public/jsx-pages/about` and create `about.jsx` and `about.css` inside it
  5. Edit `about.jsx` in that folder using the following pattern
+
+
+
+
+
+##### _React Page Template_
+
+
 
     var rc.aboutPageComponent = React.createClass({
         getInitialState: function(){
@@ -85,6 +93,7 @@ They can also add libs and config files under `/public/js` however inside `/publ
             );
         }
     });
+
 
 * **Create a view that is not a page**<br>
 This is the same as creating a page except
