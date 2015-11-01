@@ -26,7 +26,7 @@ This boilerplate uses Grunt/Babel but you could easily switch to Gulp or Webpack
 * Minimize dependancies but still allow legacy jQuery pages to be used without rewriting them.
 * To easily bring pieces from project to project (e.g. pages or nav).
 * To separate display layer code (dom manipulation) from business logic or data.massaging. I cover this more in Best Practices.
-* A management system for a team of devs. This means a clear distinction between project files for the devs and files for the boilerplate which the the VP of Engineering or team lead can administer.
+* A management system for a team of devs. This means a clear distinction between project files for the devs and files for the boilerplate which the manager or team lead can administer.
 
 
 ##Features
@@ -50,7 +50,7 @@ There is a clear line between project files and boilerplate files. When working 
     /public/jsx-special
     /public/jsx-notcompiled
 
-They can also add libs, components and config files under `/public/js` however inside `/public/js/router` the only file the devs should touch is `router_developer.js`.
+They can also add libs and config files under `/public/js` however inside `/public/js/router` the only file the devs should touch is `router_developer.js`.
 
 `router_developer.js` is where the dev can handle url routing, page level instanciation and access certain hooks.
 
