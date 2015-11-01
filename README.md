@@ -96,7 +96,7 @@ They can also add libs and config files under `/public/js` however inside `/publ
 
 
 * **Create a view that is not a page**<br>
-This is the same as creating a page except
+This is the same as creating a page component. Store either in `/jsx-special` or in the folder for your page
 
 * **Best Practices**<br>
   * When coding a React page only use jQuery for ajax or working with cookies or local storage.
