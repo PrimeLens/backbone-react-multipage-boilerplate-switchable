@@ -1,0 +1,49 @@
+
+/*  essential site wide css, please don't delete */
+body, html, A, IMG { padding: 0; border: 0; margin: 0; }
+#appContainer, #pagecontainer { position: relative; }
+#appContainer { margin: 0 auto; overflow: hidden; }
+/* */
+
+
+
+
+
+/* very useful css, but edit at will  */
+#appContainer IMG { display: block; }
+#appContainer A { display: block; }
+
+
+
+
+
+/* very useful css, helps with responsive, but edit at will  */
+#appContainer IMG { width: auto; max-width: 100%; }
+
+
+
+
+
+/*   non essential css   */
+
+
+/*   non essential css   */
+#pagecontainer { padding: 0 15px; }
+.codestyle {
+    font-family: courier, monospace;
+    color: #555;
+    margin: 0 5px;
+}
+body {
+    font-family: helvetica, arial, sans-serif;
+}
+
+
+
+
+
+
+
+
+
+

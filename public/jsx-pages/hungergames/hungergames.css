@@ -1,0 +1,48 @@
+
+#hungergamespage {
+
+}
+
+
+#hungergamespage .hungerinput {
+    display: inline-block;
+}
+
+#hungergamespage  .linkitem {
+    font-family: helvetica, arial, sans-serif;
+    font-weight: bold;
+    color: #888;
+    background-color: #fff;
+    border: 1px solid #ccc;
+
+    display: inline-block;
+    padding: 3px 6px;
+    margin: 0 10px 6px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+#hungergamespage  .linkitem:hover {
+    text-decoration: underline;
+    color: #555;
+    border-color: #777;
+}
+#hungergamespage .linkitem.active {
+    color: #333;
+    background-color: #b2bcc5;
+    border-color: #adadad;
+    cursor: default;
+    text-decoration: none;
+}

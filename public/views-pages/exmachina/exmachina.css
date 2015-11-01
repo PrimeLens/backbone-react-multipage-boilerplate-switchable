@@ -1,0 +1,9 @@
+#exmachina a {
+	display: inline;
+    font-style: italic;
+    color: #777;	
+}
+
+#exmachina a:hover {
+    color: #a33;
+}

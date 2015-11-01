@@ -1,0 +1,373 @@
+
+/**** COMPILED 2015-11-01 ****/
+
+/* public/views-special/structure/structure.css */
+body, html, A, IMG { padding: 0; border: 0; margin: 0; }
+#appContainer, #pagecontainer { position: relative; }
+#appContainer { margin: 0 auto; overflow: hidden; }
+#appContainer IMG { display: block; }
+#appContainer A { display: block; }
+#appContainer IMG { width: auto; max-width: 100%; }
+#pagecontainer { padding: 0 15px; }
+.codestyle {
+font-family: courier, monospace;
+color: #555;
+margin: 0 5px;
+}
+body {
+font-family: helvetica, arial, sans-serif;
+}
+/* public/views-pages/exmachina/exmachina.css */
+#exmachina a {
+display: inline;
+font-style: italic;
+color: #777; 
+}
+#exmachina a:hover {
+color: #a33;
+}
+/* public/jsx-special/header/header.css */
+#headercontainer {
+    width: 100%;
+    background: #e8e8e8;
+    border-top: 4px solid #333;
+    height: 100px;
+    color: #333;
+    font-family: helvetica, arial, sans-serif;
+}
+#headercontainer h2 {
+    margin: 20px 0 0;
+    padding-left: 20px;
+
+
+    /* made with  http://www.colorzilla.com/gradient-editor/ */
+
+    background: rgb(238,238,238); /* Old browsers */
+    background: -moz-linear-gradient(left,  rgba(238,238,238,1) 0%, rgba(255,255,255,1) 28%, rgba(238,238,238,1) 79%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(238,238,238,1)), color-stop(28%,rgba(255,255,255,1)), color-stop(79%,rgba(238,238,238,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left,  rgba(238,238,238,1) 0%,rgba(255,255,255,1) 28%,rgba(238,238,238,1) 79%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left,  rgba(238,238,238,1) 0%,rgba(255,255,255,1) 28%,rgba(238,238,238,1) 79%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left,  rgba(238,238,238,1) 0%,rgba(255,255,255,1) 28%,rgba(238,238,238,1) 79%); /* IE10+ */
+    background: linear-gradient(to right,  rgba(238,238,238,1) 0%,rgba(255,255,255,1) 28%,rgba(238,238,238,1) 79%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#eeeeee',GradientType=1 ); /* IE6-9 */
+
+}
+/* public/jsx-special/loader/loader.css */
+
+#loadercontainer #loader {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255, 0.8);
+    top: 0;
+    left: 0;
+}
+#loadercontainer #loader.active {
+    display: block;
+}
+
+#loadercontainer .loadingmessage { top: 50%; position: relative; }
+
+#loadercontainer .spinner { 
+    width: auto;
+    margin-top: -400px;
+}
+
+/* public/jsx-special/nav/nav.css */
+
+#navcontainer {
+    padding: 15px 20px 0;
+    background: #333;
+    margin-bottom: 20px;
+    font-family: helvetica, arial, sans-serif;
+}
+
+#navcontainer .navitem {
+    font-family: helvetica, arial, sans-serif;
+    font-weight: bold;
+    color: #888;
+    background-color: #fff;
+    border: 1px solid #ccc;
+
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 15px;
+    margin-right:  15px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+#navcontainer .navitem:hover {
+    text-decoration: underline;
+    color: #555;
+    border-color: #777;
+}
+#navcontainer .navitem.active {
+    color: #333;
+    background-color: #b2bcc5;
+    border-color: #adadad;
+    cursor: default;
+    text-decoration: none;
+}
+/* public/jsx-special/parentsadvisory/parentsadvisory.css */
+
+.parentsadvisory {
+    padding: 14px;
+    text-align: center;
+    border: 3px solid white;
+    position: absolute;
+    background-color: #922;
+    color: white;
+    top: 210px;
+    left: 20px;
+    border-radius: 35px;
+    text-transform: uppercase;
+    font-size: 10px;
+    -webkit-transform: rotate(20deg);
+    transform: rotate(20deg);
+}
+.parentsadvisory strong { font-size: 16px; }
+/* public/jsx-special/quiz/quiz.css */
+
+
+.quizheader {
+    color: #aaa;
+    font-size: 20px;
+    font-weight: bold;
+    padding-top: 30px;
+    clear: both;
+}
+.quizheader .leftGraphic {  }
+.quizheader .rightGraphic {  }
+
+.quizitem {
+    font-size: 12px;
+    color: #888;
+    margin: 10px 0;
+}
+
+.submitquizbtn {
+    font-size: 12px;
+    color: #888;
+    text-decoration: underline;
+    margin: 20px 20px 40px 0;
+    float: left;
+}
+/* public/jsx-pages/breakingbad/breakingbad.css */
+#breakingbadpage img {
+    max-width: 300px;
+    width: 100%;
+    float: left;
+    margin: 0 20px 20px 0;
+}
+
+#breakingbadpage .panel {
+    clear: both;
+}
+/* public/jsx-pages/dexter/dexter.css */
+#dexterpage {
+
+
+}
+
+/* public/jsx-pages/firefly/firefly.css */
+
+#fireflypage .mainpic {
+    width: 100%;
+    max-width: 370px;
+    float: left;
+    margin: 0 20px 20px 0;
+}
+
+
+#fireflypage .container {
+    min-height: 80px;
+    padding: 10px;
+    border: 5px solid #ccc;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+
+#fireflypage .container.one > * {
+    padding: 10px;
+    border: 1px solid #aaa;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+#fireflypage .container.two IMG {
+    height: 100px;
+    float: left;
+    margin: 10px;
+}
+/* public/jsx-pages/hannibal/hannibal.css */
+#hannibalpage img {
+    max-width: 300px;
+    width: 100%;
+    float: left;
+    margin: 0 20px 20px 0;
+}
+
+
+#hannibalpage .quizcontainer {
+    clear: both;
+}
+/* public/jsx-pages/home/home.css */
+
+#homepage .pagetitle {
+    font-style: italic;
+    color: #777;
+    display: inline-block;
+}
+
+
+
+#homepage .pagetitle:hover {
+    color: #a33;
+    text-decoration: underline;
+}
+
+
+/* public/jsx-pages/hungergames/hungergames.css */
+
+#hungergamespage {
+
+}
+
+
+#hungergamespage .hungerinput {
+    display: inline-block;
+}
+
+#hungergamespage  .linkitem {
+    font-family: helvetica, arial, sans-serif;
+    font-weight: bold;
+    color: #888;
+    background-color: #fff;
+    border: 1px solid #ccc;
+
+    display: inline-block;
+    padding: 3px 6px;
+    margin: 0 10px 6px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+#hungergamespage  .linkitem:hover {
+    text-decoration: underline;
+    color: #555;
+    border-color: #777;
+}
+#hungergamespage .linkitem.active {
+    color: #333;
+    background-color: #b2bcc5;
+    border-color: #adadad;
+    cursor: default;
+    text-decoration: none;
+}
+/* public/jsx-pages/madmax/madmax.css */
+#madmaxpage img {
+	Box-sizing: Border-box;
+	width: 25%;
+	min-width: 250px;
+	padding: 3px;
+	float: left;
+}
+
+/* public/jsx-pages/thrones/thrones.css */
+
+.whatevercssclass {
+
+}
+
+.whatevercssclass .specialQuote {
+    font-style: italic;
+}
+
+
+/* public/jsx-pages/trueblood/trueblood.css */
+#truebloodpage {
+
+
+}
+
+/* public/jsx-pages/walkingdead/walking.css */
+/* walking dead css  */
+
+#walkingpage {
+
+}
+
+
+#walkingpage .panel {
+    margin-top: 20px;
+}
+#walkingpage .panel IMG {
+    width: 230px;
+}
+
+#walkingpage  .linkitem {
+    font-family: helvetica, arial, sans-serif;
+    font-weight: bold;
+    color: #888;
+    background-color: #fff;
+    border: 1px solid #ccc;
+
+    display: inline-block;
+    padding: 3px 6px;
+    margin-bottom: 0;
+    margin-right:  15px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+#walkingpage  .linkitem:hover {
+    text-decoration: underline;
+    color: #555;
+    border-color: #777;
+}
+#walkingpage .linkitem.active {
+    color: #333;
+    background-color: #b2bcc5;
+    border-color: #adadad;
+    cursor: default;
+    text-decoration: none;
+}
