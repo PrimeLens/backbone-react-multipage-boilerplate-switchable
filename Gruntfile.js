@@ -47,6 +47,10 @@ module.exports = function(grunt){
                         return '/* ' + filepath + ' */\n' + src;
                     }
 
+                    // bypass if bootstrap, to abort we return src with the date prepended
+                    if (filepath.indexOf('bootstrap') > -1) {    
+                        return '/* ' + filepath + ' */\n' + src;
+                    }
 
                     // the following is a partial minification. The goal is to have a human readable 
                     // script for debugging in the browser yet small so that all
@@ -134,6 +138,7 @@ module.exports = function(grunt){
 			},
 			css : {
 				src : [
+                    'public/css/bootstrap.min.css',    //
                     'public/views-special/**/structure.css',    //
                     'public/views-special/**/*.css',    //
                     'public/views-pages/**/*.css',    //   
