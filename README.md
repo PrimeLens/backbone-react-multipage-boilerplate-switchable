@@ -118,8 +118,8 @@ This is the same as creating a page component. Store either in `/jsx-special` or
 
 Step 1 - Grunt compiles all html as per old boilerplate to htmlpartials and then it transcode all JSX to javascript from
 
-    public/jsx-special/**/*.html
-    public/jsx-pages/**/*.html
+    public/jsx-special/**/*.jsx
+    public/jsx-pages/**/*.jsx
 
 into a javascript file here
 
