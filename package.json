@@ -8,15 +8,14 @@
     "express": "^4.5.1"
   },
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-babel": "^5.0.2",
-    "grunt-contrib-clean": "^0.6.0",
-    "grunt-contrib-concat": "^0.5.0",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-html-convert": "0.0.1"
+    "gulp": "^3.8.11",
+    "run-sequence": "^1.1.5"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gulp": "gulp",
+    "build": "gulp build",
+    "buildwatch": "gulp buildwatch"
   },
   "author": "PrimeLens",
   "license": ""
