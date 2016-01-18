@@ -1,150 +1,78 @@
-// appstarter_v1.js
-try {
-    console.log(' ');
-}
-catch (e) {
-    window.console = {};
-    window.console.log = function(txt){};
-    window.console.warn = function(txt){};
-    window.console.error = function(txt){}
-}
-try {
-    if (htmlpartials) {
-        _.each(htmlpartials, function( value, key, obj ){
-            obj[key] = obj[key].replace(/randomDirectory\/images/g, SiteConfig.assetsDirectory+'images');
+// firefly.js
+'use strict';
+rc.fireflyPageComponent = React.createClass({
+    displayName: 'fireflyPageComponent',
+    getInitialState: function getInitialState() {
+        return _.extend(app.status, {});
+    },
+    componentDidMount: function componentDidMount() {
+        grandCentral.trigger('to_fireflyDescriptions', {
+            imagepath: SiteConfig.assetsDirectory + 'images/fireflypage/firefly-reaver.jpg',
+            description: 'Ghoulish Reaver Ships, attacking a village'
         });
-    }
-}
-catch(e){}
-var Router = Backbone.Router.extend( routerSetupConfig );
-$(document).ready(function() {
-    $('#appContainer').replaceWith( htmlpartials.structure );
-    window.app = new Router;
-    Backbone.history.start();
-    onRouteEvent();
-    app.on('route', onRouteEvent);
-    function onRouteEvent(){
+        grandCentral.trigger('to_fireflyDescriptions', {
+            imagepath: SiteConfig.assetsDirectory + 'images/fireflypage/firefly-spacestation.jpg',
+            description: 'Niska\'s Skyplex Spacestation, orbiting Ezra'
+        });
+        grandCentral.trigger('to_fireflyDescriptions', {
+            imagepath: SiteConfig.assetsDirectory + 'images/fireflypage/firefly.jpg',
+            description: 'Serenity, Firefly class spaceship'
+        });
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'fireflypage' },
+            React.createElement('img', { className: 'mainpic', src: SiteConfig.assetsDirectory + 'images/fireflypage/firefly-cast.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                'This page is an example of event driven architecture where sibling components communicate and pass data.'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'Click on an item below and it will move to the other container. An item will either take on text form or image form depending upon which container it is in.'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'Each child component is different and does not save its state when changing away to another page. To do this the state data should be stored in',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    'app.status'
+                )
+            ),
+            React.createElement(
+                'p',
+                null,
+                'When an item is clicked the component takes care of itself by removing the item from its model, sending the event to Grand Central with appropriate payload data and finally rerendering according to its models new content.'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'The last thing to note is that the code for these views is not stored in ',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    '/jsx-special'
+                ),
+                'I chose to do this because its not instanciated on different pages.  Instead each component is instanciated once and is specific to the FireFly page experience.  Therefore it makes sense to store the javascript in ',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    '/jsx-pages/firefly'
+                )
+            ),
+            React.createElement(
+                'p',
+                null,
+                'Note the JSX filenames are ignored at compile time, I could have put all components in the one file and it would be the same.'
+            ),
+            React.createElement(rc.fireflyDescriptions, null),
+            React.createElement(rc.fireflyImages, null)
+        );
     }
 });
-// grandcentral.js
-var grandCentral = _.extend({}, Backbone.Events);
-// rc_header_v1.js
-var rc = {};
-// router_base_v2.2.js
-var routerSetupConfig = {};
-routerSetupConfig.status = {
-    currentPage : '',
-    lastPage : '',
-    currentRoute : '',
-    currentFragsArray : [],
-    currentQueryString : '',
-    currentQueryStringArray : [],
-    completedPreload : {}
-},
-routerSetupConfig.routeTunnel = function(renderEngine, currentPage, pageHandle, f, q){
-    var self = this;
-    renderEngine = renderEngine.toLowerCase();
-    if (['react','jquery'].indexOf(renderEngine) == -1) { alert('App crash: renderEngine not specified'); return; }
-    if ( currentPage == 'home' && f && !q ) { q = f; f= null; }
-    var pageChanged = false;
-    if ( this.status.currentPage != currentPage ) {
-        pageChanged = true;
-        this.status.lastPage = this.status.currentPage;
-        this.status.currentPage = currentPage;
-    }
-    this.status.currentRoute = Backbone.history.fragment;
-    this.status.currentFragsArray =  f ? f.split('/') : [];
-    this.status.currentQueryString = q;
-    this.status.currentQueryStringArray = (typeof q ==='string') ? q.split('&') : [];
-    this.status.currentQueryStringArray = _.filter(this.status.currentQueryStringArray, function(v){ return v.indexOf('=') > -1; });
-    _.each(this.status.currentQueryStringArray, function(v,i){
-        if (v.indexOf('=') > -1) {
-            self.status.currentQueryStringArray[i] = JSON.parse('{"' + v.replace('=', '":"') + '"}');
-        }
-    });        
-    if (pageChanged) { 
-        console.log('\n-- new route (new page)'); 
-    } else { 
-        console.log('\n-- new route (hashchange only)'); 
-    }
-    console.log('app.status.currentPage='+this.status.currentPage +
-        '\napp.status.lastPage='+this.status.lastPage +
-        '\napp.status.currentRoute='+this.status.currentRoute +
-        '\napp.status.currentFragsArray='+JSON.stringify(this.status.currentFragsArray) +
-        '\napp.status.currentQueryString='+this.status.currentQueryString
-    );
-    if (!this.appStatusNowReady.started) {
-        this.appStatusNowReady.started = true;
-        this.appStatusNowReady();
-    }
-        if (pageChanged) {
-        this.prePageChange();         
-        if (app.currentReactPage){
-            app.currentReactPage = null;
-            React.unmountComponentAtNode(document.getElementById('pagecontainer'));
-        }
-        switch(renderEngine){
-            case 'react' : 
-                app.currentReactPage = React.render(
-                    React.createElement( pageHandle ),
-                    document.getElementById('pagecontainer')
-                );
-                break;
-            case 'jquery' :
-                pageHandle.render();
-                pageHandle.processRouteChange();     
-                break;
-        }
-    }else {
-        switch(renderEngine){
-            case 'react' :     
-                app.currentReactPage.forceUpdate();  
-                break;
-            case 'jquery' :
-                pageHandle.processRouteChange();     
-                break;
-        }
-    }
-    grandCentral.trigger('routechange', this.status);
-    if (pageChanged) {
-        grandCentral.trigger('pagechange', this.status);
-    } else {
-        grandCentral.trigger('deeplinkchange', this.status);
-    }
-}
-// router_developer.js
-routerSetupConfig.initialize = function() {
-    console.log('router initialize()');
-    this.status.currentPage = this.status.lastPage = this.status.currentRoute = null;
-    React.render(
-        React.createElement( rc.header ),
-        document.getElementById('headercontainer')
-    ); 
-    React.render(
-        React.createElement( rc.nav ),
-        document.getElementById('navcontainer')
-    );    
-    React.render(
-        React.createElement( rc.loader ),
-        document.getElementById('loadercontainer')
-    );   
-    this.exmachinaView = new ExmachinaView();
-};
-routerSetupConfig.routes =  {
-    '(?*path)': function(f, q){ this.routeTunnel('react', 'home', rc.homePageComponent, f, q) },
-    'exmachina(/*path)': function(f, q){ this.routeTunnel('jquery', 'exmachina', this.exmachinaView, f, q) },
-    'gameofthrones(/*path)': function(f, q){ this.routeTunnel('react', 'gameofthrones', rc.thronesPageComponent, f, q) },
-    'trueblood(/*path)': function(f, q){ this.routeTunnel('react', 'trueblood', rc.truebloodPageComponent, f, q) },
-    'dexter(/*path)': function(f, q){ this.routeTunnel('react', 'dexter', rc.dexterPageComponent, f, q) },
-    'walkingdead(/*path)': function(f, q){ this.routeTunnel('react', 'walkingdead', rc.walkingPageComponent, f, q) },
-    'hungergames(/*path)': function(f, q){ this.routeTunnel('react', 'hungergames', rc.hungergamesPageComponent, f, q) },
-    'hannibal(/*path)': function(f, q){ this.routeTunnel('react', 'hannibal', rc.hannibalPageComponent, f, q) },
-    'breakingbad(/*path)': function(f, q){ this.routeTunnel('react', 'breakingbad', rc.breakingbadPageComponent, f, q) },
-    'firefly(/*path)': function(f, q){ this.routeTunnel('react', 'firefly', rc.fireflyPageComponent, f, q) },
-    'madmax(/*path)': function(f, q){ this.routeTunnel('react', 'madmax', rc.madmaxPageComponent, f, q) },
-    '*badroute': function(){ this.navigate('#', {trigger: true}); }
-};
-routerSetupConfig.prePageChange =  function(){
-};
-routerSetupConfig.appStatusNowReady =  function(){
-};

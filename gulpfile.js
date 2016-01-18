@@ -15,6 +15,8 @@
 // there will be proxy endpoints.
 // so in effect gulp, is no different to grunt in the task it performs here
 
+// final note:  .babelrc is required as well as two babel preset modules listed in package.json
+
 
 var gulp = require('gulp');
 var runSequence = require('run-sequence');
