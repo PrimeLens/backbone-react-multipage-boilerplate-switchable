@@ -26,6 +26,12 @@ var insert = require('gulp-insert');
 var removeEmptyLines = require('gulp-remove-empty-lines');
 var babel = require('gulp-babel');
 
+
+var htmltojson = require('gulp-html-to-json');
+var htmlconvert = require('gulp-template-compile');
+var fc2json = require('gulp-file-contents-to-json');
+
+
 gulp.task('default', function(){   
 	console.log('to use');
 	console.log('npm run build');
@@ -41,6 +47,41 @@ gulp.task('build', function(callback){
 // gulp.task('build', ['one', 'two', 'three']);
 gulp.task('one', function(){   
 	console.log('one');  
+	return gulp.src('./src/views-special/**/*.html')
+
+
+// this one sucks because it repeats the entire namespace and function code PER html partial
+		// .pipe(htmlconvert({
+		// 	namespace : 'htmlpartials',
+		// 	name: function (file) {
+		// 	 	//return 'tpl-' + file.relative;
+		// 	 	return file.relative;
+		// 	 	//return file.basename.replace(file.extname,'');
+		// 	}
+		// }))
+		// .pipe(concat('htmlpartials.js'))
+
+
+
+
+// this one doesn't do anything ****
+		// .pipe(htmltojson({
+  //           filename: 'htmlpartials',
+  //           useAsVariable: true,
+  //   	    isAngularTemplate : false
+	 //    }))
+
+
+
+		.pipe(fc2json('htmlpartials.js', {extname:false}))
+		.pipe(insert.prepend('window.htmlpartials = '))
+		.pipe(insert.append(';'))
+
+
+		.pipe(gulp.dest('./src/htmlpartials'));
+});
+gulp.task('two', function(){   
+	console.log('two');
 	//return gulp.src('./src/js/router/**/*.js').pipe(gulp.dest('./public/testing'));
 //	return gulp.src(['./src/js/router/appstarter_v1.js', './src/js/router/**/*.js'])
 //	return gulp.src('./src/jsx-pages/**/*.jsx')
@@ -56,13 +97,9 @@ gulp.task('one', function(){
 			var comment = '// ' + filename + '\n';
 			return comment + contents;
 		}))
-        .pipe(concat('start_test.js'))
+        .pipe(concat('start.js'))
         .pipe(removeEmptyLines())
-        .pipe(gulp.dest('./public/prod'));
-
-});
-gulp.task('two', function(){   
-	console.log('two');  
+        .pipe(gulp.dest('./public/prod'));	
 });
 gulp.task('three', function(){   
 	console.log('three');  
