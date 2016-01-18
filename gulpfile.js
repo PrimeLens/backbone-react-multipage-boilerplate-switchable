@@ -18,6 +18,11 @@
 
 var gulp = require('gulp');
 var runSequence = require('run-sequence');
+var concat = require('gulp-concat');
+var strip = require('gulp-strip-comments');
+var insert = require('gulp-insert');
+var removeEmptyLines = require('gulp-remove-empty-lines');
+var babel = require('gulp-babel');
 
 gulp.task('default', function(){   
 	console.log('to use');
@@ -34,7 +39,25 @@ gulp.task('build', function(callback){
 // gulp.task('build', ['one', 'two', 'three']);
 gulp.task('one', function(){   
 	console.log('one');  
-	return gulp.src('./src/js/router/**/*.js').pipe(gulp.dest('./public/testing'));
+	//return gulp.src('./src/js/router/**/*.js').pipe(gulp.dest('./public/testing'));
+//	return gulp.src(['./src/js/router/appstarter_v1.js', './src/js/router/**/*.js'])
+//	return gulp.src('./src/jsx-pages/**/*.jsx')
+	return gulp.src('./src/jsx-pages/firefly/firefly.jsx')
+                    //src: 'public/jsxcompiled/jsxcompiled.jsx',
+                    //dest: 'public/jsxcompiled/jsxcompiled.js'	
+		.pipe(babel({
+		 	presets: ['es2015']
+		}))
+        .pipe(strip())
+		.pipe(insert.transform(function(contents, file) {
+			var filename = file.path.replace(file.base,'');
+			var comment = '// ' + filename + '\n';
+			return comment + contents;
+		}))
+        .pipe(concat('start_test.js'))
+        .pipe(removeEmptyLines())
+        .pipe(gulp.dest('./public/prod'));
+
 });
 gulp.task('two', function(){   
 	console.log('two');  
