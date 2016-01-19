@@ -35,6 +35,34 @@ rc.breakingbadPageComponent = React.createClass({
     }
 });
 'use strict';
+// dexter/dexter.jsx
+rc.dexterPageComponent = React.createClass({
+    displayName: 'dexterPageComponent',
+    getInitialState: function getInitialState() {
+        return _.extend(app.status, {});
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'dexterpage' },
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/dexterpage/dexter.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                'The Dexter page (as well as the True Blood page) bring in a Parents Advisory child component. Components such as parentsadvisory.jsx are stored in ',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    '/public/jsx-special'
+                ),
+                ' along with any other component that might be shared between pages.'
+            ),
+            React.createElement(rc.parentsadvisory, null)
+        );
+    }
+});
+'use strict';
 // firefly/firefly.jsx
 rc.fireflyPageComponent = React.createClass({
     displayName: 'fireflyPageComponent',
@@ -119,34 +147,99 @@ rc.fireflyPageComponent = React.createClass({
     }
 });
 'use strict';
-// hannibal/hannibal.jsx
-rc.hannibalPageComponent = React.createClass({
-    displayName: 'hannibalPageComponent',
+// hungergames/hungergames.jsx
+rc.hungergamesPageComponent = React.createClass({
+    displayName: 'hungergamesPageComponent',
+    // the components internal model
     getInitialState: function getInitialState() {
-        return _.extend(app.status, {});
+        return _.extend(app.status, {
+            districtNumber: 13,
+            sheSaid: ['Peeta I love you', 'Let\'s kill President Snow']
+        });
     },
+    // components controllers
+    addSaying: function addSaying() {
+        // use .concat to create a new array and set it to setState
+        this.setState({
+            sheSaid: this.state.sheSaid.concat([this.refs.inpText.getDOMNode().value])
+        });
+    },
+    removeSaying: function removeSaying() {
+        // use .concat to create a new array and set it to setState
+        this.setState({
+            sheSaid: this.state.sheSaid.slice(0, this.state.sheSaid.length - 1)
+        });
+    },
+    updateNumber: function updateNumber() {
+        this.setState({
+            districtNumber: this.refs.inpNumber.getDOMNode().value
+        });
+    },
+    // components view
     render: function render() {
         console.log(this.constructor.displayName + ' render()');
+        // loop through the array of strings in preparation for returning the render
+        // http://stackoverflow.com/questions/29149169/how-to-loop-and-render-elements-in-react-js-without-an-array-of-objects-to-map
+        // and also must have key attribute assigned to prevent getting a warning
+        var outputArray = [];
+        for (var i = 0; i < this.state.sheSaid.length; i++) {
+            outputArray.push(React.createElement(
+                'div',
+                { key: i },
+                this.state.sheSaid[i]
+            ));
+        }
         return React.createElement(
             'div',
-            { id: 'hannibalpage' },
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/hannibalpage/hannibal.jpg' }),
+            { id: 'hungergamespage' },
             React.createElement(
                 'p',
                 null,
-                'Here we instanciate a shared child component called quizComponent which receives its configuration at the time of instanciation.'
-            ),
-            React.createElement(
-                'p',
-                null,
-                'This child component is simple and does not save its state when changing away to another page. To do this the state data should be stored in',
+                'The Hunger Games page demonstrates how the page can impose its own local Model onto',
                 React.createElement(
                     'span',
                     { className: 'codestyle' },
-                    'app.status'
+                    'this.state'
                 )
             ),
-            React.createElement(rc.quizComponent, { data: SiteConfig.quiz.hannibal })
+            React.createElement(
+                'div',
+                null,
+                'She is from District ',
+                this.state.districtNumber
+            ),
+            'She said ...',
+            React.createElement('br', null),
+            outputArray,
+            React.createElement(
+                'label',
+                null,
+                'Add a saying '
+            ),
+            React.createElement('input', { className: 'hungerinput', type: 'text', ref: 'inpText' }),
+            React.createElement(
+                'div',
+                { className: 'linkitem', onClick: this.addSaying },
+                'Add'
+            ),
+            React.createElement(
+                'div',
+                { className: 'linkitem', onClick: this.removeSaying },
+                'Remove a saying '
+            ),
+            React.createElement('br', null),
+            React.createElement(
+                'label',
+                null,
+                'Change her District Number '
+            ),
+            React.createElement('input', { className: 'hungerinput', type: 'number', ref: 'inpNumber' }),
+            React.createElement(
+                'div',
+                { className: 'linkitem', onClick: this.updateNumber },
+                'Update'
+            ),
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/hungergamespage/hungergames.jpg' })
         );
     }
 });
@@ -271,103 +364,6 @@ rc.homePageComponent = React.createClass({
                 ),
                 ' - this page gives an example of how to use the image loader component in conjunction with the BBPreload library.'
             )
-        );
-    }
-});
-'use strict';
-// hungergames/hungergames.jsx
-rc.hungergamesPageComponent = React.createClass({
-    displayName: 'hungergamesPageComponent',
-    // the components internal model
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {
-            districtNumber: 13,
-            sheSaid: ['Peeta I love you', 'Let\'s kill President Snow']
-        });
-    },
-    // components controllers
-    addSaying: function addSaying() {
-        // use .concat to create a new array and set it to setState
-        this.setState({
-            sheSaid: this.state.sheSaid.concat([this.refs.inpText.getDOMNode().value])
-        });
-    },
-    removeSaying: function removeSaying() {
-        // use .concat to create a new array and set it to setState
-        this.setState({
-            sheSaid: this.state.sheSaid.slice(0, this.state.sheSaid.length - 1)
-        });
-    },
-    updateNumber: function updateNumber() {
-        this.setState({
-            districtNumber: this.refs.inpNumber.getDOMNode().value
-        });
-    },
-    // components view
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        // loop through the array of strings in preparation for returning the render
-        // http://stackoverflow.com/questions/29149169/how-to-loop-and-render-elements-in-react-js-without-an-array-of-objects-to-map
-        // and also must have key attribute assigned to prevent getting a warning
-        var outputArray = [];
-        for (var i = 0; i < this.state.sheSaid.length; i++) {
-            outputArray.push(React.createElement(
-                'div',
-                { key: i },
-                this.state.sheSaid[i]
-            ));
-        }
-        return React.createElement(
-            'div',
-            { id: 'hungergamespage' },
-            React.createElement(
-                'p',
-                null,
-                'The Hunger Games page demonstrates how the page can impose its own local Model onto',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    'this.state'
-                )
-            ),
-            React.createElement(
-                'div',
-                null,
-                'She is from District ',
-                this.state.districtNumber
-            ),
-            'She said ...',
-            React.createElement('br', null),
-            outputArray,
-            React.createElement(
-                'label',
-                null,
-                'Add a saying '
-            ),
-            React.createElement('input', { className: 'hungerinput', type: 'text', ref: 'inpText' }),
-            React.createElement(
-                'div',
-                { className: 'linkitem', onClick: this.addSaying },
-                'Add'
-            ),
-            React.createElement(
-                'div',
-                { className: 'linkitem', onClick: this.removeSaying },
-                'Remove a saying '
-            ),
-            React.createElement('br', null),
-            React.createElement(
-                'label',
-                null,
-                'Change her District Number '
-            ),
-            React.createElement('input', { className: 'hungerinput', type: 'number', ref: 'inpNumber' }),
-            React.createElement(
-                'div',
-                { className: 'linkitem', onClick: this.updateNumber },
-                'Update'
-            ),
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/hungergamespage/hungergames.jpg' })
         );
     }
 });
@@ -511,9 +507,9 @@ rc.thronesPageComponent = React.createClass({
     }
 });
 'use strict';
-// dexter/dexter.jsx
-rc.dexterPageComponent = React.createClass({
-    displayName: 'dexterPageComponent',
+// hannibal/hannibal.jsx
+rc.hannibalPageComponent = React.createClass({
+    displayName: 'hannibalPageComponent',
     getInitialState: function getInitialState() {
         return _.extend(app.status, {});
     },
@@ -521,20 +517,24 @@ rc.dexterPageComponent = React.createClass({
         console.log(this.constructor.displayName + ' render()');
         return React.createElement(
             'div',
-            { id: 'dexterpage' },
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/dexterpage/dexter.jpg' }),
+            { id: 'hannibalpage' },
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/hannibalpage/hannibal.jpg' }),
             React.createElement(
                 'p',
                 null,
-                'The Dexter page (as well as the True Blood page) bring in a Parents Advisory child component. Components such as parentsadvisory.jsx are stored in ',
+                'Here we instanciate a shared child component called quizComponent which receives its configuration at the time of instanciation.'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'This child component is simple and does not save its state when changing away to another page. To do this the state data should be stored in',
                 React.createElement(
                     'span',
                     { className: 'codestyle' },
-                    '/public/jsx-special'
-                ),
-                ' along with any other component that might be shared between pages.'
+                    'app.status'
+                )
             ),
-            React.createElement(rc.parentsadvisory, null)
+            React.createElement(rc.quizComponent, { data: SiteConfig.quiz.hannibal })
         );
     }
 });
@@ -785,6 +785,18 @@ rc.walkingPanelCTA = React.createClass({
         );
     }
 });
+"use strict";
+// header/header.jsx
+rc.header = React.createClass({
+    displayName: "header",
+    render: function render() {
+        return React.createElement(
+            "h2",
+            null,
+            "Backbone Multipage Boilerplate"
+        );
+    }
+});
 'use strict';
 // loader/loader.jsx
 // USAGE
@@ -985,18 +997,6 @@ rc.quizComponent = React.createClass({
                 { className: "submitquizbtn" },
                 "Submit"
             )
-        );
-    }
-});
-"use strict";
-// header/header.jsx
-rc.header = React.createClass({
-    displayName: "header",
-    render: function render() {
-        return React.createElement(
-            "h2",
-            null,
-            "Backbone Multipage Boilerplate"
         );
     }
 });
