@@ -1,21 +1,16 @@
-
-/**** COMPILED 2015-11-10 ****/
-
-/* public/js/router/rc_header_v1.js */
-'use strict';
-
+"use strict";
+// rc_header_v1.js
+// rc aka react components
 var rc = {};
-/* public/jsx-pages/breakingbad/breakingbad.jsx */
-
+'use strict';
+// breakingbad/breakingbad.jsx
 rc.breakingbadPageComponent = React.createClass({
     displayName: 'breakingbadPageComponent',
-
     getInitialState: function getInitialState() {
         return _.extend(app.status, {});
     },
     render: function render() {
         console.log(this.constructor.displayName + ' render()');
-
         return React.createElement(
             'div',
             { id: 'breakingbadpage' },
@@ -39,160 +34,10 @@ rc.breakingbadPageComponent = React.createClass({
         );
     }
 });
-
-/* public/jsx-pages/dexter/dexter.jsx */
-rc.dexterPageComponent = React.createClass({
-    displayName: 'dexterPageComponent',
-
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {});
-    },
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'dexterpage' },
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/dexterpage/dexter.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                'The Dexter page (as well as the True Blood page) bring in a Parents Advisory child component. Components such as parentsadvisory.jsx are stored in ',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    '/public/jsx-special'
-                ),
-                ' along with any other component that might be shared between pages.'
-            ),
-            React.createElement(rc.parentsadvisory, null)
-        );
-    }
-});
-
-/* public/jsx-pages/firefly/childcomponents/fireflyDescriptions.jsx */
-
-rc.fireflyDescriptions = React.createClass({
-    displayName: 'fireflyDescriptions',
-
-    // the components internal model
-    // the array that is databound will update in batches so if the events
-    // arrive too fast they will not be implemented.
-    // for this reason any data arriving from events is applied to trueArray first
-    getInitialState: function getInitialState() {
-        return { databindingArray: [] };
-    },
-    trueArray: [],
-    componentDidMount: function componentDidMount() {
-        this.trueArray = []; // set to empty every time we return to this page
-        var self = this;
-        // recieve incoming items       
-        // unbind before binding in case component unmounts/remounts, optionally use componentWillUnmount
-        grandCentral.off('to_fireflyDescriptions').on('to_fireflyDescriptions', function (data) {
-            // add this onto the true model, see main commet at top of file
-            self.trueArray.push(data);
-            // move trueArray onto the virtual dom and let databinding handle the rest
-            self.setState({
-                databindingArray: self.trueArray
-            });
-        });
-    },
-    handleClick: function handleClick(i) {
-        // send the item as a payload on an event
-        grandCentral.trigger('to_fireflyImages', this.trueArray[i]);
-        // remove the item from the true model
-        this.trueArray.splice(i, 1);
-        // // move trueArray onto the virtual dom and let databinding handle the rest
-        this.setState({
-            databindingArray: this.trueArray
-        });
-    },
-    render: function render() {
-        // loop through the databindingArray preparation for returning the render
-        // http://stackoverflow.com/questions/29149169/how-to-loop-and-render-elements-in-react-js-without-an-array-of-objects-to-map
-        // and also must have key attribute assigned to prevent getting a warning
-        var outputArray = [];
-        for (var i = 0; i < this.state.databindingArray.length; i++) {
-            outputArray.push(
-            // retrieve the key as i and pass to the handleClick function
-            // http://stackoverflow.com/questions/20377837/how-to-access-custom-attributes-from-event-object-in-react
-            React.createElement(
-                'div',
-                { key: i, onClick: this.handleClick.bind(null, i) },
-                this.state.databindingArray[i].description
-            ));
-        }
-        return React.createElement(
-            'div',
-            { className: 'container one' },
-            outputArray
-        );
-    }
-});
-
-/* public/jsx-pages/firefly/childcomponents/fireflyImages.jsx */
-rc.fireflyImages = React.createClass({
-    displayName: 'fireflyImages',
-
-    // the components internal model
-    // the array that is databound will update in batches so if the events
-    // arrive too fast they will not be implemented.
-    // for this reason any data arriving from events is applied to trueArray first
-    getInitialState: function getInitialState() {
-        return { databindingArray: [] };
-    },
-    trueArray: [],
-    componentDidMount: function componentDidMount() {
-        this.trueArray = []; // set to empty every time we return to this page
-        var self = this;
-        // recieve incoming items
-        // unbind before binding in case component unmounts/remounts, optionally use componentWillUnmount
-        grandCentral.off('to_fireflyImages').on('to_fireflyImages', function (data) {
-            // add this onto the true model, see main commet at top of file
-            self.trueArray.push(data);
-            // move trueArray onto the virtual dom and let databinding handle the rest
-            self.setState({
-                databindingArray: self.trueArray
-            });
-        });
-    },
-    handleClick: function handleClick(i) {
-        // send the item as a payload on an event
-        grandCentral.trigger('to_fireflyDescriptions', this.trueArray[i]);
-        // remove the item from the true model
-        this.trueArray.splice(i, 1);
-        // // move trueArray onto the virtual dom and let databinding handle the rest
-        this.setState({
-            databindingArray: this.trueArray
-        });
-    },
-    render: function render() {
-        // loop through the databindingArray preparation for returning the render
-        // http://stackoverflow.com/questions/29149169/how-to-loop-and-render-elements-in-react-js-without-an-array-of-objects-to-map
-        // and also must have key attribute assigned to prevent getting a warning
-        var outputArray = [];
-        for (var i = 0; i < this.state.databindingArray.length; i++) {
-            outputArray.push(
-            // retrieve the key as i and pass to the handleClick function
-            // http://stackoverflow.com/questions/20377837/how-to-access-custom-attributes-from-event-object-in-react
-            React.createElement('img', {
-                key: i,
-                onClick: this.handleClick.bind(null, i),
-                src: this.state.databindingArray[i].imagepath }));
-        }
-        return React.createElement(
-            'div',
-            { className: 'container two' },
-            outputArray,
-            React.createElement('div', { style: { clear: 'both', height: '1px' } })
-        );
-    }
-});
-
-/* public/jsx-pages/firefly/firefly.jsx */
-
+'use strict';
+// firefly/firefly.jsx
 rc.fireflyPageComponent = React.createClass({
     displayName: 'fireflyPageComponent',
-
     getInitialState: function getInitialState() {
         return _.extend(app.status, {});
     },
@@ -216,7 +61,6 @@ rc.fireflyPageComponent = React.createClass({
             description: 'Serenity, Firefly class spaceship'
         });
     },
-
     render: function render() {
         console.log(this.constructor.displayName + ' render()');
         return React.createElement(
@@ -273,19 +117,16 @@ rc.fireflyPageComponent = React.createClass({
             React.createElement(rc.fireflyImages, null)
         );
     }
-
 });
-/* public/jsx-pages/hannibal/hannibal.jsx */
-
+'use strict';
+// hannibal/hannibal.jsx
 rc.hannibalPageComponent = React.createClass({
     displayName: 'hannibalPageComponent',
-
     getInitialState: function getInitialState() {
         return _.extend(app.status, {});
     },
     render: function render() {
         console.log(this.constructor.displayName + ' render()');
-
         return React.createElement(
             'div',
             { id: 'hannibalpage' },
@@ -309,11 +150,10 @@ rc.hannibalPageComponent = React.createClass({
         );
     }
 });
-
-/* public/jsx-pages/home/home.jsx */
+'use strict';
+// home/home.jsx
 rc.homePageComponent = React.createClass({
     displayName: 'homePageComponent',
-
     getInitialState: function getInitialState() {
         return _.extend(app.status, {});
     },
@@ -434,11 +274,10 @@ rc.homePageComponent = React.createClass({
         );
     }
 });
-/* public/jsx-pages/hungergames/hungergames.jsx */
-
+'use strict';
+// hungergames/hungergames.jsx
 rc.hungergamesPageComponent = React.createClass({
     displayName: 'hungergamesPageComponent',
-
     // the components internal model
     getInitialState: function getInitialState() {
         return _.extend(app.status, {
@@ -446,7 +285,6 @@ rc.hungergamesPageComponent = React.createClass({
             sheSaid: ['Peeta I love you', 'Let\'s kill President Snow']
         });
     },
-
     // components controllers
     addSaying: function addSaying() {
         // use .concat to create a new array and set it to setState
@@ -465,11 +303,9 @@ rc.hungergamesPageComponent = React.createClass({
             districtNumber: this.refs.inpNumber.getDOMNode().value
         });
     },
-
     // components view
     render: function render() {
         console.log(this.constructor.displayName + ' render()');
-
         // loop through the array of strings in preparation for returning the render
         // http://stackoverflow.com/questions/29149169/how-to-loop-and-render-elements-in-react-js-without-an-array-of-objects-to-map
         // and also must have key attribute assigned to prevent getting a warning
@@ -481,7 +317,6 @@ rc.hungergamesPageComponent = React.createClass({
                 this.state.sheSaid[i]
             ));
         }
-
         return React.createElement(
             'div',
             { id: 'hungergamespage' },
@@ -536,24 +371,19 @@ rc.hungergamesPageComponent = React.createClass({
         );
     }
 });
-
-/* public/jsx-pages/madmax/madmax.jsx */
-
+'use strict';
+// madmax/madmax.jsx
 /*  
     (1) render an empty page 
     (2) show the loader 
     (3) preload the images  
     (4) hide the loader  
     (5) re-render the page 
-
  this is a stacked loader ie. it runs off a stack 
  of strings which all must clear before it goes away
-
 */
-
 rc.madmaxPageComponent = React.createClass({
     displayName: 'madmaxPageComponent',
-
     getInitialState: function getInitialState() {
         return _.extend(app.status, {});
     },
@@ -648,10 +478,10 @@ rc.madmaxPageComponent = React.createClass({
         return renderHandle;
     }
 });
-/* public/jsx-pages/thrones/thrones.jsx */
+'use strict';
+// thrones/thrones.jsx
 rc.thronesPageComponent = React.createClass({
     displayName: 'thronesPageComponent',
-
     getInitialState: function getInitialState() {
         return _.extend(app.status, {});
     },
@@ -680,11 +510,38 @@ rc.thronesPageComponent = React.createClass({
         );
     }
 });
-
-/* public/jsx-pages/trueblood/trueblood.jsx */
+'use strict';
+// dexter/dexter.jsx
+rc.dexterPageComponent = React.createClass({
+    displayName: 'dexterPageComponent',
+    getInitialState: function getInitialState() {
+        return _.extend(app.status, {});
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'dexterpage' },
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/dexterpage/dexter.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                'The Dexter page (as well as the True Blood page) bring in a Parents Advisory child component. Components such as parentsadvisory.jsx are stored in ',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    '/public/jsx-special'
+                ),
+                ' along with any other component that might be shared between pages.'
+            ),
+            React.createElement(rc.parentsadvisory, null)
+        );
+    }
+});
+'use strict';
+// trueblood/trueblood.jsx
 rc.truebloodPageComponent = React.createClass({
     displayName: 'truebloodPageComponent',
-
     getInitialState: function getInitialState() {
         return _.extend(app.status, {});
     },
@@ -709,54 +566,23 @@ rc.truebloodPageComponent = React.createClass({
         );
     }
 });
-
-/* public/jsx-pages/walkingdead/childcomponents/walkingPanel.jsx */
-
-rc.walkingPanel = React.createClass({
-    displayName: 'walkingPanel',
-
-    getDefaultProps: function getDefaultProps() {
-        return { imagepath: '' };
-    },
-    render: function render() {
-        return React.createElement('img', { src: this.props.imagepath });
-    }
-});
-
-/* public/jsx-pages/walkingdead/childcomponents/walkingPanelCTA.jsx */
-rc.walkingPanelCTA = React.createClass({
-    displayName: 'walkingPanelCTA',
-
-    render: function render() {
-        return React.createElement(
-            'p',
-            null,
-            'Click a button above to see a character. Watch the URL change. Then use the back button to go back through your sequence.'
-        );
-    }
-});
-
-/* public/jsx-pages/walkingdead/walkingdead.jsx */
+'use strict';
+// walkingdead/walkingdead.jsx
 rc.walkingPageComponent = React.createClass({
     displayName: 'walkingPageComponent',
-
     getInitialState: function getInitialState() {
         return _.extend(app.status, {});
     },
-
     render: function render() {
         console.log(this.constructor.displayName + ' render()');
-
         // lets have some render logic for an if else to switch between two child components
         // inject the correct data from config based on deeplink
         // OR
         // inject a Call To Action line of copy to prompt the user
         // use an if else condition as per https://facebook.github.io/react/tips/if-else-in-JSX.html
-
         var key = this.state.currentFragsArray[0];
         var data;
         var panel;
-
         if (key) {
             data = SiteConfig.walking[key];
             // errorcheck that the deeplink exists in the config and redirect if its bad
@@ -768,7 +594,6 @@ rc.walkingPageComponent = React.createClass({
         } else {
             panel = React.createElement(rc.walkingPanelCTA, null);
         }
-
         return React.createElement(
             'div',
             { id: 'walkingpage' },
@@ -821,38 +646,157 @@ rc.walkingPageComponent = React.createClass({
         );
     }
 });
-
-/* public/jsx-special/header/header.jsx */
-rc.header = React.createClass({
-    displayName: 'header',
-
+'use strict';
+// firefly/childcomponents/fireflyDescriptions.jsx
+rc.fireflyDescriptions = React.createClass({
+    displayName: 'fireflyDescriptions',
+    // the components internal model
+    // the array that is databound will update in batches so if the events
+    // arrive too fast they will not be implemented.
+    // for this reason any data arriving from events is applied to trueArray first
+    getInitialState: function getInitialState() {
+        return { databindingArray: [] };
+    },
+    trueArray: [],
+    componentDidMount: function componentDidMount() {
+        this.trueArray = []; // set to empty every time we return to this page
+        var self = this;
+        // recieve incoming items       
+        // unbind before binding in case component unmounts/remounts, optionally use componentWillUnmount
+        grandCentral.off('to_fireflyDescriptions').on('to_fireflyDescriptions', function (data) {
+            // add this onto the true model, see main commet at top of file
+            self.trueArray.push(data);
+            // move trueArray onto the virtual dom and let databinding handle the rest
+            self.setState({
+                databindingArray: self.trueArray
+            });
+        });
+    },
+    handleClick: function handleClick(i) {
+        // send the item as a payload on an event
+        grandCentral.trigger('to_fireflyImages', this.trueArray[i]);
+        // remove the item from the true model
+        this.trueArray.splice(i, 1);
+        // // move trueArray onto the virtual dom and let databinding handle the rest
+        this.setState({
+            databindingArray: this.trueArray
+        });
+    },
     render: function render() {
+        // loop through the databindingArray preparation for returning the render
+        // http://stackoverflow.com/questions/29149169/how-to-loop-and-render-elements-in-react-js-without-an-array-of-objects-to-map
+        // and also must have key attribute assigned to prevent getting a warning
+        var outputArray = [];
+        for (var i = 0; i < this.state.databindingArray.length; i++) {
+            outputArray.push(
+            // retrieve the key as i and pass to the handleClick function
+            // http://stackoverflow.com/questions/20377837/how-to-access-custom-attributes-from-event-object-in-react
+            React.createElement(
+                'div',
+                { key: i, onClick: this.handleClick.bind(null, i) },
+                this.state.databindingArray[i].description
+            ));
+        }
         return React.createElement(
-            'h2',
-            null,
-            'Backbone Multipage Boilerplate'
+            'div',
+            { className: 'container one' },
+            outputArray
         );
     }
 });
-
-/* public/jsx-special/loader/loader.jsx */
-
+'use strict';
+// firefly/childcomponents/fireflyImages.jsx
+rc.fireflyImages = React.createClass({
+    displayName: 'fireflyImages',
+    // the components internal model
+    // the array that is databound will update in batches so if the events
+    // arrive too fast they will not be implemented.
+    // for this reason any data arriving from events is applied to trueArray first
+    getInitialState: function getInitialState() {
+        return { databindingArray: [] };
+    },
+    trueArray: [],
+    componentDidMount: function componentDidMount() {
+        this.trueArray = []; // set to empty every time we return to this page
+        var self = this;
+        // recieve incoming items
+        // unbind before binding in case component unmounts/remounts, optionally use componentWillUnmount
+        grandCentral.off('to_fireflyImages').on('to_fireflyImages', function (data) {
+            // add this onto the true model, see main commet at top of file
+            self.trueArray.push(data);
+            // move trueArray onto the virtual dom and let databinding handle the rest
+            self.setState({
+                databindingArray: self.trueArray
+            });
+        });
+    },
+    handleClick: function handleClick(i) {
+        // send the item as a payload on an event
+        grandCentral.trigger('to_fireflyDescriptions', this.trueArray[i]);
+        // remove the item from the true model
+        this.trueArray.splice(i, 1);
+        // // move trueArray onto the virtual dom and let databinding handle the rest
+        this.setState({
+            databindingArray: this.trueArray
+        });
+    },
+    render: function render() {
+        // loop through the databindingArray preparation for returning the render
+        // http://stackoverflow.com/questions/29149169/how-to-loop-and-render-elements-in-react-js-without-an-array-of-objects-to-map
+        // and also must have key attribute assigned to prevent getting a warning
+        var outputArray = [];
+        for (var i = 0; i < this.state.databindingArray.length; i++) {
+            outputArray.push(
+            // retrieve the key as i and pass to the handleClick function
+            // http://stackoverflow.com/questions/20377837/how-to-access-custom-attributes-from-event-object-in-react
+            React.createElement('img', {
+                key: i,
+                onClick: this.handleClick.bind(null, i),
+                src: this.state.databindingArray[i].imagepath }));
+        }
+        return React.createElement(
+            'div',
+            { className: 'container two' },
+            outputArray,
+            React.createElement('div', { style: { clear: 'both', height: '1px' } })
+        );
+    }
+});
+'use strict';
+// walkingdead/childcomponents/walkingPanel.jsx
+rc.walkingPanel = React.createClass({
+    displayName: 'walkingPanel',
+    getDefaultProps: function getDefaultProps() {
+        return { imagepath: '' };
+    },
+    render: function render() {
+        return React.createElement('img', { src: this.props.imagepath });
+    }
+});
+"use strict";
+// walkingdead/childcomponents/walkingPanelCTA.jsx
+rc.walkingPanelCTA = React.createClass({
+    displayName: "walkingPanelCTA",
+    render: function render() {
+        return React.createElement(
+            "p",
+            null,
+            "Click a button above to see a character. Watch the URL change. Then use the back button to go back through your sequence."
+        );
+    }
+});
+'use strict';
+// loader/loader.jsx
 // USAGE
-
 // grandCentral.trigger('loaderStart', 'pageload');
 // grandCentral.trigger('loaderStart', 'loadmypanel');
 // grandCentral.trigger('loaderEnd', 'pageload');
 // grandCentral.trigger('loaderEnd', 'loadmypanel');
-
 // the loader will go away once the stack is emptied
-
 // DEPENDANCY :
-
 // jQuery    $.inArray
-
 rc.loader = React.createClass({
     displayName: 'loader',
-
     // no need for stack to be bound to data
     // so it is a property of the component and outside of this.state
     stack: [],
@@ -900,168 +844,175 @@ rc.loader = React.createClass({
         );
     }
 });
-
-/* public/jsx-special/nav/nav.jsx */
+'use strict';
+// nav/nav.jsx
 rc.nav = React.createClass({
-    displayName: 'nav',
-
-    getInitialState: function getInitialState() {
-        return {
-            currentPage: ''
-        };
-    },
-    componentDidMount: function componentDidMount() {
-        var self = this;
-        // unbind before binding in case component unmounts/remounts, optionally use componentWillUnmount	
-        grandCentral.off('pagechange').on('pagechange', function (data) {
-            self.setState({
-                currentPage: data.currentPage
-            });
-        });
-    },
-    getClassNameWithActive: function getClassNameWithActive(arg) {
-        var className = 'navitem';
-        if (arg == this.state.currentPage) {
-            className = className + ' active';
-        }
-        return className;
-    },
-    render: function render() {
-        return React.createElement(
-            'div',
-            null,
-            React.createElement(
-                'a',
-                { className: this.getClassNameWithActive('home'), href: '#' },
-                'Home'
-            ),
-            React.createElement(
-                'a',
-                { className: this.getClassNameWithActive('exmachina'), href: '#/exmachina' },
-                'Ex Machina'
-            ),
-            React.createElement(
-                'a',
-                { className: this.getClassNameWithActive('gameofthrones'), href: '#/gameofthrones' },
-                'Game Of Thrones'
-            ),
-            React.createElement(
-                'a',
-                { className: this.getClassNameWithActive('trueblood'), href: '#/trueblood' },
-                'True Blood'
-            ),
-            React.createElement(
-                'a',
-                { className: this.getClassNameWithActive('dexter'), href: '#/dexter' },
-                'Dexter'
-            ),
-            React.createElement(
-                'a',
-                { className: this.getClassNameWithActive('walkingdead'), href: '#/walkingdead' },
-                'Walking Dead'
-            ),
-            React.createElement(
-                'a',
-                { className: this.getClassNameWithActive('hungergames'), href: '#/hungergames' },
-                'Hunger Games'
-            ),
-            React.createElement(
-                'a',
-                { className: this.getClassNameWithActive('hannibal'), href: '#/hannibal' },
-                'Hannibal'
-            ),
-            React.createElement(
-                'a',
-                { className: this.getClassNameWithActive('breakingbad'), href: '#/breakingbad' },
-                'Breaking Bad'
-            ),
-            React.createElement(
-                'a',
-                { className: this.getClassNameWithActive('firefly'), href: '#/firefly' },
-                'Firefly'
-            ),
-            React.createElement(
-                'a',
-                { className: this.getClassNameWithActive('madmax'), href: '#/madmax' },
-                'Mad Max'
-            )
-        );
-    }
+	displayName: 'nav',
+	getInitialState: function getInitialState() {
+		return {
+			currentPage: ''
+		};
+	},
+	componentDidMount: function componentDidMount() {
+		var self = this;
+		// unbind before binding in case component unmounts/remounts, optionally use componentWillUnmount	
+		grandCentral.off('pagechange').on('pagechange', function (data) {
+			self.setState({
+				currentPage: data.currentPage
+			});
+		});
+	},
+	getClassNameWithActive: function getClassNameWithActive(arg) {
+		var className = 'navitem';
+		if (arg == this.state.currentPage) {
+			className = className + ' active';
+		}
+		return className;
+	},
+	render: function render() {
+		return React.createElement(
+			'div',
+			null,
+			React.createElement(
+				'a',
+				{ className: this.getClassNameWithActive('home'), href: '#' },
+				'Home'
+			),
+			React.createElement(
+				'a',
+				{ className: this.getClassNameWithActive('exmachina'), href: '#/exmachina' },
+				'Ex Machina'
+			),
+			React.createElement(
+				'a',
+				{ className: this.getClassNameWithActive('gameofthrones'), href: '#/gameofthrones' },
+				'Game Of Thrones'
+			),
+			React.createElement(
+				'a',
+				{ className: this.getClassNameWithActive('trueblood'), href: '#/trueblood' },
+				'True Blood'
+			),
+			React.createElement(
+				'a',
+				{ className: this.getClassNameWithActive('dexter'), href: '#/dexter' },
+				'Dexter'
+			),
+			React.createElement(
+				'a',
+				{ className: this.getClassNameWithActive('walkingdead'), href: '#/walkingdead' },
+				'Walking Dead'
+			),
+			React.createElement(
+				'a',
+				{ className: this.getClassNameWithActive('hungergames'), href: '#/hungergames' },
+				'Hunger Games'
+			),
+			React.createElement(
+				'a',
+				{ className: this.getClassNameWithActive('hannibal'), href: '#/hannibal' },
+				'Hannibal'
+			),
+			React.createElement(
+				'a',
+				{ className: this.getClassNameWithActive('breakingbad'), href: '#/breakingbad' },
+				'Breaking Bad'
+			),
+			React.createElement(
+				'a',
+				{ className: this.getClassNameWithActive('firefly'), href: '#/firefly' },
+				'Firefly'
+			),
+			React.createElement(
+				'a',
+				{ className: this.getClassNameWithActive('madmax'), href: '#/madmax' },
+				'Mad Max'
+			)
+		);
+	}
 });
-
-/* public/jsx-special/parentsadvisory/parentsadvisory.jsx */
+"use strict";
+// parentsadvisory/parentsadvisory.jsx
 rc.parentsadvisory = React.createClass({
-    displayName: 'parentsadvisory',
-
+    displayName: "parentsadvisory",
     render: function render() {
         return React.createElement(
-            'div',
-            { className: 'parentsadvisory' },
+            "div",
+            { className: "parentsadvisory" },
             React.createElement(
-                'strong',
+                "strong",
                 null,
-                'Don\'t'
+                "Don't"
             ),
-            React.createElement('br', null),
-            'let kids',
-            React.createElement('br', null),
-            'watch this'
+            React.createElement("br", null),
+            "let kids",
+            React.createElement("br", null),
+            "watch this"
         );
     }
 });
-
-/* public/jsx-special/quiz/childcomponents/quizitem.jsx */
-rc.quizItemComponent = React.createClass({
-    displayName: 'quizItemComponent',
-
-    render: function render() {
-        return React.createElement(
-            'div',
-            { className: 'quizitem' },
-            React.createElement('input', { type: 'checkbox', key: this.props.key }),
-            React.createElement(
-                'span',
-                null,
-                this.props.label
-            )
-        );
-    }
-});
-
-/* public/jsx-special/quiz/quiz.jsx */
+"use strict";
+// quiz/quiz.jsx
 rc.quizComponent = React.createClass({
-    displayName: 'quizComponent',
-
+    displayName: "quizComponent",
     render: function render() {
         // loop through and build up an array which we will include in the render
         var theOptions = [];
         _.each(this.props.data.options, function (value, i) {
             theOptions.push(React.createElement(rc.quizItemComponent, { key: i, label: value }));
         });
-
         return React.createElement(
-            'div',
+            "div",
             null,
             React.createElement(
-                'div',
-                { className: 'quizheader' },
-                React.createElement('span', { className: 'leftGraphic' }),
+                "div",
+                { className: "quizheader" },
+                React.createElement("span", { className: "leftGraphic" }),
                 React.createElement(
-                    'span',
-                    { className: 'quiztitle' },
+                    "span",
+                    { className: "quiztitle" },
                     this.props.data.quiztitle
                 ),
-                React.createElement('span', { className: 'rightGraphic' })
+                React.createElement("span", { className: "rightGraphic" })
             ),
             React.createElement(
-                'div',
-                { className: 'options' },
+                "div",
+                { className: "options" },
                 theOptions
             ),
             React.createElement(
-                'div',
-                { className: 'submitquizbtn' },
-                'Submit'
+                "div",
+                { className: "submitquizbtn" },
+                "Submit"
+            )
+        );
+    }
+});
+"use strict";
+// header/header.jsx
+rc.header = React.createClass({
+    displayName: "header",
+    render: function render() {
+        return React.createElement(
+            "h2",
+            null,
+            "Backbone Multipage Boilerplate"
+        );
+    }
+});
+"use strict";
+// quiz/childcomponents/quizitem.jsx
+rc.quizItemComponent = React.createClass({
+    displayName: "quizItemComponent",
+    render: function render() {
+        return React.createElement(
+            "div",
+            { className: "quizitem" },
+            React.createElement("input", { type: "checkbox", key: this.props.key }),
+            React.createElement(
+                "span",
+                null,
+                this.props.label
             )
         );
     }

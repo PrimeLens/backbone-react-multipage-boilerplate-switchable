@@ -25,10 +25,6 @@ var strip = require('gulp-strip-comments');
 var insert = require('gulp-insert');
 var removeEmptyLines = require('gulp-remove-empty-lines');
 var babel = require('gulp-babel');
-
-
-var htmltojson = require('gulp-html-to-json');
-var htmlconvert = require('gulp-template-compile');
 var fc2json = require('gulp-file-contents-to-json');
 
 
@@ -46,63 +42,39 @@ gulp.task('build', function(callback){
 
 // gulp.task('build', ['one', 'two', 'three']);
 gulp.task('one', function(){   
-	console.log('one');  
-	return gulp.src('./src/views-special/**/*.html')
-
-
-// this one sucks because it repeats the entire namespace and function code PER html partial
-		// .pipe(htmlconvert({
-		// 	namespace : 'htmlpartials',
-		// 	name: function (file) {
-		// 	 	//return 'tpl-' + file.relative;
-		// 	 	return file.relative;
-		// 	 	//return file.basename.replace(file.extname,'');
-		// 	}
-		// }))
-		// .pipe(concat('htmlpartials.js'))
-
-
-
-
-// this one doesn't do anything ****
-		// .pipe(htmltojson({
-  //           filename: 'htmlpartials',
-  //           useAsVariable: true,
-  //   	    isAngularTemplate : false
-	 //    }))
-
-
-
-		.pipe(fc2json('htmlpartials.js', {extname:false}))
+	console.log('1: gather htmlpartials');
+	return gulp.src(['./src/views-*/**/*.html'])
+//	return gulp.src(['./src/views-pages/**/*.html', './src/views-special/**/*.html'])
+		.pipe(fc2json('htmlpartials.js', {extname:false, flat:true}))   // add  , {extname:false})) if they accept my pull request
 		.pipe(insert.prepend('window.htmlpartials = '))
 		.pipe(insert.append(';'))
-
-
-		.pipe(gulp.dest('./src/htmlpartials'));
+		.pipe(gulp.dest('./src/htmlcompiled'));
 });
 gulp.task('two', function(){   
-	console.log('two');
-	//return gulp.src('./src/js/router/**/*.js').pipe(gulp.dest('./public/testing'));
-//	return gulp.src(['./src/js/router/appstarter_v1.js', './src/js/router/**/*.js'])
-//	return gulp.src('./src/jsx-pages/**/*.jsx')
-	return gulp.src('./src/jsx-pages/firefly/firefly.jsx')
-                    //src: 'public/jsxcompiled/jsxcompiled.jsx',
-                    //dest: 'public/jsxcompiled/jsxcompiled.js'	
-		.pipe(babel({
-		 	presets: ['es2015']
-		}))
-        .pipe(strip())
+	console.log('2: translate jsx');
+	return gulp.src([
+            './src/js/router/rc_header_v1.js',
+            './src/jsx-pages/**/*.jsx',
+            './src/jsx-special/**/*.jsx'
+        ])
+        // .pipe(strip({ safe : false }))  stip comments crashes and runs really slow
 		.pipe(insert.transform(function(contents, file) {
 			var filename = file.path.replace(file.base,'');
 			var comment = '// ' + filename + '\n';
+			console.log('- ', filename);
 			return comment + contents;
 		}))
-        .pipe(concat('start.js'))
+		.pipe(babel({
+		 	presets: ['es2015']
+		}))		
+        //.pipe(concat('start.js'))
+        .pipe(concat('jsxcompiled.js'))
         .pipe(removeEmptyLines())
-        .pipe(gulp.dest('./public/prod'));	
+        //.pipe(gulp.dest('./public/prod'));
+        .pipe(gulp.dest('./src/jsxcompiled'));	
 });
 gulp.task('three', function(){   
-	console.log('three');  
+	console.log('3 compile js and css');  
 });
 
-gulp.start.apply(gulp, ['default']);
+//gulp.start.apply(gulp, ['default']);
