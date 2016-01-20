@@ -1,11 +1,12 @@
+
+
+
 /*
 			to use
 			npm run build
 			or
 			npm run buildwatch
 */
-
-
 
 // this gulp is set up so you do NOT need to install gulp globally
 // http://stackoverflow.com/questions/33018779/using-gulp-without-global-gulp-edit-and-without-linking-to-the-bin-js-file
@@ -22,6 +23,7 @@ var gulp = require('gulp');
 var runSequence = require('run-sequence');
 var concat = require('gulp-concat');
 var strip = require('gulp-strip-comments');
+var stripcss = require('gulp-strip-css-comments');
 var insert = require('gulp-insert');
 var removeEmptyLines = require('gulp-remove-empty-lines');
 var babel = require('gulp-babel');
@@ -37,14 +39,12 @@ gulp.task('default', function(){
 
 // build
 gulp.task('build', function(callback){
-    runSequence('one', 'two', 'three', callback);
+    runSequence('one', 'two', 'three', 'four', callback);
 });
 
-// gulp.task('build', ['one', 'two', 'three']);
 gulp.task('one', function(){   
 	console.log('1: gather htmlpartials');
 	return gulp.src(['./src/views-*/**/*.html'])
-//	return gulp.src(['./src/views-pages/**/*.html', './src/views-special/**/*.html'])
 		.pipe(fc2json('htmlpartials.js', {extname:false, flat:true}))   // add  , {extname:false})) if they accept my pull request
 		.pipe(insert.prepend('window.htmlpartials = '))
 		.pipe(insert.append(';'))
@@ -57,24 +57,77 @@ gulp.task('two', function(){
             './src/jsx-pages/**/*.jsx',
             './src/jsx-special/**/*.jsx'
         ])
-        // .pipe(strip({ safe : false }))  stip comments crashes and runs really slow
+		// insert header comment showing filename and tag it so its not deleted
 		.pipe(insert.transform(function(contents, file) {
 			var filename = file.path.replace(file.base,'');
-			var comment = '// ' + filename + '\n';
+			var comment = '/*! ' + filename + ' */ \n';
 			console.log('- ', filename);
 			return comment + contents;
 		}))
+		// translate jsx
 		.pipe(babel({
 		 	presets: ['es2015']
-		}))		
-        //.pipe(concat('start.js'))
-        .pipe(concat('jsxcompiled.js'))
+		}))
+		// remove comments, cannot strip comments from jsx file as it crashes
+        .pipe(strip({ safe : true }))		
         .pipe(removeEmptyLines())
-        //.pipe(gulp.dest('./public/prod'));
+        .pipe(concat('jsxcompiled.js'))
         .pipe(gulp.dest('./src/jsxcompiled'));	
 });
 gulp.task('three', function(){   
-	console.log('3 compile js and css');  
+	console.log('3 compile js'); 
+	return gulp.src([
+                    './src/js/lib/react.js',   // React MUST be first or it empties <body>                
+                    './src/js/router/prefix*.js',
+                    './src/js/lib/jquery*.js',
+                    './src/js/lib/underscore-min.js',
+                    './src/js/lib/backbone-min.js',                
+                    './src/js/lib/**/*.js',
+                    './src/js/config/config.js',
+                    './src/js/config/*.js',
+                    './src/js/lib_developer/**/*.js',
+                    './src/js/components/**/*.js',
+                    './src/htmlcompiled/*.js',
+                    './src/views-special/**/*.js',
+                    './src/views-pages/**/*.js',
+                    './src/jsxcompiled/jsxcompiled.js',            
+                    './src/js/router/grandcentral.js',
+                    './src/js/router/router_base*.js',
+                    './src/js/router/router_developer.js',
+                    './src/js/router/appstarter*.js'
+        ])
+		// insert header comment showing filename and tag it so its not deleted
+		.pipe(insert.transform(function(contents, file) {
+			var filename = file.path.replace(file.base,'');
+			var comment = '/*! ' + filename + ' */ \n';
+			return comment + contents;
+		}))
+		// remove comments, cannot strip comments from jsx file as it crashes
+        .pipe(strip({ safe : true }))
+        .pipe(removeEmptyLines())
+        .pipe(concat('start.js'))
+        .pipe(gulp.dest('./public/prod'));	         
 });
 
-//gulp.start.apply(gulp, ['default']);
+gulp.task('four', function(){   
+	console.log('4 compile css'); 
+	return gulp.src([
+                    './src/css/bootstrap.min.css',
+                    './src/views-special/**/structure.css',
+                    './src/views-special/**/*.css',
+                    './src/views-pages/**/*.css',
+                    './src/jsx-special/**/*.css',
+                    './src/jsx-pages/**/*.css'
+        ])
+		// insert header comment showing filename and tag it so its not deleted
+		.pipe(insert.transform(function(contents, file) {
+			var filename = file.path.replace(file.base,'');
+			var comment = '/*! ' + filename + ' */ \n';
+			return comment + contents;
+		}))
+		// remove comments, cannot strip comments from jsx file as it crashes
+        .pipe(stripcss())
+        .pipe(removeEmptyLines())
+        .pipe(concat('start.css'))
+        .pipe(gulp.dest('./public/prod'));	         
+});

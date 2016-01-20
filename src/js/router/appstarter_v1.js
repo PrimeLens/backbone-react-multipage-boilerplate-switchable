@@ -26,7 +26,7 @@ catch(e){}
 var Router = Backbone.Router.extend( routerSetupConfig );
 $(document).ready(function() {
 
-    $('#appContainer').replaceWith( htmlpartials.structure['structure.html'] );
+    $('#appContainer').replaceWith( htmlpartials.structure );
 
     window.app = new Router;
     Backbone.history.start();

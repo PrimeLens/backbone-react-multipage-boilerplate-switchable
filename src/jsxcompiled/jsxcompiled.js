@@ -1,9 +1,8 @@
 "use strict";
-// rc_header_v1.js
-// rc aka react components
+/*! rc_header_v1.js */
 var rc = {};
 'use strict';
-// breakingbad/breakingbad.jsx
+/*! breakingbad/breakingbad.jsx */
 rc.breakingbadPageComponent = React.createClass({
     displayName: 'breakingbadPageComponent',
     getInitialState: function getInitialState() {
@@ -35,7 +34,7 @@ rc.breakingbadPageComponent = React.createClass({
     }
 });
 'use strict';
-// dexter/dexter.jsx
+/*! dexter/dexter.jsx */
 rc.dexterPageComponent = React.createClass({
     displayName: 'dexterPageComponent',
     getInitialState: function getInitialState() {
@@ -63,27 +62,21 @@ rc.dexterPageComponent = React.createClass({
     }
 });
 'use strict';
-// firefly/firefly.jsx
+/*! firefly/firefly.jsx */
 rc.fireflyPageComponent = React.createClass({
     displayName: 'fireflyPageComponent',
     getInitialState: function getInitialState() {
         return _.extend(app.status, {});
     },
     componentDidMount: function componentDidMount() {
-        // after the page is rendered, send  3 test pieces of
-        // data into one of the components using events
-        // each cchild component will use the same events system to
-        // send items to the each other
         grandCentral.trigger('to_fireflyDescriptions', {
             imagepath: SiteConfig.assetsDirectory + 'images/fireflypage/firefly-reaver.jpg',
             description: 'Ghoulish Reaver Ships, attacking a village'
         });
-        // test piece 2
         grandCentral.trigger('to_fireflyDescriptions', {
             imagepath: SiteConfig.assetsDirectory + 'images/fireflypage/firefly-spacestation.jpg',
             description: 'Niska\'s Skyplex Spacestation, orbiting Ezra'
         });
-        // test piece 3
         grandCentral.trigger('to_fireflyDescriptions', {
             imagepath: SiteConfig.assetsDirectory + 'images/fireflypage/firefly.jpg',
             description: 'Serenity, Firefly class spaceship'
@@ -147,104 +140,39 @@ rc.fireflyPageComponent = React.createClass({
     }
 });
 'use strict';
-// hungergames/hungergames.jsx
-rc.hungergamesPageComponent = React.createClass({
-    displayName: 'hungergamesPageComponent',
-    // the components internal model
+/*! hannibal/hannibal.jsx */
+rc.hannibalPageComponent = React.createClass({
+    displayName: 'hannibalPageComponent',
     getInitialState: function getInitialState() {
-        return _.extend(app.status, {
-            districtNumber: 13,
-            sheSaid: ['Peeta I love you', 'Let\'s kill President Snow']
-        });
+        return _.extend(app.status, {});
     },
-    // components controllers
-    addSaying: function addSaying() {
-        // use .concat to create a new array and set it to setState
-        this.setState({
-            sheSaid: this.state.sheSaid.concat([this.refs.inpText.getDOMNode().value])
-        });
-    },
-    removeSaying: function removeSaying() {
-        // use .concat to create a new array and set it to setState
-        this.setState({
-            sheSaid: this.state.sheSaid.slice(0, this.state.sheSaid.length - 1)
-        });
-    },
-    updateNumber: function updateNumber() {
-        this.setState({
-            districtNumber: this.refs.inpNumber.getDOMNode().value
-        });
-    },
-    // components view
     render: function render() {
         console.log(this.constructor.displayName + ' render()');
-        // loop through the array of strings in preparation for returning the render
-        // http://stackoverflow.com/questions/29149169/how-to-loop-and-render-elements-in-react-js-without-an-array-of-objects-to-map
-        // and also must have key attribute assigned to prevent getting a warning
-        var outputArray = [];
-        for (var i = 0; i < this.state.sheSaid.length; i++) {
-            outputArray.push(React.createElement(
-                'div',
-                { key: i },
-                this.state.sheSaid[i]
-            ));
-        }
         return React.createElement(
             'div',
-            { id: 'hungergamespage' },
+            { id: 'hannibalpage' },
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/hannibalpage/hannibal.jpg' }),
             React.createElement(
                 'p',
                 null,
-                'The Hunger Games page demonstrates how the page can impose its own local Model onto',
+                'Here we instanciate a shared child component called quizComponent which receives its configuration at the time of instanciation.'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'This child component is simple and does not save its state when changing away to another page. To do this the state data should be stored in',
                 React.createElement(
                     'span',
                     { className: 'codestyle' },
-                    'this.state'
+                    'app.status'
                 )
             ),
-            React.createElement(
-                'div',
-                null,
-                'She is from District ',
-                this.state.districtNumber
-            ),
-            'She said ...',
-            React.createElement('br', null),
-            outputArray,
-            React.createElement(
-                'label',
-                null,
-                'Add a saying '
-            ),
-            React.createElement('input', { className: 'hungerinput', type: 'text', ref: 'inpText' }),
-            React.createElement(
-                'div',
-                { className: 'linkitem', onClick: this.addSaying },
-                'Add'
-            ),
-            React.createElement(
-                'div',
-                { className: 'linkitem', onClick: this.removeSaying },
-                'Remove a saying '
-            ),
-            React.createElement('br', null),
-            React.createElement(
-                'label',
-                null,
-                'Change her District Number '
-            ),
-            React.createElement('input', { className: 'hungerinput', type: 'number', ref: 'inpNumber' }),
-            React.createElement(
-                'div',
-                { className: 'linkitem', onClick: this.updateNumber },
-                'Update'
-            ),
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/hungergamespage/hungergames.jpg' })
+            React.createElement(rc.quizComponent, { data: SiteConfig.quiz.hannibal })
         );
     }
 });
 'use strict';
-// home/home.jsx
+/*! home/home.jsx */
 rc.homePageComponent = React.createClass({
     displayName: 'homePageComponent',
     getInitialState: function getInitialState() {
@@ -368,16 +296,230 @@ rc.homePageComponent = React.createClass({
     }
 });
 'use strict';
-// madmax/madmax.jsx
-/*  
-    (1) render an empty page 
-    (2) show the loader 
-    (3) preload the images  
-    (4) hide the loader  
-    (5) re-render the page 
- this is a stacked loader ie. it runs off a stack 
- of strings which all must clear before it goes away
-*/
+/*! hungergames/hungergames.jsx */
+rc.hungergamesPageComponent = React.createClass({
+    displayName: 'hungergamesPageComponent',
+    getInitialState: function getInitialState() {
+        return _.extend(app.status, {
+            districtNumber: 13,
+            sheSaid: ['Peeta I love you', 'Let\'s kill President Snow']
+        });
+    },
+    addSaying: function addSaying() {
+        this.setState({
+            sheSaid: this.state.sheSaid.concat([this.refs.inpText.getDOMNode().value])
+        });
+    },
+    removeSaying: function removeSaying() {
+        this.setState({
+            sheSaid: this.state.sheSaid.slice(0, this.state.sheSaid.length - 1)
+        });
+    },
+    updateNumber: function updateNumber() {
+        this.setState({
+            districtNumber: this.refs.inpNumber.getDOMNode().value
+        });
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        var outputArray = [];
+        for (var i = 0; i < this.state.sheSaid.length; i++) {
+            outputArray.push(React.createElement(
+                'div',
+                { key: i },
+                this.state.sheSaid[i]
+            ));
+        }
+        return React.createElement(
+            'div',
+            { id: 'hungergamespage' },
+            React.createElement(
+                'p',
+                null,
+                'The Hunger Games page demonstrates how the page can impose its own local Model onto',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    'this.state'
+                )
+            ),
+            React.createElement(
+                'div',
+                null,
+                'She is from District ',
+                this.state.districtNumber
+            ),
+            'She said ...',
+            React.createElement('br', null),
+            outputArray,
+            React.createElement(
+                'label',
+                null,
+                'Add a saying '
+            ),
+            React.createElement('input', { className: 'hungerinput', type: 'text', ref: 'inpText' }),
+            React.createElement(
+                'div',
+                { className: 'linkitem', onClick: this.addSaying },
+                'Add'
+            ),
+            React.createElement(
+                'div',
+                { className: 'linkitem', onClick: this.removeSaying },
+                'Remove a saying '
+            ),
+            React.createElement('br', null),
+            React.createElement(
+                'label',
+                null,
+                'Change her District Number '
+            ),
+            React.createElement('input', { className: 'hungerinput', type: 'number', ref: 'inpNumber' }),
+            React.createElement(
+                'div',
+                { className: 'linkitem', onClick: this.updateNumber },
+                'Update'
+            ),
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/hungergamespage/hungergames.jpg' })
+        );
+    }
+});
+'use strict';
+/*! thrones/thrones.jsx */
+rc.thronesPageComponent = React.createClass({
+    displayName: 'thronesPageComponent',
+    getInitialState: function getInitialState() {
+        return _.extend(app.status, {});
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { className: 'whatevercssclass' },
+            React.createElement(
+                'p',
+                null,
+                'All the other pages follow specific css pattern. The purpose of this page is to demonstrate that this is not locked to this boilerplate. You can set your own.'
+            ),
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/thronespage/gamethrones.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                React.createElement(
+                    'span',
+                    { className: 'specialQuote' },
+                    'Valar morghulis'
+                ),
+                React.createElement('br', null),
+                'translates to "all men must die"'
+            )
+        );
+    }
+});
+'use strict';
+/*! trueblood/trueblood.jsx */
+rc.truebloodPageComponent = React.createClass({
+    displayName: 'truebloodPageComponent',
+    getInitialState: function getInitialState() {
+        return _.extend(app.status, {});
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'truebloodpage' },
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/truebloodpage/trueblood.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                'The True Blood page (as well as the Dexter page) bring in a Parents Advisory child component. Components such as parentsadvisory.jsx are stored in ',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    '/public/jsx-special'
+                ),
+                ' along with any other component that might be shared between pages.'
+            ),
+            React.createElement(rc.parentsadvisory, null)
+        );
+    }
+});
+'use strict';
+/*! walkingdead/walkingdead.jsx */
+rc.walkingPageComponent = React.createClass({
+    displayName: 'walkingPageComponent',
+    getInitialState: function getInitialState() {
+        return _.extend(app.status, {});
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        var key = this.state.currentFragsArray[0];
+        var data;
+        var panel;
+        if (key) {
+            data = SiteConfig.walking[key];
+            if (!data) {
+                window.location.replace('#/walkingdead');
+            } else {
+                panel = React.createElement(rc.walkingPanel, { imagepath: SiteConfig.assetsDirectory + data.path });
+            }
+        } else {
+            panel = React.createElement(rc.walkingPanelCTA, null);
+        }
+        return React.createElement(
+            'div',
+            { id: 'walkingpage' },
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/walkingpage/walkingdead.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                'Here we have an example of deeplinks. The page is created from JSON held in a site config file',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    '/js/config'
+                ),
+                '. The javascript that reads the config and controls the dom can be found in',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    'walkingdead.jsx'
+                )
+            ),
+            React.createElement(
+                'div',
+                null,
+                React.createElement(
+                    'a',
+                    { className: 'linkitem', href: '#/walkingdead/rick' },
+                    'Rick Grimes'
+                ),
+                React.createElement(
+                    'a',
+                    { className: 'linkitem', href: '#/walkingdead/daryl' },
+                    'Daryl Dixon'
+                ),
+                React.createElement(
+                    'a',
+                    { className: 'linkitem', href: '#/walkingdead/michonne' },
+                    'Michonne'
+                ),
+                React.createElement(
+                    'a',
+                    { className: 'linkitem', href: '#/walkingdead/carol' },
+                    'Carol Peletier'
+                )
+            ),
+            React.createElement(
+                'div',
+                { className: 'panel' },
+                panel
+            )
+        );
+    }
+});
+'use strict';
+/*! madmax/madmax.jsx */
 rc.madmaxPageComponent = React.createClass({
     displayName: 'madmaxPageComponent',
     getInitialState: function getInitialState() {
@@ -386,20 +528,14 @@ rc.madmaxPageComponent = React.createClass({
     preloadArray: [SiteConfig.assetsDirectory + 'images/madmaxpage/furiosa.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/guitarmadmax.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/immortanjoe.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/nuxvehicle.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/openingscene.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/prisoner.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/witnessme.jpg'],
     preload: function preload() {
         var self = this;
-        // reset the preloader
         BBPreload.reset();
-        // loop thru adding every image
         _.each(this.preloadArray, function (item, i) {
             BBPreload.add(item);
         });
-        // start it up and pass in a callback
         BBPreload.start(function () {
-            // app status flag so we never preload this component again
             var name = self.constructor.displayName;
             app.status.completedPreload[name] = true;
-            // trigger a re-render, this only happens once so no need to data bind                 
             self.forceUpdate();
-            // message the component with spinning gif
             grandCentral.trigger('loaderEnd', 'pageload');
         });
     },
@@ -407,7 +543,6 @@ rc.madmaxPageComponent = React.createClass({
     componentWillMount: function componentWillMount() {
         var name = this.constructor.displayName;
         if (!app.status.completedPreload[name]) {
-            // message the component with spinning gif
             grandCentral.trigger('loaderStart', 'pageload');
             this.preload();
         }
@@ -475,222 +610,34 @@ rc.madmaxPageComponent = React.createClass({
     }
 });
 'use strict';
-// thrones/thrones.jsx
-rc.thronesPageComponent = React.createClass({
-    displayName: 'thronesPageComponent',
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {});
-    },
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { className: 'whatevercssclass' },
-            React.createElement(
-                'p',
-                null,
-                'All the other pages follow specific css pattern. The purpose of this page is to demonstrate that this is not locked to this boilerplate. You can set your own.'
-            ),
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/thronespage/gamethrones.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                React.createElement(
-                    'span',
-                    { className: 'specialQuote' },
-                    'Valar morghulis'
-                ),
-                React.createElement('br', null),
-                'translates to "all men must die"'
-            )
-        );
-    }
-});
-'use strict';
-// hannibal/hannibal.jsx
-rc.hannibalPageComponent = React.createClass({
-    displayName: 'hannibalPageComponent',
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {});
-    },
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'hannibalpage' },
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/hannibalpage/hannibal.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                'Here we instanciate a shared child component called quizComponent which receives its configuration at the time of instanciation.'
-            ),
-            React.createElement(
-                'p',
-                null,
-                'This child component is simple and does not save its state when changing away to another page. To do this the state data should be stored in',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    'app.status'
-                )
-            ),
-            React.createElement(rc.quizComponent, { data: SiteConfig.quiz.hannibal })
-        );
-    }
-});
-'use strict';
-// trueblood/trueblood.jsx
-rc.truebloodPageComponent = React.createClass({
-    displayName: 'truebloodPageComponent',
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {});
-    },
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'truebloodpage' },
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/truebloodpage/trueblood.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                'The True Blood page (as well as the Dexter page) bring in a Parents Advisory child component. Components such as parentsadvisory.jsx are stored in ',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    '/public/jsx-special'
-                ),
-                ' along with any other component that might be shared between pages.'
-            ),
-            React.createElement(rc.parentsadvisory, null)
-        );
-    }
-});
-'use strict';
-// walkingdead/walkingdead.jsx
-rc.walkingPageComponent = React.createClass({
-    displayName: 'walkingPageComponent',
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {});
-    },
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        // lets have some render logic for an if else to switch between two child components
-        // inject the correct data from config based on deeplink
-        // OR
-        // inject a Call To Action line of copy to prompt the user
-        // use an if else condition as per https://facebook.github.io/react/tips/if-else-in-JSX.html
-        var key = this.state.currentFragsArray[0];
-        var data;
-        var panel;
-        if (key) {
-            data = SiteConfig.walking[key];
-            // errorcheck that the deeplink exists in the config and redirect if its bad
-            if (!data) {
-                window.location.replace('#/walkingdead');
-            } else {
-                panel = React.createElement(rc.walkingPanel, { imagepath: SiteConfig.assetsDirectory + data.path });
-            }
-        } else {
-            panel = React.createElement(rc.walkingPanelCTA, null);
-        }
-        return React.createElement(
-            'div',
-            { id: 'walkingpage' },
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/walkingpage/walkingdead.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                'Here we have an example of deeplinks. The page is created from JSON held in a site config file',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    '/js/config'
-                ),
-                '. The javascript that reads the config and controls the dom can be found in',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    'walkingdead.jsx'
-                )
-            ),
-            React.createElement(
-                'div',
-                null,
-                React.createElement(
-                    'a',
-                    { className: 'linkitem', href: '#/walkingdead/rick' },
-                    'Rick Grimes'
-                ),
-                React.createElement(
-                    'a',
-                    { className: 'linkitem', href: '#/walkingdead/daryl' },
-                    'Daryl Dixon'
-                ),
-                React.createElement(
-                    'a',
-                    { className: 'linkitem', href: '#/walkingdead/michonne' },
-                    'Michonne'
-                ),
-                React.createElement(
-                    'a',
-                    { className: 'linkitem', href: '#/walkingdead/carol' },
-                    'Carol Peletier'
-                )
-            ),
-            React.createElement(
-                'div',
-                { className: 'panel' },
-                panel
-            )
-        );
-    }
-});
-'use strict';
-// firefly/childcomponents/fireflyDescriptions.jsx
+/*! firefly/childcomponents/fireflyDescriptions.jsx */
 rc.fireflyDescriptions = React.createClass({
     displayName: 'fireflyDescriptions',
-    // the components internal model
-    // the array that is databound will update in batches so if the events
-    // arrive too fast they will not be implemented.
-    // for this reason any data arriving from events is applied to trueArray first
     getInitialState: function getInitialState() {
         return { databindingArray: [] };
     },
     trueArray: [],
     componentDidMount: function componentDidMount() {
-        this.trueArray = []; // set to empty every time we return to this page
+        this.trueArray = []; 
         var self = this;
-        // recieve incoming items       
-        // unbind before binding in case component unmounts/remounts, optionally use componentWillUnmount
         grandCentral.off('to_fireflyDescriptions').on('to_fireflyDescriptions', function (data) {
-            // add this onto the true model, see main commet at top of file
             self.trueArray.push(data);
-            // move trueArray onto the virtual dom and let databinding handle the rest
             self.setState({
                 databindingArray: self.trueArray
             });
         });
     },
     handleClick: function handleClick(i) {
-        // send the item as a payload on an event
         grandCentral.trigger('to_fireflyImages', this.trueArray[i]);
-        // remove the item from the true model
         this.trueArray.splice(i, 1);
-        // // move trueArray onto the virtual dom and let databinding handle the rest
         this.setState({
             databindingArray: this.trueArray
         });
     },
     render: function render() {
-        // loop through the databindingArray preparation for returning the render
-        // http://stackoverflow.com/questions/29149169/how-to-loop-and-render-elements-in-react-js-without-an-array-of-objects-to-map
-        // and also must have key attribute assigned to prevent getting a warning
         var outputArray = [];
         for (var i = 0; i < this.state.databindingArray.length; i++) {
             outputArray.push(
-            // retrieve the key as i and pass to the handleClick function
-            // http://stackoverflow.com/questions/20377837/how-to-access-custom-attributes-from-event-object-in-react
             React.createElement(
                 'div',
                 { key: i, onClick: this.handleClick.bind(null, i) },
@@ -705,50 +652,34 @@ rc.fireflyDescriptions = React.createClass({
     }
 });
 'use strict';
-// firefly/childcomponents/fireflyImages.jsx
+/*! firefly/childcomponents/fireflyImages.jsx */
 rc.fireflyImages = React.createClass({
     displayName: 'fireflyImages',
-    // the components internal model
-    // the array that is databound will update in batches so if the events
-    // arrive too fast they will not be implemented.
-    // for this reason any data arriving from events is applied to trueArray first
     getInitialState: function getInitialState() {
         return { databindingArray: [] };
     },
     trueArray: [],
     componentDidMount: function componentDidMount() {
-        this.trueArray = []; // set to empty every time we return to this page
+        this.trueArray = []; 
         var self = this;
-        // recieve incoming items
-        // unbind before binding in case component unmounts/remounts, optionally use componentWillUnmount
         grandCentral.off('to_fireflyImages').on('to_fireflyImages', function (data) {
-            // add this onto the true model, see main commet at top of file
             self.trueArray.push(data);
-            // move trueArray onto the virtual dom and let databinding handle the rest
             self.setState({
                 databindingArray: self.trueArray
             });
         });
     },
     handleClick: function handleClick(i) {
-        // send the item as a payload on an event
         grandCentral.trigger('to_fireflyDescriptions', this.trueArray[i]);
-        // remove the item from the true model
         this.trueArray.splice(i, 1);
-        // // move trueArray onto the virtual dom and let databinding handle the rest
         this.setState({
             databindingArray: this.trueArray
         });
     },
     render: function render() {
-        // loop through the databindingArray preparation for returning the render
-        // http://stackoverflow.com/questions/29149169/how-to-loop-and-render-elements-in-react-js-without-an-array-of-objects-to-map
-        // and also must have key attribute assigned to prevent getting a warning
         var outputArray = [];
         for (var i = 0; i < this.state.databindingArray.length; i++) {
             outputArray.push(
-            // retrieve the key as i and pass to the handleClick function
-            // http://stackoverflow.com/questions/20377837/how-to-access-custom-attributes-from-event-object-in-react
             React.createElement('img', {
                 key: i,
                 onClick: this.handleClick.bind(null, i),
@@ -763,7 +694,7 @@ rc.fireflyImages = React.createClass({
     }
 });
 'use strict';
-// walkingdead/childcomponents/walkingPanel.jsx
+/*! walkingdead/childcomponents/walkingPanel.jsx */
 rc.walkingPanel = React.createClass({
     displayName: 'walkingPanel',
     getDefaultProps: function getDefaultProps() {
@@ -774,7 +705,7 @@ rc.walkingPanel = React.createClass({
     }
 });
 "use strict";
-// walkingdead/childcomponents/walkingPanelCTA.jsx
+/*! walkingdead/childcomponents/walkingPanelCTA.jsx */
 rc.walkingPanelCTA = React.createClass({
     displayName: "walkingPanelCTA",
     render: function render() {
@@ -786,7 +717,7 @@ rc.walkingPanelCTA = React.createClass({
     }
 });
 "use strict";
-// header/header.jsx
+/*! header/header.jsx */
 rc.header = React.createClass({
     displayName: "header",
     render: function render() {
@@ -798,19 +729,9 @@ rc.header = React.createClass({
     }
 });
 'use strict';
-// loader/loader.jsx
-// USAGE
-// grandCentral.trigger('loaderStart', 'pageload');
-// grandCentral.trigger('loaderStart', 'loadmypanel');
-// grandCentral.trigger('loaderEnd', 'pageload');
-// grandCentral.trigger('loaderEnd', 'loadmypanel');
-// the loader will go away once the stack is emptied
-// DEPENDANCY :
-// jQuery    $.inArray
+/*! loader/loader.jsx */
 rc.loader = React.createClass({
     displayName: 'loader',
-    // no need for stack to be bound to data
-    // so it is a property of the component and outside of this.state
     stack: [],
     getInitialState: function getInitialState() {
         return {
@@ -819,7 +740,6 @@ rc.loader = React.createClass({
     },
     componentDidMount: function componentDidMount(currentPage) {
         var self = this;
-        // unbind before binding in case component unmounts/remounts, optionally use componentWillUnmount   
         grandCentral.off('loaderStart').on('loaderStart', function (uniqueString) {
             if ($.inArray(uniqueString, self.stack) == -1) {
                 console.log('loaderStart(' + uniqueString + ')');
@@ -827,7 +747,6 @@ rc.loader = React.createClass({
                 self.setState({ show: true });
             }
         });
-        // unbind before binding in case component unmounts/remounts       
         grandCentral.off('loaderEnd').on('loaderEnd', function (uniqueString) {
             var i = $.inArray(uniqueString, self.stack);
             if (i > -1) {
@@ -857,7 +776,7 @@ rc.loader = React.createClass({
     }
 });
 'use strict';
-// nav/nav.jsx
+/*! nav/nav.jsx */
 rc.nav = React.createClass({
 	displayName: 'nav',
 	getInitialState: function getInitialState() {
@@ -867,7 +786,6 @@ rc.nav = React.createClass({
 	},
 	componentDidMount: function componentDidMount() {
 		var self = this;
-		// unbind before binding in case component unmounts/remounts, optionally use componentWillUnmount	
 		grandCentral.off('pagechange').on('pagechange', function (data) {
 			self.setState({
 				currentPage: data.currentPage
@@ -944,7 +862,7 @@ rc.nav = React.createClass({
 	}
 });
 "use strict";
-// parentsadvisory/parentsadvisory.jsx
+/*! parentsadvisory/parentsadvisory.jsx */
 rc.parentsadvisory = React.createClass({
     displayName: "parentsadvisory",
     render: function render() {
@@ -964,11 +882,10 @@ rc.parentsadvisory = React.createClass({
     }
 });
 "use strict";
-// quiz/quiz.jsx
+/*! quiz/quiz.jsx */
 rc.quizComponent = React.createClass({
     displayName: "quizComponent",
     render: function render() {
-        // loop through and build up an array which we will include in the render
         var theOptions = [];
         _.each(this.props.data.options, function (value, i) {
             theOptions.push(React.createElement(rc.quizItemComponent, { key: i, label: value }));
@@ -1001,7 +918,7 @@ rc.quizComponent = React.createClass({
     }
 });
 "use strict";
-// quiz/childcomponents/quizitem.jsx
+/*! quiz/childcomponents/quizitem.jsx */
 rc.quizItemComponent = React.createClass({
     displayName: "quizItemComponent",
     render: function render() {
