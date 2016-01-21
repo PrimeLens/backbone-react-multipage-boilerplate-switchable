@@ -1,7 +1,3 @@
-
-
-
-
 SiteConfig.quiz = {
 
     hannibal : {
@@ -17,7 +13,6 @@ SiteConfig.quiz = {
                 'Aaron Abrams'
             ]
     },
-
     breakingbad : {
         quiztitle : 'Select favorite episodes...',
         options : [
@@ -30,6 +25,4 @@ SiteConfig.quiz = {
                 'Full Measure (Season 3, Episode 13)'
             ]
     }
-
-
-}
+};

@@ -37,11 +37,11 @@ rc.loader = React.createClass({
         // unbind before binding in case component unmounts/remounts        
         grandCentral.off('loaderEnd').on('loaderEnd', function(uniqueString){
             var i = $.inArray(uniqueString, self.stack);
-            if(i>-1){
+            if (i>-1){
                 self.stack.splice(i,1);
                 console.log('loaderEnd(' + uniqueString + ')');
             }
-            if(self.stack.length==0){
+            if ( self.stack.length===0 ){
                 self.setState({ show: false });
             }
         });        

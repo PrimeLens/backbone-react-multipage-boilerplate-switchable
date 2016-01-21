@@ -29,6 +29,7 @@ var removeEmptyLines = require('gulp-remove-empty-lines');
 var babel = require('gulp-babel');
 var fc2json = require('gulp-file-contents-to-json');
 var jshint = require('gulp-jshint');
+var addsrc = require('gulp-add-src');
 
 
 gulp.task('default', function(){   
@@ -78,12 +79,7 @@ gulp.task('two', function(){
 gulp.task('three', function(){   
 	console.log('3 compile js'); 
 	return gulp.src([
-                    './src/js/lib/react.js',   // React MUST be first or it empties <body>                
-                    './src/js/router/prefix*.js',
-                    './src/js/lib/jquery*.js',
-                    './src/js/lib/underscore-min.js',
-                    './src/js/lib/backbone-min.js',                
-                    './src/js/lib/**/*.js',
+                    './src/js/router/prefix*.js',                    
                     './src/js/config/config.js',
                     './src/js/config/*.js',
                     './src/js/lib_developer/**/*.js',
@@ -106,16 +102,22 @@ gulp.task('three', function(){
 		// remove comments, cannot strip comments from jsx file as it crashes
         .pipe(strip({ safe : true }))
         .pipe(removeEmptyLines())
-        .pipe(concat('start.js'))
-        .pipe(gulp.dest('./public/prod'))
         .pipe(jshint())
-        .pipe(jshint.reporter('default'));        
+        .pipe(jshint.reporter('default'))        
+        .pipe(addsrc.prepend([
+                    './src/js/lib/react.js',   // React MUST be first or it empties <body>                
+                    './src/js/lib/jquery*.js',
+                    './src/js/lib/underscore-min.js',
+                    './src/js/lib/backbone-min.js',                
+                    './src/js/lib/**/*.js',
+        ]))
+        .pipe(concat('start.js'))
+        .pipe(gulp.dest('./public/prod')) ;   
 });
 
 gulp.task('four', function(){   
 	console.log('4 compile css'); 
 	return gulp.src([
-                    './src/css/bootstrap.min.css',
                     './src/views-special/**/structure.css',
                     './src/views-special/**/*.css',
                     './src/views-pages/**/*.css',
@@ -131,6 +133,26 @@ gulp.task('four', function(){
 		// remove comments, cannot strip comments from jsx file as it crashes
         .pipe(stripcss())
         .pipe(removeEmptyLines())
+        .pipe(addsrc.prepend('./src/css/bootstrap.min.css'))
         .pipe(concat('start.css'))
         .pipe(gulp.dest('./public/prod'));	         
+});
+
+gulp.task('buildwatch', function(){
+	gulp.watch([
+		// js and jsx
+	    './src/js/**/*.js',
+	    './src/views-special/**/*.js',
+	    './src/views-pages/**/*.js',               
+	    './src/jsx-special/**/*.jsx', 
+	    './src/jsx-pages/**/*.jsx',
+	    // css
+        './src/views-special/**/*.css',
+        './src/views-pages/**/*.css',              
+        './src/jsx-special/**/*.css',
+        './src/jsx-pages/**/*.css',
+        // html partials
+        './src/views-special/**/*.html',
+        './src/views-pages/**/*.html'
+	], ['build'])
 });

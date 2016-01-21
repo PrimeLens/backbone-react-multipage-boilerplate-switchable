@@ -2,38 +2,6 @@
 /*! rc_header_v1.js */
 var rc = {};
 'use strict';
-/*! breakingbad/breakingbad.jsx */
-rc.breakingbadPageComponent = React.createClass({
-    displayName: 'breakingbadPageComponent',
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {});
-    },
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'breakingbadpage' },
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/breakingbadpage/breakingbad.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                'Here we instanciate a shared child component called quizComponent which receives its configuration at the time of instanciation.'
-            ),
-            React.createElement(
-                'p',
-                null,
-                'This child component is simple and does not save its state when changing away to another page. To do this the state data should be stored in',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    'app.status'
-                )
-            ),
-            React.createElement(rc.quizComponent, { data: SiteConfig.quiz.breakingbad })
-        );
-    }
-});
-'use strict';
 /*! dexter/dexter.jsx */
 rc.dexterPageComponent = React.createClass({
     displayName: 'dexterPageComponent',
@@ -62,87 +30,9 @@ rc.dexterPageComponent = React.createClass({
     }
 });
 'use strict';
-/*! firefly/firefly.jsx */
-rc.fireflyPageComponent = React.createClass({
-    displayName: 'fireflyPageComponent',
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {});
-    },
-    componentDidMount: function componentDidMount() {
-        grandCentral.trigger('to_fireflyDescriptions', {
-            imagepath: SiteConfig.assetsDirectory + 'images/fireflypage/firefly-reaver.jpg',
-            description: 'Ghoulish Reaver Ships, attacking a village'
-        });
-        grandCentral.trigger('to_fireflyDescriptions', {
-            imagepath: SiteConfig.assetsDirectory + 'images/fireflypage/firefly-spacestation.jpg',
-            description: 'Niska\'s Skyplex Spacestation, orbiting Ezra'
-        });
-        grandCentral.trigger('to_fireflyDescriptions', {
-            imagepath: SiteConfig.assetsDirectory + 'images/fireflypage/firefly.jpg',
-            description: 'Serenity, Firefly class spaceship'
-        });
-    },
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'fireflypage' },
-            React.createElement('img', { className: 'mainpic', src: SiteConfig.assetsDirectory + 'images/fireflypage/firefly-cast.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                'This page is an example of event driven architecture where sibling components communicate and pass data.'
-            ),
-            React.createElement(
-                'p',
-                null,
-                'Click on an item below and it will move to the other container. An item will either take on text form or image form depending upon which container it is in.'
-            ),
-            React.createElement(
-                'p',
-                null,
-                'Each child component is different and does not save its state when changing away to another page. To do this the state data should be stored in',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    'app.status'
-                )
-            ),
-            React.createElement(
-                'p',
-                null,
-                'When an item is clicked the component takes care of itself by removing the item from its model, sending the event to Grand Central with appropriate payload data and finally rerendering according to its models new content.'
-            ),
-            React.createElement(
-                'p',
-                null,
-                'The last thing to note is that the code for these views is not stored in ',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    '/jsx-special'
-                ),
-                'I chose to do this because its not instanciated on different pages.  Instead each component is instanciated once and is specific to the FireFly page experience.  Therefore it makes sense to store the javascript in ',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    '/jsx-pages/firefly'
-                )
-            ),
-            React.createElement(
-                'p',
-                null,
-                'Note the JSX filenames are ignored at compile time, I could have put all components in the one file and it would be the same.'
-            ),
-            React.createElement(rc.fireflyDescriptions, null),
-            React.createElement(rc.fireflyImages, null)
-        );
-    }
-});
-'use strict';
-/*! hannibal/hannibal.jsx */
-rc.hannibalPageComponent = React.createClass({
-    displayName: 'hannibalPageComponent',
+/*! breakingbad/breakingbad.jsx */
+rc.breakingbadPageComponent = React.createClass({
+    displayName: 'breakingbadPageComponent',
     getInitialState: function getInitialState() {
         return _.extend(app.status, {});
     },
@@ -150,8 +40,8 @@ rc.hannibalPageComponent = React.createClass({
         console.log(this.constructor.displayName + ' render()');
         return React.createElement(
             'div',
-            { id: 'hannibalpage' },
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/hannibalpage/hannibal.jpg' }),
+            { id: 'breakingbadpage' },
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/breakingbadpage/breakingbad.jpg' }),
             React.createElement(
                 'p',
                 null,
@@ -167,7 +57,7 @@ rc.hannibalPageComponent = React.createClass({
                     'app.status'
                 )
             ),
-            React.createElement(rc.quizComponent, { data: SiteConfig.quiz.hannibal })
+            React.createElement(rc.quizComponent, { data: SiteConfig.quiz.breakingbad })
         );
     }
 });
@@ -296,6 +186,97 @@ rc.homePageComponent = React.createClass({
     }
 });
 'use strict';
+/*! madmax/madmax.jsx */
+rc.madmaxPageComponent = React.createClass({
+    displayName: 'madmaxPageComponent',
+    getInitialState: function getInitialState() {
+        return _.extend(app.status, {});
+    },
+    preloadArray: [SiteConfig.assetsDirectory + 'images/madmaxpage/furiosa.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/guitarmadmax.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/immortanjoe.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/nuxvehicle.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/openingscene.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/prisoner.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/witnessme.jpg'],
+    preload: function preload() {
+        var self = this;
+        BBPreload.reset();
+        _.each(this.preloadArray, function (item, i) {
+            BBPreload.add(item);
+        });
+        BBPreload.start(function () {
+            var name = self.constructor.displayName;
+            app.status.completedPreload[name] = true;
+            self.forceUpdate();
+            grandCentral.trigger('loaderEnd', 'pageload');
+        });
+    },
+    stillPreloading: true,
+    componentWillMount: function componentWillMount() {
+        var name = this.constructor.displayName;
+        if (!app.status.completedPreload[name]) {
+            grandCentral.trigger('loaderStart', 'pageload');
+            this.preload();
+        }
+    },
+    render: function render() {
+        var name = this.constructor.displayName;
+        var completedPreload = app.status.completedPreload[name];
+        console.log(this.constructor.displayName + ' render()', completedPreload ? '' : ' (renders blank while preloading)');
+        var renderHandle;
+        if (!completedPreload) {
+            renderHandle = React.createElement('div', { id: 'madmaxpage' });
+        } else {
+            renderHandle = React.createElement(
+                'div',
+                { id: 'madmaxpage' },
+                React.createElement(
+                    'p',
+                    null,
+                    'The Mad Max page gives an example of how the loader component works in conjunction with the BBPreload library. Throttle the network load time in your browser to see it in action. This is the order of what is happening'
+                ),
+                React.createElement(
+                    'ol',
+                    null,
+                    React.createElement(
+                        'li',
+                        null,
+                        'It shows the loaderview which contains a spinning gif'
+                    ),
+                    React.createElement(
+                        'li',
+                        null,
+                        'Preloads the images with BBPreload'
+                    ),
+                    React.createElement(
+                        'li',
+                        null,
+                        'The callback fires for BBPreload'
+                    ),
+                    React.createElement(
+                        'li',
+                        null,
+                        'It hides the loaderview'
+                    ),
+                    React.createElement(
+                        'li',
+                        null,
+                        'Then renders the page'
+                    )
+                ),
+                React.createElement(
+                    'p',
+                    null,
+                    'This is a stacked loader ie. it runs off a stack of strings which all must clear before it goes away.'
+                ),
+                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/madmaxpage/furiosa.jpg' }),
+                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/madmaxpage/guitarmadmax.jpg' }),
+                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/madmaxpage/immortanjoe.jpg' }),
+                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/madmaxpage/nuxvehicle.jpg' }),
+                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/madmaxpage/openingscene.jpg' }),
+                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/madmaxpage/prisoner.jpg' }),
+                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/madmaxpage/witnessme.jpg' })
+            );
+        }
+        return renderHandle;
+    }
+});
+'use strict';
 /*! hungergames/hungergames.jsx */
 rc.hungergamesPageComponent = React.createClass({
     displayName: 'hungergamesPageComponent',
@@ -385,94 +366,113 @@ rc.hungergamesPageComponent = React.createClass({
     }
 });
 'use strict';
-/*! madmax/madmax.jsx */
-rc.madmaxPageComponent = React.createClass({
-    displayName: 'madmaxPageComponent',
+/*! firefly/firefly.jsx */
+rc.fireflyPageComponent = React.createClass({
+    displayName: 'fireflyPageComponent',
     getInitialState: function getInitialState() {
         return _.extend(app.status, {});
     },
-    preloadArray: [SiteConfig.assetsDirectory + 'images/madmaxpage/furiosa.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/guitarmadmax.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/immortanjoe.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/nuxvehicle.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/openingscene.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/prisoner.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/witnessme.jpg'],
-    preload: function preload() {
-        var self = this;
-        BBPreload.reset();
-        _.each(this.preloadArray, function (item, i) {
-            BBPreload.add(item);
+    componentDidMount: function componentDidMount() {
+        grandCentral.trigger('to_fireflyDescriptions', {
+            imagepath: SiteConfig.assetsDirectory + 'images/fireflypage/firefly-reaver.jpg',
+            description: 'Ghoulish Reaver Ships, attacking a village'
         });
-        BBPreload.start(function () {
-            var name = self.constructor.displayName;
-            app.status.completedPreload[name] = true;
-            self.forceUpdate();
-            grandCentral.trigger('loaderEnd', 'pageload');
+        grandCentral.trigger('to_fireflyDescriptions', {
+            imagepath: SiteConfig.assetsDirectory + 'images/fireflypage/firefly-spacestation.jpg',
+            description: 'Niska\'s Skyplex Spacestation, orbiting Ezra'
         });
-    },
-    stillPreloading: true,
-    componentWillMount: function componentWillMount() {
-        var name = this.constructor.displayName;
-        if (!app.status.completedPreload[name]) {
-            grandCentral.trigger('loaderStart', 'pageload');
-            this.preload();
-        }
+        grandCentral.trigger('to_fireflyDescriptions', {
+            imagepath: SiteConfig.assetsDirectory + 'images/fireflypage/firefly.jpg',
+            description: 'Serenity, Firefly class spaceship'
+        });
     },
     render: function render() {
-        var name = this.constructor.displayName;
-        var completedPreload = app.status.completedPreload[name];
-        console.log(this.constructor.displayName + ' render()', completedPreload ? '' : ' (renders blank while preloading)');
-        var renderHandle;
-        if (!completedPreload) {
-            renderHandle = React.createElement('div', { id: 'madmaxpage' });
-        } else {
-            renderHandle = React.createElement(
-                'div',
-                { id: 'madmaxpage' },
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'fireflypage' },
+            React.createElement('img', { className: 'mainpic', src: SiteConfig.assetsDirectory + 'images/fireflypage/firefly-cast.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                'This page is an example of event driven architecture where sibling components communicate and pass data.'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'Click on an item below and it will move to the other container. An item will either take on text form or image form depending upon which container it is in.'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'Each child component is different and does not save its state when changing away to another page. To do this the state data should be stored in',
                 React.createElement(
-                    'p',
-                    null,
-                    'The Mad Max page gives an example of how the loader component works in conjunction with the BBPreload library. Throttle the network load time in your browser to see it in action. This is the order of what is happening'
-                ),
+                    'span',
+                    { className: 'codestyle' },
+                    'app.status'
+                )
+            ),
+            React.createElement(
+                'p',
+                null,
+                'When an item is clicked the component takes care of itself by removing the item from its model, sending the event to Grand Central with appropriate payload data and finally rerendering according to its models new content.'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'The last thing to note is that the code for these views is not stored in ',
                 React.createElement(
-                    'ol',
-                    null,
-                    React.createElement(
-                        'li',
-                        null,
-                        'It shows the loaderview which contains a spinning gif'
-                    ),
-                    React.createElement(
-                        'li',
-                        null,
-                        'Preloads the images with BBPreload'
-                    ),
-                    React.createElement(
-                        'li',
-                        null,
-                        'The callback fires for BBPreload'
-                    ),
-                    React.createElement(
-                        'li',
-                        null,
-                        'It hides the loaderview'
-                    ),
-                    React.createElement(
-                        'li',
-                        null,
-                        'Then renders the page'
-                    )
+                    'span',
+                    { className: 'codestyle' },
+                    '/jsx-special'
                 ),
+                'I chose to do this because its not instanciated on different pages.  Instead each component is instanciated once and is specific to the FireFly page experience.  Therefore it makes sense to store the javascript in ',
                 React.createElement(
-                    'p',
-                    null,
-                    'This is a stacked loader ie. it runs off a stack of strings which all must clear before it goes away.'
-                ),
-                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/madmaxpage/furiosa.jpg' }),
-                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/madmaxpage/guitarmadmax.jpg' }),
-                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/madmaxpage/immortanjoe.jpg' }),
-                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/madmaxpage/nuxvehicle.jpg' }),
-                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/madmaxpage/openingscene.jpg' }),
-                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/madmaxpage/prisoner.jpg' }),
-                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/madmaxpage/witnessme.jpg' })
-            );
-        }
-        return renderHandle;
+                    'span',
+                    { className: 'codestyle' },
+                    '/jsx-pages/firefly'
+                )
+            ),
+            React.createElement(
+                'p',
+                null,
+                'Note the JSX filenames are ignored at compile time, I could have put all components in the one file and it would be the same.'
+            ),
+            React.createElement(rc.fireflyDescriptions, null),
+            React.createElement(rc.fireflyImages, null)
+        );
+    }
+});
+'use strict';
+/*! hannibal/hannibal.jsx */
+rc.hannibalPageComponent = React.createClass({
+    displayName: 'hannibalPageComponent',
+    getInitialState: function getInitialState() {
+        return _.extend(app.status, {});
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'hannibalpage' },
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/hannibalpage/hannibal.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                'Here we instanciate a shared child component called quizComponent which receives its configuration at the time of instanciation.'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'This child component is simple and does not save its state when changing away to another page. To do this the state data should be stored in',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    'app.status'
+                )
+            ),
+            React.createElement(rc.quizComponent, { data: SiteConfig.quiz.hannibal })
+        );
     }
 });
 'use strict';
@@ -729,53 +729,6 @@ rc.header = React.createClass({
     }
 });
 'use strict';
-/*! loader/loader.jsx */
-rc.loader = React.createClass({
-    displayName: 'loader',
-    stack: [],
-    getInitialState: function getInitialState() {
-        return {
-            show: false
-        };
-    },
-    componentDidMount: function componentDidMount(currentPage) {
-        var self = this;
-        grandCentral.off('loaderStart').on('loaderStart', function (uniqueString) {
-            if ($.inArray(uniqueString, self.stack) == -1) {
-                console.log('loaderStart(' + uniqueString + ')');
-                self.stack.push(uniqueString);
-                self.setState({ show: true });
-            }
-        });
-        grandCentral.off('loaderEnd').on('loaderEnd', function (uniqueString) {
-            var i = $.inArray(uniqueString, self.stack);
-            if (i > -1) {
-                self.stack.splice(i, 1);
-                console.log('loaderEnd(' + uniqueString + ')');
-            }
-            if (self.stack.length == 0) {
-                self.setState({ show: false });
-            }
-        });
-    },
-    reset: function reset() {
-        this.stack = [];
-        this.setState({ show: false });
-    },
-    render: function render() {
-        var classes = this.state.show ? 'active' : '';
-        return React.createElement(
-            'div',
-            { id: 'loader', className: classes },
-            React.createElement(
-                'div',
-                { className: 'loadingmessage' },
-                React.createElement('img', { className: 'spinner', src: SiteConfig.assetsDirectory + 'images/ui/spinner.gif' })
-            )
-        );
-    }
-});
-'use strict';
 /*! nav/nav.jsx */
 rc.nav = React.createClass({
 	displayName: 'nav',
@@ -860,6 +813,53 @@ rc.nav = React.createClass({
 			)
 		);
 	}
+});
+'use strict';
+/*! loader/loader.jsx */
+rc.loader = React.createClass({
+    displayName: 'loader',
+    stack: [],
+    getInitialState: function getInitialState() {
+        return {
+            show: false
+        };
+    },
+    componentDidMount: function componentDidMount(currentPage) {
+        var self = this;
+        grandCentral.off('loaderStart').on('loaderStart', function (uniqueString) {
+            if ($.inArray(uniqueString, self.stack) == -1) {
+                console.log('loaderStart(' + uniqueString + ')');
+                self.stack.push(uniqueString);
+                self.setState({ show: true });
+            }
+        });
+        grandCentral.off('loaderEnd').on('loaderEnd', function (uniqueString) {
+            var i = $.inArray(uniqueString, self.stack);
+            if (i > -1) {
+                self.stack.splice(i, 1);
+                console.log('loaderEnd(' + uniqueString + ')');
+            }
+            if (self.stack.length === 0) {
+                self.setState({ show: false });
+            }
+        });
+    },
+    reset: function reset() {
+        this.stack = [];
+        this.setState({ show: false });
+    },
+    render: function render() {
+        var classes = this.state.show ? 'active' : '';
+        return React.createElement(
+            'div',
+            { id: 'loader', className: classes },
+            React.createElement(
+                'div',
+                { className: 'loadingmessage' },
+                React.createElement('img', { className: 'spinner', src: SiteConfig.assetsDirectory + 'images/ui/spinner.gif' })
+            )
+        );
+    }
 });
 "use strict";
 /*! parentsadvisory/parentsadvisory.jsx */

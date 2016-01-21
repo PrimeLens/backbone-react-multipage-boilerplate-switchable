@@ -1,9 +1,9 @@
-/*! bootstrap.min.css */ 
 /*!
  * Bootstrap v3.3.5 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+
 /*!
  * Generated using the Bootstrap Customizer (http://getbootstrap.com/customize/?id=a7076cf1b4d59796100e)
  * Config saved to config.json and https://gist.github.com/a7076cf1b4d59796100e
@@ -78,6 +78,23 @@ body {
     margin-top: -400px;
 }
 
+/*! parentsadvisory/parentsadvisory.css */ 
+.parentsadvisory {
+    padding: 14px;
+    text-align: center;
+    border: 3px solid white;
+    position: absolute;
+    background-color: #922;
+    color: white;
+    top: 210px;
+    left: 20px;
+    border-radius: 35px;
+    text-transform: uppercase;
+    font-size: 10px;
+    -webkit-transform: rotate(20deg);
+    transform: rotate(20deg);
+}
+.parentsadvisory strong { font-size: 16px; }
 /*! nav/nav.css */ 
 #navcontainer {
     padding: 15px 20px 0;
@@ -122,23 +139,6 @@ body {
     cursor: default;
     text-decoration: none;
 }
-/*! parentsadvisory/parentsadvisory.css */ 
-.parentsadvisory {
-    padding: 14px;
-    text-align: center;
-    border: 3px solid white;
-    position: absolute;
-    background-color: #922;
-    color: white;
-    top: 210px;
-    left: 20px;
-    border-radius: 35px;
-    text-transform: uppercase;
-    font-size: 10px;
-    -webkit-transform: rotate(20deg);
-    transform: rotate(20deg);
-}
-.parentsadvisory strong { font-size: 16px; }
 /*! quiz/quiz.css */ 
 .quizheader {
     color: #aaa;

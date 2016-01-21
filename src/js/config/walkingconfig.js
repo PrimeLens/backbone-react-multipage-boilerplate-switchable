@@ -21,4 +21,4 @@ SiteConfig.walking = {
         path : assetsDirectory + 'images/walkingpage/character_carol.jpg'
     }
 
-}
+};
