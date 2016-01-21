@@ -385,6 +385,97 @@ rc.hungergamesPageComponent = React.createClass({
     }
 });
 'use strict';
+/*! madmax/madmax.jsx */
+rc.madmaxPageComponent = React.createClass({
+    displayName: 'madmaxPageComponent',
+    getInitialState: function getInitialState() {
+        return _.extend(app.status, {});
+    },
+    preloadArray: [SiteConfig.assetsDirectory + 'images/madmaxpage/furiosa.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/guitarmadmax.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/immortanjoe.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/nuxvehicle.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/openingscene.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/prisoner.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/witnessme.jpg'],
+    preload: function preload() {
+        var self = this;
+        BBPreload.reset();
+        _.each(this.preloadArray, function (item, i) {
+            BBPreload.add(item);
+        });
+        BBPreload.start(function () {
+            var name = self.constructor.displayName;
+            app.status.completedPreload[name] = true;
+            self.forceUpdate();
+            grandCentral.trigger('loaderEnd', 'pageload');
+        });
+    },
+    stillPreloading: true,
+    componentWillMount: function componentWillMount() {
+        var name = this.constructor.displayName;
+        if (!app.status.completedPreload[name]) {
+            grandCentral.trigger('loaderStart', 'pageload');
+            this.preload();
+        }
+    },
+    render: function render() {
+        var name = this.constructor.displayName;
+        var completedPreload = app.status.completedPreload[name];
+        console.log(this.constructor.displayName + ' render()', completedPreload ? '' : ' (renders blank while preloading)');
+        var renderHandle;
+        if (!completedPreload) {
+            renderHandle = React.createElement('div', { id: 'madmaxpage' });
+        } else {
+            renderHandle = React.createElement(
+                'div',
+                { id: 'madmaxpage' },
+                React.createElement(
+                    'p',
+                    null,
+                    'The Mad Max page gives an example of how the loader component works in conjunction with the BBPreload library. Throttle the network load time in your browser to see it in action. This is the order of what is happening'
+                ),
+                React.createElement(
+                    'ol',
+                    null,
+                    React.createElement(
+                        'li',
+                        null,
+                        'It shows the loaderview which contains a spinning gif'
+                    ),
+                    React.createElement(
+                        'li',
+                        null,
+                        'Preloads the images with BBPreload'
+                    ),
+                    React.createElement(
+                        'li',
+                        null,
+                        'The callback fires for BBPreload'
+                    ),
+                    React.createElement(
+                        'li',
+                        null,
+                        'It hides the loaderview'
+                    ),
+                    React.createElement(
+                        'li',
+                        null,
+                        'Then renders the page'
+                    )
+                ),
+                React.createElement(
+                    'p',
+                    null,
+                    'This is a stacked loader ie. it runs off a stack of strings which all must clear before it goes away.'
+                ),
+                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/madmaxpage/furiosa.jpg' }),
+                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/madmaxpage/guitarmadmax.jpg' }),
+                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/madmaxpage/immortanjoe.jpg' }),
+                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/madmaxpage/nuxvehicle.jpg' }),
+                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/madmaxpage/openingscene.jpg' }),
+                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/madmaxpage/prisoner.jpg' }),
+                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/madmaxpage/witnessme.jpg' })
+            );
+        }
+        return renderHandle;
+    }
+});
+'use strict';
 /*! thrones/thrones.jsx */
 rc.thronesPageComponent = React.createClass({
     displayName: 'thronesPageComponent',
@@ -516,97 +607,6 @@ rc.walkingPageComponent = React.createClass({
                 panel
             )
         );
-    }
-});
-'use strict';
-/*! madmax/madmax.jsx */
-rc.madmaxPageComponent = React.createClass({
-    displayName: 'madmaxPageComponent',
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {});
-    },
-    preloadArray: [SiteConfig.assetsDirectory + 'images/madmaxpage/furiosa.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/guitarmadmax.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/immortanjoe.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/nuxvehicle.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/openingscene.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/prisoner.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/witnessme.jpg'],
-    preload: function preload() {
-        var self = this;
-        BBPreload.reset();
-        _.each(this.preloadArray, function (item, i) {
-            BBPreload.add(item);
-        });
-        BBPreload.start(function () {
-            var name = self.constructor.displayName;
-            app.status.completedPreload[name] = true;
-            self.forceUpdate();
-            grandCentral.trigger('loaderEnd', 'pageload');
-        });
-    },
-    stillPreloading: true,
-    componentWillMount: function componentWillMount() {
-        var name = this.constructor.displayName;
-        if (!app.status.completedPreload[name]) {
-            grandCentral.trigger('loaderStart', 'pageload');
-            this.preload();
-        }
-    },
-    render: function render() {
-        var name = this.constructor.displayName;
-        var completedPreload = app.status.completedPreload[name];
-        console.log(this.constructor.displayName + ' render()', completedPreload ? '' : ' (renders blank while preloading)');
-        var renderHandle;
-        if (!completedPreload) {
-            renderHandle = React.createElement('div', { id: 'madmaxpage' });
-        } else {
-            renderHandle = React.createElement(
-                'div',
-                { id: 'madmaxpage' },
-                React.createElement(
-                    'p',
-                    null,
-                    'The Mad Max page gives an example of how the loader component works in conjunction with the BBPreload library. Throttle the network load time in your browser to see it in action. This is the order of what is happening'
-                ),
-                React.createElement(
-                    'ol',
-                    null,
-                    React.createElement(
-                        'li',
-                        null,
-                        'It shows the loaderview which contains a spinning gif'
-                    ),
-                    React.createElement(
-                        'li',
-                        null,
-                        'Preloads the images with BBPreload'
-                    ),
-                    React.createElement(
-                        'li',
-                        null,
-                        'The callback fires for BBPreload'
-                    ),
-                    React.createElement(
-                        'li',
-                        null,
-                        'It hides the loaderview'
-                    ),
-                    React.createElement(
-                        'li',
-                        null,
-                        'Then renders the page'
-                    )
-                ),
-                React.createElement(
-                    'p',
-                    null,
-                    'This is a stacked loader ie. it runs off a stack of strings which all must clear before it goes away.'
-                ),
-                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/madmaxpage/furiosa.jpg' }),
-                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/madmaxpage/guitarmadmax.jpg' }),
-                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/madmaxpage/immortanjoe.jpg' }),
-                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/madmaxpage/nuxvehicle.jpg' }),
-                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/madmaxpage/openingscene.jpg' }),
-                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/madmaxpage/prisoner.jpg' }),
-                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/madmaxpage/witnessme.jpg' })
-            );
-        }
-        return renderHandle;
     }
 });
 'use strict';

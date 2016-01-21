@@ -28,6 +28,7 @@ var insert = require('gulp-insert');
 var removeEmptyLines = require('gulp-remove-empty-lines');
 var babel = require('gulp-babel');
 var fc2json = require('gulp-file-contents-to-json');
+var jshint = require('gulp-jshint');
 
 
 gulp.task('default', function(){   
@@ -106,7 +107,9 @@ gulp.task('three', function(){
         .pipe(strip({ safe : true }))
         .pipe(removeEmptyLines())
         .pipe(concat('start.js'))
-        .pipe(gulp.dest('./public/prod'));	         
+        .pipe(gulp.dest('./public/prod'))
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'));        
 });
 
 gulp.task('four', function(){   
