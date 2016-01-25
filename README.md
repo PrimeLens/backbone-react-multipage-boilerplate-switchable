@@ -79,7 +79,7 @@ They can also add libs and config files under `/public/js` however inside `/publ
 
 
 
-    var rc.aboutPageComponent = React.createClass({
+    rc.aboutPageComponent = React.createClass({
         getInitialState: function(){
             return _.extend(app.status, {
             })
