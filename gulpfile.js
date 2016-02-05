@@ -30,6 +30,7 @@ var babel = require('gulp-babel');
 var fc2json = require('gulp-file-contents-to-json');
 var jshint = require('gulp-jshint');
 var addsrc = require('gulp-add-src');
+var paths = require('./config/gulpconfig.js');
 
 
 gulp.task('default', function(){   
@@ -46,7 +47,7 @@ gulp.task('build', function(callback){
 
 gulp.task('one', function(){   
 	console.log('1: gather htmlpartials');
-	return gulp.src(['./src/views-*/**/*.html'])
+  return gulp.src(paths.partials)
 		.pipe(fc2json('htmlpartials.js', {extname:false, flat:true}))   // add  , {extname:false})) if they accept my pull request
 		.pipe(insert.prepend('window.htmlpartials = '))
 		.pipe(insert.append(';'))
@@ -54,11 +55,7 @@ gulp.task('one', function(){
 });
 gulp.task('two', function(){   
 	console.log('2: translate jsx');
-	return gulp.src([
-            './src/js/router/rc_header_v1.js',
-            './src/jsx-pages/**/*.jsx',
-            './src/jsx-special/**/*.jsx'
-        ])
+  return gulp.src(paths.jsx)
 		// insert header comment showing filename and tag it so its not deleted
 		.pipe(insert.transform(function(contents, file) {
 			var filename = file.path.replace(file.base,'');
@@ -78,21 +75,7 @@ gulp.task('two', function(){
 });
 gulp.task('three', function(){   
 	console.log('3 compile js'); 
-	return gulp.src([
-                    './src/js/router/prefix*.js',                    
-                    './src/js/config/config.js',
-                    './src/js/config/*.js',
-                    './src/js/lib_developer/**/*.js',
-                    './src/js/components/**/*.js',
-                    './src/htmlcompiled/*.js',
-                    './src/views-special/**/*.js',
-                    './src/views-pages/**/*.js',
-                    './src/jsxcompiled/jsxcompiled.js',            
-                    './src/js/router/grandcentral.js',
-                    './src/js/router/router_base*.js',
-                    './src/js/router/router_developer.js',
-                    './src/js/router/appstarter*.js'
-        ])
+  return gulp.src(paths.js)
 		// insert header comment showing filename and tag it so its not deleted
 		.pipe(insert.transform(function(contents, file) {
 			var filename = file.path.replace(file.base,'');
@@ -104,26 +87,14 @@ gulp.task('three', function(){
         .pipe(removeEmptyLines())
         .pipe(jshint())
         .pipe(jshint.reporter('default'))        
-        .pipe(addsrc.prepend([
-                    './src/js/lib/react.js',   // React MUST be first or it empties <body>                
-                    './src/js/lib/jquery*.js',
-                    './src/js/lib/underscore-min.js',
-                    './src/js/lib/backbone-min.js',                
-                    './src/js/lib/**/*.js',
-        ]))
+        .pipe(addsrc.prepend(paths.thirdParty))
         .pipe(concat('start.js'))
         .pipe(gulp.dest('./public/prod')) ;   
 });
 
 gulp.task('four', function(){   
 	console.log('4 compile css'); 
-	return gulp.src([
-                    './src/views-special/**/structure.css',
-                    './src/views-special/**/*.css',
-                    './src/views-pages/**/*.css',
-                    './src/jsx-special/**/*.css',
-                    './src/jsx-pages/**/*.css'
-        ])
+  return gulp.src(paths.css)
 		// insert header comment showing filename and tag it so its not deleted
 		.pipe(insert.transform(function(contents, file) {
 			var filename = file.path.replace(file.base,'');
@@ -138,21 +109,9 @@ gulp.task('four', function(){
         .pipe(gulp.dest('./public/prod'));	         
 });
 
-gulp.task('buildwatch', function(){
-	gulp.watch([
-		// js and jsx
-	    './src/js/**/*.js',
-	    './src/views-special/**/*.js',
-	    './src/views-pages/**/*.js',               
-	    './src/jsx-special/**/*.jsx', 
-	    './src/jsx-pages/**/*.jsx',
-	    // css
-        './src/views-special/**/*.css',
-        './src/views-pages/**/*.css',              
-        './src/jsx-special/**/*.css',
-        './src/jsx-pages/**/*.css',
-        // html partials
-        './src/views-special/**/*.html',
-        './src/views-pages/**/*.html'
-	], ['build'])
+gulp.task('buildwatch', function(done) {
+  gulp.watch(paths.partials, ['one']);
+  gulp.watch(paths.jsx, ['two']);
+  gulp.watch(paths.js, ['three']);
+  gulp.watch(paths.css, ['four']);
 });
