@@ -731,88 +731,88 @@ rc.header = React.createClass({
 'use strict';
 /*! nav/nav.jsx */
 rc.nav = React.createClass({
-	displayName: 'nav',
-	getInitialState: function getInitialState() {
-		return {
-			currentPage: ''
-		};
-	},
-	componentDidMount: function componentDidMount() {
-		var self = this;
-		grandCentral.off('pagechange').on('pagechange', function (data) {
-			self.setState({
-				currentPage: data.currentPage
-			});
-		});
-	},
-	getClassNameWithActive: function getClassNameWithActive(arg) {
-		var className = 'navitem';
-		if (arg == this.state.currentPage) {
-			className = className + ' active';
-		}
-		return className;
-	},
-	render: function render() {
-		return React.createElement(
-			'div',
-			null,
-			React.createElement(
-				'a',
-				{ className: this.getClassNameWithActive('home'), href: '#' },
-				'Home'
-			),
-			React.createElement(
-				'a',
-				{ className: this.getClassNameWithActive('exmachina'), href: '#/exmachina' },
-				'Ex Machina'
-			),
-			React.createElement(
-				'a',
-				{ className: this.getClassNameWithActive('gameofthrones'), href: '#/gameofthrones' },
-				'Game Of Thrones'
-			),
-			React.createElement(
-				'a',
-				{ className: this.getClassNameWithActive('trueblood'), href: '#/trueblood' },
-				'True Blood'
-			),
-			React.createElement(
-				'a',
-				{ className: this.getClassNameWithActive('dexter'), href: '#/dexter' },
-				'Dexter'
-			),
-			React.createElement(
-				'a',
-				{ className: this.getClassNameWithActive('walkingdead'), href: '#/walkingdead' },
-				'Walking Dead'
-			),
-			React.createElement(
-				'a',
-				{ className: this.getClassNameWithActive('hungergames'), href: '#/hungergames' },
-				'Hunger Games'
-			),
-			React.createElement(
-				'a',
-				{ className: this.getClassNameWithActive('hannibal'), href: '#/hannibal' },
-				'Hannibal'
-			),
-			React.createElement(
-				'a',
-				{ className: this.getClassNameWithActive('breakingbad'), href: '#/breakingbad' },
-				'Breaking Bad'
-			),
-			React.createElement(
-				'a',
-				{ className: this.getClassNameWithActive('firefly'), href: '#/firefly' },
-				'Firefly'
-			),
-			React.createElement(
-				'a',
-				{ className: this.getClassNameWithActive('madmax'), href: '#/madmax' },
-				'Mad Max'
-			)
-		);
-	}
+  displayName: 'nav',
+  getInitialState: function getInitialState() {
+    return {
+      currentPage: ''
+    };
+  },
+  componentDidMount: function componentDidMount() {
+    var self = this;
+    grandCentral.off('pagechange').on('pagechange', function (data) {
+      self.setState({
+        currentPage: data.currentPage
+      });
+    });
+  },
+  getClassNameWithActive: function getClassNameWithActive(arg) {
+    var className = 'navitem';
+    if (arg == this.state.currentPage) {
+      className = className + ' active';
+    }
+    return className;
+  },
+  render: function render() {
+    return React.createElement(
+      'div',
+      null,
+      React.createElement(
+        'a',
+        { className: this.getClassNameWithActive('home'), href: '#' },
+        'Home'
+      ),
+      React.createElement(
+        'a',
+        { className: this.getClassNameWithActive('exmachina'), href: '#/exmachina' },
+        'Ex Machina'
+      ),
+      React.createElement(
+        'a',
+        { className: this.getClassNameWithActive('gameofthrones'), href: '#/gameofthrones' },
+        'Game Of Thrones'
+      ),
+      React.createElement(
+        'a',
+        { className: this.getClassNameWithActive('trueblood'), href: '#/trueblood' },
+        'True Blood'
+      ),
+      React.createElement(
+        'a',
+        { className: this.getClassNameWithActive('dexter'), href: '#/dexter' },
+        'Dexter'
+      ),
+      React.createElement(
+        'a',
+        { className: this.getClassNameWithActive('walkingdead'), href: '#/walkingdead' },
+        'Walking Dead'
+      ),
+      React.createElement(
+        'a',
+        { className: this.getClassNameWithActive('hungergames'), href: '#/hungergames' },
+        'Hunger Games'
+      ),
+      React.createElement(
+        'a',
+        { className: this.getClassNameWithActive('hannibal'), href: '#/hannibal' },
+        'Hannibal'
+      ),
+      React.createElement(
+        'a',
+        { className: this.getClassNameWithActive('breakingbad'), href: '#/breakingbad' },
+        'Breaking Bad'
+      ),
+      React.createElement(
+        'a',
+        { className: this.getClassNameWithActive('firefly'), href: '#/firefly' },
+        'Firefly'
+      ),
+      React.createElement(
+        'a',
+        { className: this.getClassNameWithActive('madmax'), href: '#/madmax' },
+        'Mad Max'
+      )
+    );
+  }
 });
 'use strict';
 /*! loader/loader.jsx */

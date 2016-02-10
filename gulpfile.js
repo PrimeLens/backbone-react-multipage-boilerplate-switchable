@@ -20,6 +20,8 @@
 
 
 var gulp = require('gulp');
+var del = require('del');
+var gutil = require('gulp-util');
 var runSequence = require('run-sequence');
 var concat = require('gulp-concat');
 var strip = require('gulp-strip-comments');
@@ -30,6 +32,7 @@ var babel = require('gulp-babel');
 var fc2json = require('gulp-file-contents-to-json');
 var jshint = require('gulp-jshint');
 var addsrc = require('gulp-add-src');
+var karma = require('karma').Server;
 var paths = require('./config/gulpconfig.js');
 
 
@@ -42,19 +45,17 @@ gulp.task('default', function(){
 
 // build
 gulp.task('build', function(callback){
-    runSequence('one', 'two', 'three', 'four', callback);
+  runSequence(['1:partials', '2:jsx', '3:cssBundle'], ['4:jsBundle'], callback);
 });
 
-gulp.task('one', function(){   
-	console.log('1: gather htmlpartials');
+gulp.task('1:partials', function(){   
   return gulp.src(paths.partials)
 		.pipe(fc2json('htmlpartials.js', {extname:false, flat:true}))   // add  , {extname:false})) if they accept my pull request
 		.pipe(insert.prepend('window.htmlpartials = '))
 		.pipe(insert.append(';'))
 		.pipe(gulp.dest('./src/htmlcompiled'));
 });
-gulp.task('two', function(){   
-	console.log('2: translate jsx');
+gulp.task('2:jsx', function(){   
   return gulp.src(paths.jsx)
 		// insert header comment showing filename and tag it so its not deleted
 		.pipe(insert.transform(function(contents, file) {
@@ -73,8 +74,24 @@ gulp.task('two', function(){
         .pipe(concat('jsxcompiled.js'))
         .pipe(gulp.dest('./src/jsxcompiled'));	
 });
-gulp.task('three', function(){   
-	console.log('3 compile js'); 
+
+gulp.task('3:cssBundle', function(){   
+  return gulp.src(paths.css)
+		// insert header comment showing filename and tag it so its not deleted
+		.pipe(insert.transform(function(contents, file) {
+			var filename = file.path.replace(file.base,'');
+			var comment = '/*! ' + filename + ' */ \n';
+			return comment + contents;
+		}))
+		// remove comments, cannot strip comments from jsx file as it crashes
+        .pipe(stripcss())
+        .pipe(removeEmptyLines())
+        .pipe(addsrc.prepend('./src/css/bootstrap.min.css'))
+        .pipe(concat('start.css'))
+        .pipe(gulp.dest('./public/prod'));	         
+});
+
+gulp.task('4:jsBundle', function(){   
   return gulp.src(paths.js)
 		// insert header comment showing filename and tag it so its not deleted
 		.pipe(insert.transform(function(contents, file) {
@@ -92,26 +109,52 @@ gulp.task('three', function(){
         .pipe(gulp.dest('./public/prod')) ;   
 });
 
-gulp.task('four', function(){   
-	console.log('4 compile css'); 
-  return gulp.src(paths.css)
-		// insert header comment showing filename and tag it so its not deleted
-		.pipe(insert.transform(function(contents, file) {
-			var filename = file.path.replace(file.base,'');
-			var comment = '/*! ' + filename + ' */ \n';
-			return comment + contents;
-		}))
-		// remove comments, cannot strip comments from jsx file as it crashes
-        .pipe(stripcss())
-        .pipe(removeEmptyLines())
-        .pipe(addsrc.prepend('./src/css/bootstrap.min.css'))
-        .pipe(concat('start.css'))
-        .pipe(gulp.dest('./public/prod'));	         
+/*
+ *  Per request, platform unit tests are defined in this gulp js file.
+ *  Global tests are written to a temporary spec file that the test runner's browser loads.
+ *  The temporary spec file is deleted when Gulp is done watching for changes.
+*/
+gulp.task('writePlatformTests', function(done) {
+  var tests = function() {
+    it('Router base js should not be changed', function() {
+      console.log('Router base js should not be changed.');
+      var checksum = objectHash(routerSetupConfig);
+      expect(checksum).toBe('0436d9c66802e19ec0a56bb0a902c4f604e55543');
+    });
+    it('should run this example test', function() {
+      console.log('This sample test should run.');
+      expect(1).toBe(1);
+    });
+  };
+  tests = 'describe(\'suite of tests for the platform\',' + tests + ');';
+  return string_src('platform.spec.js', tests)
+    .pipe(gulp.dest('./'))
+});
+
+gulp.task('test', function(done) {
+  new karma({
+    configFile: __dirname + '/karma.conf.js'
+  }, function(){ gulp.run('clean'); done(); }).start();
+});
+
+gulp.task('clean', function(done) {
+  del(['./platform.spec.js']);
 });
 
 gulp.task('buildwatch', function(done) {
-  gulp.watch(paths.partials, ['one']);
-  gulp.watch(paths.jsx, ['two']);
-  gulp.watch(paths.js, ['three']);
-  gulp.watch(paths.css, ['four']);
+  gulp.start('writePlatformTests');
+  gulp.watch(paths.partials, ['1:partials']);
+  gulp.watch(paths.jsx, ['2:jsx']);
+  gulp.watch(paths.css, ['3:cssBundle']);
+  gulp.watch(paths.js, ['4:jsBundle']);
+  gulp.watch(paths.unitTests, ['test']);
 });
+
+function string_src(filename, string) {
+  var src = require('stream').Readable({ objectMode: true })
+  src._read = function () {
+    this.push(new gutil.File({ cwd: "", base: "", path: filename, contents: new Buffer(string) }))
+    this.push(null)
+  }
+  return src
+}
