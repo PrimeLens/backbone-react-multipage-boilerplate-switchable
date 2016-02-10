@@ -2,12 +2,12 @@ var paths = {
   partials: [
     './src/views-*/**/*.html'
   ],
-  css: [
-    './src/views-special/**/structure.css',
-    './src/views-special/**/*.css',
-    './src/views-pages/**/*.css',
-    './src/jsx-special/**/*.css',
-    './src/jsx-pages/**/*.css'
+  sass: [
+    './src/views-special/**/structure.scss',
+    './src/views-special/**/*.scss',
+    './src/views-pages/**/*.scss',
+    './src/jsx-special/**/*.scss',
+    './src/jsx-pages/**/*.scss'
   ],
   thirdParty: [
     './src/js/lib/react.js',   // React MUST be first or it empties <body>                
