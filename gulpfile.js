@@ -33,6 +33,8 @@ var fc2json = require('gulp-file-contents-to-json');
 var jshint = require('gulp-jshint');
 var addsrc = require('gulp-add-src');
 var karma = require('karma').Server;
+var sass = require('gulp-sass');
+var autoprefixer = require('gulp-autoprefixer');
 var paths = require('./config/gulpconfig.js');
 
 
@@ -76,10 +78,17 @@ gulp.task('2:jsx', function(){
 });
 
 gulp.task('3:cssBundle', function(){   
-  return gulp.src(paths.css)
+  return gulp.src(paths.sass)
+    .pipe(sass({
+      // outputStyle: 'compressed',
+      outputStyle: 'nested',
+      sourceComments: 'map',
+      includePaths: []
+    }))
+    .pipe(autoprefixer())
 		// insert header comment showing filename and tag it so its not deleted
 		.pipe(insert.transform(function(contents, file) {
-			var filename = file.path.replace(file.base,'');
+      var filename = file.path.replace(file.base,'').replace('.css','.scss');
 			var comment = '/*! ' + filename + ' */ \n';
 			return comment + contents;
 		}))
@@ -145,7 +154,7 @@ gulp.task('buildwatch', function(done) {
   gulp.start('writePlatformTests');
   gulp.watch(paths.partials, ['1:partials']);
   gulp.watch(paths.jsx, ['2:jsx']);
-  gulp.watch(paths.css, ['3:cssBundle']);
+  gulp.watch(paths.sass, ['3:cssBundle']);
   gulp.watch(paths.js, ['4:jsBundle']);
   gulp.watch(paths.unitTests, ['test']);
 });
