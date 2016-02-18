@@ -9,7 +9,7 @@ catch (e) {
     window.console = {};
     window.console.log = function(txt){};
     window.console.warn = function(txt){};
-    window.console.error = function(txt){}
+    window.console.error = function(txt){};
 }
 
 try {
@@ -28,7 +28,7 @@ $(document).ready(function() {
 
     $('#appContainer').replaceWith( htmlpartials.structure );
 
-    window.app = new Router;
+    window.app = new Router();
     Backbone.history.start();
 
 

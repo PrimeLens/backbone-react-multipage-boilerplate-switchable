@@ -3,6 +3,12 @@
   "version": "0.0.001",
   "description": "",
   "main": "server.js",
+  "jshintConfig": {
+    "eqeqeq": true,
+    "latedef": true,
+    "laxcomma": true,
+    "evil": false
+  },
   "dependencies": {
     "body-parser": "^1.4.3",
     "express": "^4.5.1"

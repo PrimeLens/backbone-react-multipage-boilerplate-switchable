@@ -1,4 +1,4 @@
-
+/* jshint expr: true */
 
 
 var routerSetupConfig = {};
@@ -64,8 +64,8 @@ routerSetupConfig.routeTunnel = function(renderEngine, currentPage, pageHandle, 
     // make sure app.appStatusNowReady() fires once for the start up of this app
     if (!this.appStatusNowReady.started) {
         this.appStatusNowReady.started = true;
-        this.appStatusNowReady()
-    };
+        this.appStatusNowReady();
+    }
     
 
 
@@ -90,7 +90,7 @@ routerSetupConfig.routeTunnel = function(renderEngine, currentPage, pageHandle, 
                 pageHandle.render();
                 pageHandle.processRouteChange();     
                 break;
-        };
+        }
 
     }else {
         // page is not changing but route did so fire the hook
@@ -106,7 +106,7 @@ routerSetupConfig.routeTunnel = function(renderEngine, currentPage, pageHandle, 
             case 'jquery' :
                 pageHandle.processRouteChange();     
                 break;
-        };
+        }
     }
 
 
@@ -122,8 +122,4 @@ routerSetupConfig.routeTunnel = function(renderEngine, currentPage, pageHandle, 
 
 
 
-}
-
-
-
-
+};
