@@ -1,12 +1,14 @@
+"use strict";
 /*! rc_header_v1.js */
 var rc = {};
+'use strict';
 /*! breakingbad/breakingbad.jsx */
 rc.breakingbadPageComponent = React.createClass({
     displayName: 'breakingbadPageComponent',
-    getInitialState: function () {
+    getInitialState: function getInitialState() {
         return _.extend(app.status, {});
     },
-    render: function () {
+    render: function render() {
         console.log(this.constructor.displayName + ' render()');
         return React.createElement(
             'div',
@@ -31,13 +33,14 @@ rc.breakingbadPageComponent = React.createClass({
         );
     }
 });
+'use strict';
 /*! dexter/dexter.jsx */
 rc.dexterPageComponent = React.createClass({
     displayName: 'dexterPageComponent',
-    getInitialState: function () {
+    getInitialState: function getInitialState() {
         return _.extend(app.status, {});
     },
-    render: function () {
+    render: function render() {
         console.log(this.constructor.displayName + ' render()');
         return React.createElement(
             'div',
@@ -58,13 +61,14 @@ rc.dexterPageComponent = React.createClass({
         );
     }
 });
+'use strict';
 /*! firefly/firefly.jsx */
 rc.fireflyPageComponent = React.createClass({
     displayName: 'fireflyPageComponent',
-    getInitialState: function () {
+    getInitialState: function getInitialState() {
         return _.extend(app.status, {});
     },
-    componentDidMount: function () {
+    componentDidMount: function componentDidMount() {
         grandCentral.trigger('to_fireflyDescriptions', {
             imagepath: SiteConfig.assetsDirectory + 'images/fireflypage/firefly-reaver.jpg',
             description: 'Ghoulish Reaver Ships, attacking a village'
@@ -78,7 +82,7 @@ rc.fireflyPageComponent = React.createClass({
             description: 'Serenity, Firefly class spaceship'
         });
     },
-    render: function () {
+    render: function render() {
         console.log(this.constructor.displayName + ' render()');
         return React.createElement(
             'div',
@@ -135,13 +139,14 @@ rc.fireflyPageComponent = React.createClass({
         );
     }
 });
+'use strict';
 /*! hannibal/hannibal.jsx */
 rc.hannibalPageComponent = React.createClass({
     displayName: 'hannibalPageComponent',
-    getInitialState: function () {
+    getInitialState: function getInitialState() {
         return _.extend(app.status, {});
     },
-    render: function () {
+    render: function render() {
         console.log(this.constructor.displayName + ' render()');
         return React.createElement(
             'div',
@@ -166,13 +171,14 @@ rc.hannibalPageComponent = React.createClass({
         );
     }
 });
+'use strict';
 /*! home/home.jsx */
 rc.homePageComponent = React.createClass({
     displayName: 'homePageComponent',
-    getInitialState: function () {
+    getInitialState: function getInitialState() {
         return _.extend(app.status, {});
     },
-    render: function () {
+    render: function render() {
         console.log(this.constructor.displayName + ' render()');
         return React.createElement(
             'div',
@@ -289,31 +295,32 @@ rc.homePageComponent = React.createClass({
         );
     }
 });
+'use strict';
 /*! hungergames/hungergames.jsx */
 rc.hungergamesPageComponent = React.createClass({
     displayName: 'hungergamesPageComponent',
-    getInitialState: function () {
+    getInitialState: function getInitialState() {
         return _.extend(app.status, {
             districtNumber: 13,
             sheSaid: ['Peeta I love you', 'Let\'s kill President Snow']
         });
     },
-    addSaying: function () {
+    addSaying: function addSaying() {
         this.setState({
             sheSaid: this.state.sheSaid.concat([this.refs.inpText.getDOMNode().value])
         });
     },
-    removeSaying: function () {
+    removeSaying: function removeSaying() {
         this.setState({
             sheSaid: this.state.sheSaid.slice(0, this.state.sheSaid.length - 1)
         });
     },
-    updateNumber: function () {
+    updateNumber: function updateNumber() {
         this.setState({
             districtNumber: this.refs.inpNumber.getDOMNode().value
         });
     },
-    render: function () {
+    render: function render() {
         console.log(this.constructor.displayName + ' render()');
         var outputArray = [];
         for (var i = 0; i < this.state.sheSaid.length; i++) {
@@ -377,14 +384,15 @@ rc.hungergamesPageComponent = React.createClass({
         );
     }
 });
+'use strict';
 /*! madmax/madmax.jsx */
 rc.madmaxPageComponent = React.createClass({
     displayName: 'madmaxPageComponent',
-    getInitialState: function () {
+    getInitialState: function getInitialState() {
         return _.extend(app.status, {});
     },
     preloadArray: [SiteConfig.assetsDirectory + 'images/madmaxpage/furiosa.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/guitarmadmax.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/immortanjoe.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/nuxvehicle.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/openingscene.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/prisoner.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/witnessme.jpg'],
-    preload: function () {
+    preload: function preload() {
         var self = this;
         BBPreload.reset();
         _.each(this.preloadArray, function (item, i) {
@@ -398,14 +406,14 @@ rc.madmaxPageComponent = React.createClass({
         });
     },
     stillPreloading: true,
-    componentWillMount: function () {
+    componentWillMount: function componentWillMount() {
         var name = this.constructor.displayName;
         if (!app.status.completedPreload[name]) {
             grandCentral.trigger('loaderStart', 'pageload');
             this.preload();
         }
     },
-    render: function () {
+    render: function render() {
         var name = this.constructor.displayName;
         var completedPreload = app.status.completedPreload[name];
         console.log(this.constructor.displayName + ' render()', completedPreload ? '' : ' (renders blank while preloading)');
@@ -467,13 +475,14 @@ rc.madmaxPageComponent = React.createClass({
         return renderHandle;
     }
 });
+'use strict';
 /*! thrones/thrones.jsx */
 rc.thronesPageComponent = React.createClass({
     displayName: 'thronesPageComponent',
-    getInitialState: function () {
+    getInitialState: function getInitialState() {
         return _.extend(app.status, {});
     },
-    render: function () {
+    render: function render() {
         console.log(this.constructor.displayName + ' render()');
         return React.createElement(
             'div',
@@ -498,13 +507,14 @@ rc.thronesPageComponent = React.createClass({
         );
     }
 });
+'use strict';
 /*! trueblood/trueblood.jsx */
 rc.truebloodPageComponent = React.createClass({
     displayName: 'truebloodPageComponent',
-    getInitialState: function () {
+    getInitialState: function getInitialState() {
         return _.extend(app.status, {});
     },
-    render: function () {
+    render: function render() {
         console.log(this.constructor.displayName + ' render()');
         return React.createElement(
             'div',
@@ -525,13 +535,14 @@ rc.truebloodPageComponent = React.createClass({
         );
     }
 });
+'use strict';
 /*! walkingdead/walkingdead.jsx */
 rc.walkingPageComponent = React.createClass({
     displayName: 'walkingPageComponent',
-    getInitialState: function () {
+    getInitialState: function getInitialState() {
         return _.extend(app.status, {});
     },
-    render: function () {
+    render: function render() {
         console.log(this.constructor.displayName + ' render()');
         var key = this.state.currentFragsArray[0];
         var data;
@@ -598,14 +609,15 @@ rc.walkingPageComponent = React.createClass({
         );
     }
 });
+'use strict';
 /*! firefly/childcomponents/fireflyDescriptions.jsx */
 rc.fireflyDescriptions = React.createClass({
     displayName: 'fireflyDescriptions',
-    getInitialState: function () {
+    getInitialState: function getInitialState() {
         return { databindingArray: [] };
     },
     trueArray: [],
-    componentDidMount: function () {
+    componentDidMount: function componentDidMount() {
         this.trueArray = []; 
         var self = this;
         grandCentral.off('to_fireflyDescriptions').on('to_fireflyDescriptions', function (data) {
@@ -615,14 +627,14 @@ rc.fireflyDescriptions = React.createClass({
             });
         });
     },
-    handleClick: function (i) {
+    handleClick: function handleClick(i) {
         grandCentral.trigger('to_fireflyImages', this.trueArray[i]);
         this.trueArray.splice(i, 1);
         this.setState({
             databindingArray: this.trueArray
         });
     },
-    render: function () {
+    render: function render() {
         var outputArray = [];
         for (var i = 0; i < this.state.databindingArray.length; i++) {
             outputArray.push(
@@ -639,14 +651,15 @@ rc.fireflyDescriptions = React.createClass({
         );
     }
 });
+'use strict';
 /*! firefly/childcomponents/fireflyImages.jsx */
 rc.fireflyImages = React.createClass({
     displayName: 'fireflyImages',
-    getInitialState: function () {
+    getInitialState: function getInitialState() {
         return { databindingArray: [] };
     },
     trueArray: [],
-    componentDidMount: function () {
+    componentDidMount: function componentDidMount() {
         this.trueArray = []; 
         var self = this;
         grandCentral.off('to_fireflyImages').on('to_fireflyImages', function (data) {
@@ -656,14 +669,14 @@ rc.fireflyImages = React.createClass({
             });
         });
     },
-    handleClick: function (i) {
+    handleClick: function handleClick(i) {
         grandCentral.trigger('to_fireflyDescriptions', this.trueArray[i]);
         this.trueArray.splice(i, 1);
         this.setState({
             databindingArray: this.trueArray
         });
     },
-    render: function () {
+    render: function render() {
         var outputArray = [];
         for (var i = 0; i < this.state.databindingArray.length; i++) {
             outputArray.push(
@@ -680,20 +693,22 @@ rc.fireflyImages = React.createClass({
         );
     }
 });
+'use strict';
 /*! walkingdead/childcomponents/walkingPanel.jsx */
 rc.walkingPanel = React.createClass({
     displayName: 'walkingPanel',
-    getDefaultProps: function () {
+    getDefaultProps: function getDefaultProps() {
         return { imagepath: '' };
     },
-    render: function () {
+    render: function render() {
         return React.createElement('img', { src: this.props.imagepath });
     }
 });
+"use strict";
 /*! walkingdead/childcomponents/walkingPanelCTA.jsx */
 rc.walkingPanelCTA = React.createClass({
     displayName: "walkingPanelCTA",
-    render: function () {
+    render: function render() {
         return React.createElement(
             "p",
             null,
@@ -701,10 +716,11 @@ rc.walkingPanelCTA = React.createClass({
         );
     }
 });
+"use strict";
 /*! header/header.jsx */
 rc.header = React.createClass({
     displayName: "header",
-    render: function () {
+    render: function render() {
         return React.createElement(
             "h2",
             null,
@@ -712,16 +728,17 @@ rc.header = React.createClass({
         );
     }
 });
+'use strict';
 /*! loader/loader.jsx */
 rc.loader = React.createClass({
     displayName: 'loader',
     stack: [],
-    getInitialState: function () {
+    getInitialState: function getInitialState() {
         return {
             show: false
         };
     },
-    componentDidMount: function (currentPage) {
+    componentDidMount: function componentDidMount(currentPage) {
         var self = this;
         grandCentral.off('loaderStart').on('loaderStart', function (uniqueString) {
             if ($.inArray(uniqueString, self.stack) == -1) {
@@ -741,11 +758,11 @@ rc.loader = React.createClass({
             }
         });
     },
-    reset: function () {
+    reset: function reset() {
         this.stack = [];
         this.setState({ show: false });
     },
-    render: function () {
+    render: function render() {
         var classes = this.state.show ? 'active' : '';
         return React.createElement(
             'div',
@@ -758,15 +775,16 @@ rc.loader = React.createClass({
         );
     }
 });
+'use strict';
 /*! nav/nav.jsx */
 rc.nav = React.createClass({
 	displayName: 'nav',
-	getInitialState: function () {
+	getInitialState: function getInitialState() {
 		return {
 			currentPage: ''
 		};
 	},
-	componentDidMount: function () {
+	componentDidMount: function componentDidMount() {
 		var self = this;
 		grandCentral.off('pagechange').on('pagechange', function (data) {
 			self.setState({
@@ -774,14 +792,14 @@ rc.nav = React.createClass({
 			});
 		});
 	},
-	getClassNameWithActive: function (arg) {
+	getClassNameWithActive: function getClassNameWithActive(arg) {
 		var className = 'navitem';
 		if (arg == this.state.currentPage) {
 			className = className + ' active';
 		}
 		return className;
 	},
-	render: function () {
+	render: function render() {
 		return React.createElement(
 			'div',
 			null,
@@ -843,10 +861,31 @@ rc.nav = React.createClass({
 		);
 	}
 });
+"use strict";
+/*! parentsadvisory/parentsadvisory.jsx */
+rc.parentsadvisory = React.createClass({
+    displayName: "parentsadvisory",
+    render: function render() {
+        return React.createElement(
+            "div",
+            { className: "parentsadvisory" },
+            React.createElement(
+                "strong",
+                null,
+                "Don't"
+            ),
+            React.createElement("br", null),
+            "let kids",
+            React.createElement("br", null),
+            "watch this"
+        );
+    }
+});
+"use strict";
 /*! quiz/quiz.jsx */
 rc.quizComponent = React.createClass({
     displayName: "quizComponent",
-    render: function () {
+    render: function render() {
         var theOptions = [];
         _.each(this.props.data.options, function (value, i) {
             theOptions.push(React.createElement(rc.quizItemComponent, { key: i, label: value }));
@@ -878,29 +917,11 @@ rc.quizComponent = React.createClass({
         );
     }
 });
-/*! parentsadvisory/parentsadvisory.jsx */
-rc.parentsadvisory = React.createClass({
-    displayName: "parentsadvisory",
-    render: function () {
-        return React.createElement(
-            "div",
-            { className: "parentsadvisory" },
-            React.createElement(
-                "strong",
-                null,
-                "Don't"
-            ),
-            React.createElement("br", null),
-            "let kids",
-            React.createElement("br", null),
-            "watch this"
-        );
-    }
-});
+"use strict";
 /*! quiz/childcomponents/quizitem.jsx */
 rc.quizItemComponent = React.createClass({
     displayName: "quizItemComponent",
-    render: function () {
+    render: function render() {
         return React.createElement(
             "div",
             { className: "quizitem" },

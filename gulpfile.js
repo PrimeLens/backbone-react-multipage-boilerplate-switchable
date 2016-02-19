@@ -24,6 +24,7 @@ var del = require('del');
 var gutil = require('gulp-util');
 var runSequence = require('run-sequence');
 var concat = require('gulp-concat');
+var replace = require('gulp-replace');
 var strip = require('gulp-strip-comments');
 var stripcss = require('gulp-strip-css-comments');
 var insert = require('gulp-insert');
@@ -69,7 +70,9 @@ gulp.task('2:jsx', function(){
 			return comment + contents;
 		}))
 		// translate jsx
-        .pipe(babel())
+        .pipe(babel({
+          presets: ['es2015']
+        }))
 		// remove comments, cannot strip comments from jsx file as it crashes
         .pipe(strip({ safe : true }))		
         .pipe(removeEmptyLines())
@@ -102,6 +105,8 @@ gulp.task('3:cssBundle', function(){
 
 gulp.task('4:jsBundle', function(){   
   return gulp.src(paths.js)
+    // Remove 'use strict';
+    .pipe(replace(/('|")use strict\1;/g, ''))
 		// insert header comment showing filename and tag it so its not deleted
 		.pipe(insert.transform(function(contents, file) {
 			var filename = file.path.replace(file.base,'');
