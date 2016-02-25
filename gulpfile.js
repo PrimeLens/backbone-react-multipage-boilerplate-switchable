@@ -24,6 +24,7 @@ var del = require('del');
 var gutil = require('gulp-util');
 var runSequence = require('run-sequence');
 var concat = require('gulp-concat');
+var replace = require('gulp-replace');
 var strip = require('gulp-strip-comments');
 var stripcss = require('gulp-strip-css-comments');
 var insert = require('gulp-insert');
@@ -36,6 +37,8 @@ var karma = require('karma').Server;
 var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var paths = require('./config/gulpconfig.js');
+var jshintConfig = require('./package').jshintConfig;
+jshintConfig.lookup = false;
 
 
 gulp.task('default', function(){   
@@ -67,9 +70,9 @@ gulp.task('2:jsx', function(){
 			return comment + contents;
 		}))
 		// translate jsx
-		.pipe(babel({
-		 	presets: ['es2015']
-		}))
+        .pipe(babel({
+          presets: ['es2015']
+        }))
 		// remove comments, cannot strip comments from jsx file as it crashes
         .pipe(strip({ safe : true }))		
         .pipe(removeEmptyLines())
@@ -102,17 +105,19 @@ gulp.task('3:cssBundle', function(){
 
 gulp.task('4:jsBundle', function(){   
   return gulp.src(paths.js)
+    // Remove 'use strict';
+    .pipe(replace(/('|")use strict\1;/g, ''))
 		// insert header comment showing filename and tag it so its not deleted
 		.pipe(insert.transform(function(contents, file) {
 			var filename = file.path.replace(file.base,'');
 			var comment = '/*! ' + filename + ' */ \n';
 			return comment + contents;
 		}))
+        .pipe(jshint())
+        .pipe(jshint.reporter('default'))        
 		// remove comments, cannot strip comments from jsx file as it crashes
         .pipe(strip({ safe : true }))
         .pipe(removeEmptyLines())
-        .pipe(jshint())
-        .pipe(jshint.reporter('default'))        
         .pipe(addsrc.prepend(paths.thirdParty))
         .pipe(concat('start.js'))
         .pipe(gulp.dest('./public/prod')) ;   

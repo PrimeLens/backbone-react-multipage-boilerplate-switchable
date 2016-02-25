@@ -3,6 +3,12 @@
   "version": "0.0.001",
   "description": "",
   "main": "server.js",
+  "jshintConfig": {
+    "eqeqeq": true,
+    "latedef": true,
+    "laxcomma": true,
+    "evil": false
+  },
   "dependencies": {
     "body-parser": "^1.4.3",
     "express": "^4.5.1"
@@ -32,6 +38,7 @@
     "gulp-insert": "^0.5.0",
     "gulp-jshint": "^2.0.0",
     "gulp-remove-empty-lines": "0.0.2",
+    "gulp-replace": "^0.5.4",
     "gulp-sass": "^2.2.0",
     "gulp-strip-comments": "^2.2.1",
     "gulp-strip-css-comments": "^1.2.0",

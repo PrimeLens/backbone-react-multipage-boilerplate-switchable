@@ -19719,8 +19719,8 @@ var BBPreload = ( function() {
 } )();
 /*! htmlpartials.js */
  window.htmlpartials = {
-  "structure": "<div id=\"appContainer\">\n    <div id=\"headercontainer\"></div>\n    <div id=\"navcontainer\"></div>\n    <div id=\"pagecontainer\"></div>\n    <div id=\"footercontainer\"></div>\n    <div id=\"modalcontainer\"></div>\n    <div id=\"loadercontainer\"></div>\n</div>",
-  "exmachina": "<div id=\"exmachina\">\n\n    <img src=\"randomDirectory/images/exmachinapage/exmachina.jpg\">\n    <p>\n        This page is using a jQuery / Backbone as per <a href=\"https://github.com/PrimeLens/backbone-multipage-boilerplate\">this boilerplate here.</a>\n    </p>\n    <p>\n        I've implemented it to demonstrate that we can switch render engines \n        between pages during runtime.\n    </p>\n\n</div>"
+  "exmachina": "<div id=\"exmachina\">\n\n    <img src=\"randomDirectory/images/exmachinapage/exmachina.jpg\">\n    <p>\n        This page is using a jQuery / Backbone as per <a href=\"https://github.com/PrimeLens/backbone-multipage-boilerplate\">this boilerplate here.</a>\n    </p>\n    <p>\n        I've implemented it to demonstrate that we can switch render engines \n        between pages during runtime.\n    </p>\n\n</div>",
+  "structure": "<div id=\"appContainer\">\n    <div id=\"headercontainer\"></div>\n    <div id=\"navcontainer\"></div>\n    <div id=\"pagecontainer\"></div>\n    <div id=\"footercontainer\"></div>\n    <div id=\"modalcontainer\"></div>\n    <div id=\"loadercontainer\"></div>\n</div>"
 };
 /*! exmachina/exmachinaview.js */
  var ExmachinaView = Backbone.View.extend({
@@ -19737,17 +19737,15 @@ var BBPreload = ( function() {
     }
 });
 /*! jsxcompiled.js */
- "use strict";
 /*! rc_header_v1.js */
 var rc = {};
-'use strict';
 /*! breakingbad/breakingbad.jsx */
 rc.breakingbadPageComponent = React.createClass({
     displayName: 'breakingbadPageComponent',
-    getInitialState: function getInitialState() {
+    getInitialState: function () {
         return _.extend(app.status, {});
     },
-    render: function render() {
+    render: function () {
         console.log(this.constructor.displayName + ' render()');
         return React.createElement(
             'div',
@@ -19772,14 +19770,13 @@ rc.breakingbadPageComponent = React.createClass({
         );
     }
 });
-'use strict';
 /*! dexter/dexter.jsx */
 rc.dexterPageComponent = React.createClass({
     displayName: 'dexterPageComponent',
-    getInitialState: function getInitialState() {
+    getInitialState: function () {
         return _.extend(app.status, {});
     },
-    render: function render() {
+    render: function () {
         console.log(this.constructor.displayName + ' render()');
         return React.createElement(
             'div',
@@ -19800,14 +19797,13 @@ rc.dexterPageComponent = React.createClass({
         );
     }
 });
-'use strict';
 /*! firefly/firefly.jsx */
 rc.fireflyPageComponent = React.createClass({
     displayName: 'fireflyPageComponent',
-    getInitialState: function getInitialState() {
+    getInitialState: function () {
         return _.extend(app.status, {});
     },
-    componentDidMount: function componentDidMount() {
+    componentDidMount: function () {
         grandCentral.trigger('to_fireflyDescriptions', {
             imagepath: SiteConfig.assetsDirectory + 'images/fireflypage/firefly-reaver.jpg',
             description: 'Ghoulish Reaver Ships, attacking a village'
@@ -19821,7 +19817,7 @@ rc.fireflyPageComponent = React.createClass({
             description: 'Serenity, Firefly class spaceship'
         });
     },
-    render: function render() {
+    render: function () {
         console.log(this.constructor.displayName + ' render()');
         return React.createElement(
             'div',
@@ -19878,14 +19874,13 @@ rc.fireflyPageComponent = React.createClass({
         );
     }
 });
-'use strict';
 /*! hannibal/hannibal.jsx */
 rc.hannibalPageComponent = React.createClass({
     displayName: 'hannibalPageComponent',
-    getInitialState: function getInitialState() {
+    getInitialState: function () {
         return _.extend(app.status, {});
     },
-    render: function render() {
+    render: function () {
         console.log(this.constructor.displayName + ' render()');
         return React.createElement(
             'div',
@@ -19910,14 +19905,13 @@ rc.hannibalPageComponent = React.createClass({
         );
     }
 });
-'use strict';
 /*! home/home.jsx */
 rc.homePageComponent = React.createClass({
     displayName: 'homePageComponent',
-    getInitialState: function getInitialState() {
+    getInitialState: function () {
         return _.extend(app.status, {});
     },
-    render: function render() {
+    render: function () {
         console.log(this.constructor.displayName + ' render()');
         return React.createElement(
             'div',
@@ -20034,32 +20028,31 @@ rc.homePageComponent = React.createClass({
         );
     }
 });
-'use strict';
 /*! hungergames/hungergames.jsx */
 rc.hungergamesPageComponent = React.createClass({
     displayName: 'hungergamesPageComponent',
-    getInitialState: function getInitialState() {
+    getInitialState: function () {
         return _.extend(app.status, {
             districtNumber: 13,
             sheSaid: ['Peeta I love you', 'Let\'s kill President Snow']
         });
     },
-    addSaying: function addSaying() {
+    addSaying: function () {
         this.setState({
             sheSaid: this.state.sheSaid.concat([this.refs.inpText.getDOMNode().value])
         });
     },
-    removeSaying: function removeSaying() {
+    removeSaying: function () {
         this.setState({
             sheSaid: this.state.sheSaid.slice(0, this.state.sheSaid.length - 1)
         });
     },
-    updateNumber: function updateNumber() {
+    updateNumber: function () {
         this.setState({
             districtNumber: this.refs.inpNumber.getDOMNode().value
         });
     },
-    render: function render() {
+    render: function () {
         console.log(this.constructor.displayName + ' render()');
         var outputArray = [];
         for (var i = 0; i < this.state.sheSaid.length; i++) {
@@ -20123,47 +20116,14 @@ rc.hungergamesPageComponent = React.createClass({
         );
     }
 });
-'use strict';
-/*! thrones/thrones.jsx */
-rc.thronesPageComponent = React.createClass({
-    displayName: 'thronesPageComponent',
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {});
-    },
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { className: 'whatevercssclass' },
-            React.createElement(
-                'p',
-                null,
-                'All the other pages follow specific css pattern. The purpose of this page is to demonstrate that this is not locked to this boilerplate. You can set your own.'
-            ),
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/thronespage/gamethrones.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                React.createElement(
-                    'span',
-                    { className: 'specialQuote' },
-                    'Valar morghulis'
-                ),
-                React.createElement('br', null),
-                'translates to "all men must die"'
-            )
-        );
-    }
-});
-'use strict';
 /*! madmax/madmax.jsx */
 rc.madmaxPageComponent = React.createClass({
     displayName: 'madmaxPageComponent',
-    getInitialState: function getInitialState() {
+    getInitialState: function () {
         return _.extend(app.status, {});
     },
     preloadArray: [SiteConfig.assetsDirectory + 'images/madmaxpage/furiosa.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/guitarmadmax.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/immortanjoe.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/nuxvehicle.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/openingscene.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/prisoner.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/witnessme.jpg'],
-    preload: function preload() {
+    preload: function () {
         var self = this;
         BBPreload.reset();
         _.each(this.preloadArray, function (item, i) {
@@ -20177,14 +20137,14 @@ rc.madmaxPageComponent = React.createClass({
         });
     },
     stillPreloading: true,
-    componentWillMount: function componentWillMount() {
+    componentWillMount: function () {
         var name = this.constructor.displayName;
         if (!app.status.completedPreload[name]) {
             grandCentral.trigger('loaderStart', 'pageload');
             this.preload();
         }
     },
-    render: function render() {
+    render: function () {
         var name = this.constructor.displayName;
         var completedPreload = app.status.completedPreload[name];
         console.log(this.constructor.displayName + ' render()', completedPreload ? '' : ' (renders blank while preloading)');
@@ -20246,14 +20206,44 @@ rc.madmaxPageComponent = React.createClass({
         return renderHandle;
     }
 });
-'use strict';
+/*! thrones/thrones.jsx */
+rc.thronesPageComponent = React.createClass({
+    displayName: 'thronesPageComponent',
+    getInitialState: function () {
+        return _.extend(app.status, {});
+    },
+    render: function () {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { className: 'whatevercssclass' },
+            React.createElement(
+                'p',
+                null,
+                'All the other pages follow specific css pattern. The purpose of this page is to demonstrate that this is not locked to this boilerplate. You can set your own.'
+            ),
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/thronespage/gamethrones.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                React.createElement(
+                    'span',
+                    { className: 'specialQuote' },
+                    'Valar morghulis'
+                ),
+                React.createElement('br', null),
+                'translates to "all men must die"'
+            )
+        );
+    }
+});
 /*! trueblood/trueblood.jsx */
 rc.truebloodPageComponent = React.createClass({
     displayName: 'truebloodPageComponent',
-    getInitialState: function getInitialState() {
+    getInitialState: function () {
         return _.extend(app.status, {});
     },
-    render: function render() {
+    render: function () {
         console.log(this.constructor.displayName + ' render()');
         return React.createElement(
             'div',
@@ -20274,14 +20264,13 @@ rc.truebloodPageComponent = React.createClass({
         );
     }
 });
-'use strict';
 /*! walkingdead/walkingdead.jsx */
 rc.walkingPageComponent = React.createClass({
     displayName: 'walkingPageComponent',
-    getInitialState: function getInitialState() {
+    getInitialState: function () {
         return _.extend(app.status, {});
     },
-    render: function render() {
+    render: function () {
         console.log(this.constructor.displayName + ' render()');
         var key = this.state.currentFragsArray[0];
         var data;
@@ -20348,15 +20337,14 @@ rc.walkingPageComponent = React.createClass({
         );
     }
 });
-'use strict';
 /*! firefly/childcomponents/fireflyDescriptions.jsx */
 rc.fireflyDescriptions = React.createClass({
     displayName: 'fireflyDescriptions',
-    getInitialState: function getInitialState() {
+    getInitialState: function () {
         return { databindingArray: [] };
     },
     trueArray: [],
-    componentDidMount: function componentDidMount() {
+    componentDidMount: function () {
         this.trueArray = []; 
         var self = this;
         grandCentral.off('to_fireflyDescriptions').on('to_fireflyDescriptions', function (data) {
@@ -20366,14 +20354,14 @@ rc.fireflyDescriptions = React.createClass({
             });
         });
     },
-    handleClick: function handleClick(i) {
+    handleClick: function (i) {
         grandCentral.trigger('to_fireflyImages', this.trueArray[i]);
         this.trueArray.splice(i, 1);
         this.setState({
             databindingArray: this.trueArray
         });
     },
-    render: function render() {
+    render: function () {
         var outputArray = [];
         for (var i = 0; i < this.state.databindingArray.length; i++) {
             outputArray.push(
@@ -20390,15 +20378,14 @@ rc.fireflyDescriptions = React.createClass({
         );
     }
 });
-'use strict';
 /*! firefly/childcomponents/fireflyImages.jsx */
 rc.fireflyImages = React.createClass({
     displayName: 'fireflyImages',
-    getInitialState: function getInitialState() {
+    getInitialState: function () {
         return { databindingArray: [] };
     },
     trueArray: [],
-    componentDidMount: function componentDidMount() {
+    componentDidMount: function () {
         this.trueArray = []; 
         var self = this;
         grandCentral.off('to_fireflyImages').on('to_fireflyImages', function (data) {
@@ -20408,14 +20395,14 @@ rc.fireflyImages = React.createClass({
             });
         });
     },
-    handleClick: function handleClick(i) {
+    handleClick: function (i) {
         grandCentral.trigger('to_fireflyDescriptions', this.trueArray[i]);
         this.trueArray.splice(i, 1);
         this.setState({
             databindingArray: this.trueArray
         });
     },
-    render: function render() {
+    render: function () {
         var outputArray = [];
         for (var i = 0; i < this.state.databindingArray.length; i++) {
             outputArray.push(
@@ -20432,22 +20419,20 @@ rc.fireflyImages = React.createClass({
         );
     }
 });
-'use strict';
 /*! walkingdead/childcomponents/walkingPanel.jsx */
 rc.walkingPanel = React.createClass({
     displayName: 'walkingPanel',
-    getDefaultProps: function getDefaultProps() {
+    getDefaultProps: function () {
         return { imagepath: '' };
     },
-    render: function render() {
+    render: function () {
         return React.createElement('img', { src: this.props.imagepath });
     }
 });
-"use strict";
 /*! walkingdead/childcomponents/walkingPanelCTA.jsx */
 rc.walkingPanelCTA = React.createClass({
     displayName: "walkingPanelCTA",
-    render: function render() {
+    render: function () {
         return React.createElement(
             "p",
             null,
@@ -20455,11 +20440,10 @@ rc.walkingPanelCTA = React.createClass({
         );
     }
 });
-"use strict";
 /*! header/header.jsx */
 rc.header = React.createClass({
     displayName: "header",
-    render: function render() {
+    render: function () {
         return React.createElement(
             "h2",
             null,
@@ -20467,17 +20451,16 @@ rc.header = React.createClass({
         );
     }
 });
-'use strict';
 /*! loader/loader.jsx */
 rc.loader = React.createClass({
     displayName: 'loader',
     stack: [],
-    getInitialState: function getInitialState() {
+    getInitialState: function () {
         return {
             show: false
         };
     },
-    componentDidMount: function componentDidMount(currentPage) {
+    componentDidMount: function (currentPage) {
         var self = this;
         grandCentral.off('loaderStart').on('loaderStart', function (uniqueString) {
             if ($.inArray(uniqueString, self.stack) == -1) {
@@ -20497,11 +20480,11 @@ rc.loader = React.createClass({
             }
         });
     },
-    reset: function reset() {
+    reset: function () {
         this.stack = [];
         this.setState({ show: false });
     },
-    render: function render() {
+    render: function () {
         var classes = this.state.show ? 'active' : '';
         return React.createElement(
             'div',
@@ -20514,16 +20497,15 @@ rc.loader = React.createClass({
         );
     }
 });
-'use strict';
 /*! nav/nav.jsx */
 rc.nav = React.createClass({
 	displayName: 'nav',
-	getInitialState: function getInitialState() {
+	getInitialState: function () {
 		return {
 			currentPage: ''
 		};
 	},
-	componentDidMount: function componentDidMount() {
+	componentDidMount: function () {
 		var self = this;
 		grandCentral.off('pagechange').on('pagechange', function (data) {
 			self.setState({
@@ -20531,14 +20513,14 @@ rc.nav = React.createClass({
 			});
 		});
 	},
-	getClassNameWithActive: function getClassNameWithActive(arg) {
+	getClassNameWithActive: function (arg) {
 		var className = 'navitem';
 		if (arg == this.state.currentPage) {
 			className = className + ' active';
 		}
 		return className;
 	},
-	render: function render() {
+	render: function () {
 		return React.createElement(
 			'div',
 			null,
@@ -20600,31 +20582,10 @@ rc.nav = React.createClass({
 		);
 	}
 });
-"use strict";
-/*! parentsadvisory/parentsadvisory.jsx */
-rc.parentsadvisory = React.createClass({
-    displayName: "parentsadvisory",
-    render: function render() {
-        return React.createElement(
-            "div",
-            { className: "parentsadvisory" },
-            React.createElement(
-                "strong",
-                null,
-                "Don't"
-            ),
-            React.createElement("br", null),
-            "let kids",
-            React.createElement("br", null),
-            "watch this"
-        );
-    }
-});
-"use strict";
 /*! quiz/quiz.jsx */
 rc.quizComponent = React.createClass({
     displayName: "quizComponent",
-    render: function render() {
+    render: function () {
         var theOptions = [];
         _.each(this.props.data.options, function (value, i) {
             theOptions.push(React.createElement(rc.quizItemComponent, { key: i, label: value }));
@@ -20656,11 +20617,29 @@ rc.quizComponent = React.createClass({
         );
     }
 });
-"use strict";
+/*! parentsadvisory/parentsadvisory.jsx */
+rc.parentsadvisory = React.createClass({
+    displayName: "parentsadvisory",
+    render: function () {
+        return React.createElement(
+            "div",
+            { className: "parentsadvisory" },
+            React.createElement(
+                "strong",
+                null,
+                "Don't"
+            ),
+            React.createElement("br", null),
+            "let kids",
+            React.createElement("br", null),
+            "watch this"
+        );
+    }
+});
 /*! quiz/childcomponents/quizitem.jsx */
 rc.quizItemComponent = React.createClass({
     displayName: "quizItemComponent",
-    render: function render() {
+    render: function () {
         return React.createElement(
             "div",
             { className: "quizitem" },
@@ -20677,7 +20656,7 @@ rc.quizItemComponent = React.createClass({
  var grandCentral = _.extend({}, Backbone.Events);
 
 /*! router_base_v2.2.js */
- var routerSetupConfig = {};
+var routerSetupConfig = {};
 routerSetupConfig.status = {
     currentPage : '',
     lastPage : '',
@@ -20721,8 +20700,8 @@ routerSetupConfig.routeTunnel = function(renderEngine, currentPage, pageHandle, 
     );
     if (!this.appStatusNowReady.started) {
         this.appStatusNowReady.started = true;
-        this.appStatusNowReady()
-    };
+        this.appStatusNowReady();
+    }
         if (pageChanged) {
         this.prePageChange();         
         if (app.currentReactPage){
@@ -20740,7 +20719,7 @@ routerSetupConfig.routeTunnel = function(renderEngine, currentPage, pageHandle, 
                 pageHandle.render();
                 pageHandle.processRouteChange();     
                 break;
-        };
+        }
     }else {
         switch(renderEngine){
             case 'react' :     
@@ -20749,7 +20728,7 @@ routerSetupConfig.routeTunnel = function(renderEngine, currentPage, pageHandle, 
             case 'jquery' :
                 pageHandle.processRouteChange();     
                 break;
-        };
+        }
     }
     grandCentral.trigger('routechange', this.status);
     if (pageChanged) {
@@ -20757,7 +20736,7 @@ routerSetupConfig.routeTunnel = function(renderEngine, currentPage, pageHandle, 
     } else {
         grandCentral.trigger('deeplinkchange', this.status);
     }
-}
+};
 
 /*! router_developer.js */
 routerSetupConfig.initialize = function() {
@@ -20778,17 +20757,17 @@ routerSetupConfig.initialize = function() {
     this.exmachinaView = new ExmachinaView();
 };
 routerSetupConfig.routes =  {
-    '(?*path)': function(f, q){ this.routeTunnel('react', 'home', rc.homePageComponent, f, q) },
-    'exmachina(/*path)': function(f, q){ this.routeTunnel('jquery', 'exmachina', this.exmachinaView, f, q) },
-    'gameofthrones(/*path)': function(f, q){ this.routeTunnel('react', 'gameofthrones', rc.thronesPageComponent, f, q) },
-    'trueblood(/*path)': function(f, q){ this.routeTunnel('react', 'trueblood', rc.truebloodPageComponent, f, q) },
-    'dexter(/*path)': function(f, q){ this.routeTunnel('react', 'dexter', rc.dexterPageComponent, f, q) },
-    'walkingdead(/*path)': function(f, q){ this.routeTunnel('react', 'walkingdead', rc.walkingPageComponent, f, q) },
-    'hungergames(/*path)': function(f, q){ this.routeTunnel('react', 'hungergames', rc.hungergamesPageComponent, f, q) },
-    'hannibal(/*path)': function(f, q){ this.routeTunnel('react', 'hannibal', rc.hannibalPageComponent, f, q) },
-    'breakingbad(/*path)': function(f, q){ this.routeTunnel('react', 'breakingbad', rc.breakingbadPageComponent, f, q) },
-    'firefly(/*path)': function(f, q){ this.routeTunnel('react', 'firefly', rc.fireflyPageComponent, f, q) },
-    'madmax(/*path)': function(f, q){ this.routeTunnel('react', 'madmax', rc.madmaxPageComponent, f, q) },
+    '(?*path)': function(f, q){ this.routeTunnel('react', 'home', rc.homePageComponent, f, q); },
+    'exmachina(/*path)': function(f, q){ this.routeTunnel('jquery', 'exmachina', this.exmachinaView, f, q); },
+    'gameofthrones(/*path)': function(f, q){ this.routeTunnel('react', 'gameofthrones', rc.thronesPageComponent, f, q); },
+    'trueblood(/*path)': function(f, q){ this.routeTunnel('react', 'trueblood', rc.truebloodPageComponent, f, q); },
+    'dexter(/*path)': function(f, q){ this.routeTunnel('react', 'dexter', rc.dexterPageComponent, f, q); },
+    'walkingdead(/*path)': function(f, q){ this.routeTunnel('react', 'walkingdead', rc.walkingPageComponent, f, q); },
+    'hungergames(/*path)': function(f, q){ this.routeTunnel('react', 'hungergames', rc.hungergamesPageComponent, f, q); },
+    'hannibal(/*path)': function(f, q){ this.routeTunnel('react', 'hannibal', rc.hannibalPageComponent, f, q); },
+    'breakingbad(/*path)': function(f, q){ this.routeTunnel('react', 'breakingbad', rc.breakingbadPageComponent, f, q); },
+    'firefly(/*path)': function(f, q){ this.routeTunnel('react', 'firefly', rc.fireflyPageComponent, f, q); },
+    'madmax(/*path)': function(f, q){ this.routeTunnel('react', 'madmax', rc.madmaxPageComponent, f, q); },
     '*badroute': function(){ this.navigate('#', {trigger: true}); }
 };
 routerSetupConfig.prePageChange =  function(){
@@ -20804,7 +20783,7 @@ catch (e) {
     window.console = {};
     window.console.log = function(txt){};
     window.console.warn = function(txt){};
-    window.console.error = function(txt){}
+    window.console.error = function(txt){};
 }
 try {
     if (htmlpartials) {
@@ -20817,7 +20796,7 @@ catch(e){}
 var Router = Backbone.Router.extend( routerSetupConfig );
 $(document).ready(function() {
     $('#appContainer').replaceWith( htmlpartials.structure );
-    window.app = new Router;
+    window.app = new Router();
     Backbone.history.start();
     onRouteEvent();
     app.on('route', onRouteEvent);
