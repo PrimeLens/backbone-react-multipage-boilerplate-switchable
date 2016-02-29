@@ -10,7 +10,7 @@ var paths = {
     './src/jsx-pages/**/*.scss'
   ],
   thirdParty: [
-    './src/js/lib/react.js',   // React MUST be first or it empties <body>                
+    './src/js/lib/react-min.js',   // React MUST be first or it empties <body>                
     './src/js/lib/jquery*.js',
     './src/js/lib/underscore-min.js',
     './src/js/lib/backbone-min.js',                

@@ -133,7 +133,7 @@ gulp.task('writePlatformTests', function(done) {
     it('Router base js should not be changed', function() {
       console.log('Router base js should not be changed.');
       var checksum = objectHash(routerSetupConfig);
-      expect(checksum).toBe('0436d9c66802e19ec0a56bb0a902c4f604e55543');
+      expect(checksum).toBe('0b01bfaaf5a56e818198731fc6fa85ff322fcfe0');
     });
     it('should run this example test', function() {
       console.log('This sample test should run.');
