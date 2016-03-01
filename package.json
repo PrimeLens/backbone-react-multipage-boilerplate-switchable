@@ -42,6 +42,7 @@
     "gulp-sass": "^2.2.0",
     "gulp-strip-comments": "^2.2.1",
     "gulp-strip-css-comments": "^1.2.0",
+    "gulp-util": "^3.0.7",
     "jshint": "^2.9.1",
     "karma": "^0.13.19",
     "karma-jasmine": "^0.3.7",
