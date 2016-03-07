@@ -31,14 +31,11 @@ var insert = require('gulp-insert');
 var removeEmptyLines = require('gulp-remove-empty-lines');
 var babel = require('gulp-babel');
 var fc2json = require('gulp-file-contents-to-json');
-var jshint = require('gulp-jshint');
 var addsrc = require('gulp-add-src');
 var karma = require('karma').Server;
 var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var paths = require('./config/gulpconfig.js');
-var jshintConfig = require('./package').jshintConfig;
-jshintConfig.lookup = false;
 
 
 gulp.task('default', function(){   
@@ -113,8 +110,6 @@ gulp.task('4:jsBundle', function(){
 			var comment = '/*! ' + filename + ' */ \n';
 			return comment + contents;
 		}))
-        .pipe(jshint())
-        .pipe(jshint.reporter('default'))        
 		// remove comments, cannot strip comments from jsx file as it crashes
         .pipe(strip({ safe : true }))
         .pipe(removeEmptyLines())
