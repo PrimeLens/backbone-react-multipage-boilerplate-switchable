@@ -1,0 +1,18 @@
+.inceptionpage {
+  border: 3px dotted #eee;
+  font-size: 1.75rem;
+  .inceptionpage {
+    float: left;
+    margin: 10px;
+    font-size: 1.25rem;
+    .inceptionpage {
+      font-size: .75rem;
+    }
+  }
+  img {
+    width: 11.375em !important;
+    height: auto;
+    float: left;
+    margin-right: 10px;
+  }
+}

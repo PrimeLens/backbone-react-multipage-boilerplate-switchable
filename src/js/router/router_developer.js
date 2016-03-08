@@ -65,6 +65,7 @@ routerSetupConfig.routes =  {
     'firefly(/*path)': function(f, q){ this.routeTunnel('react', 'firefly', rc.fireflyPageComponent, f, q); },
 
     'madmax(/*path)': function(f, q){ this.routeTunnel('react', 'madmax', rc.madmaxPageComponent, f, q); },
+    'inception(/*path)': function(f, q){ this.routeTunnel('react', 'inception', rc.inceptionPageComponent, f, q); },
 
 
     '*badroute': function(){ this.navigate('#', {trigger: true}); }
