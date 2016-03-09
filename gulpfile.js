@@ -22,6 +22,7 @@
 var gulp = require('gulp');
 var del = require('del');
 var gutil = require('gulp-util');
+var plumber = require('gulp-plumber');
 var runSequence = require('run-sequence');
 var concat = require('gulp-concat');
 var replace = require('gulp-replace');
@@ -66,25 +67,50 @@ gulp.task('2:jsx', function(){
 			console.log('- ', filename);
 			return comment + contents;
 		}))
+    /*
+    ** Plumber provides custom error-handling.
+    ** 'Found an error' text is printed in red to make it easier to pinpoint errors in the output.
+    ** Also, there is no need to restart Gulp after finding an error.
+    */
+    .pipe(plumber({
+      errorHandler: function(error) {
+        gutil.log(
+          gutil.colors.cyan('Plumber') + gutil.colors.red(' found an error:\n'),
+          error.toString()
+        );
+        this.emit('end');
+      }
+    }))
 		// translate jsx
-        .pipe(babel({
-          presets: ['es2015']
-        }))
+    .pipe(babel({
+      presets: ['es2015', 'react']
+    }))
+    .pipe(plumber.stop())
 		// remove comments, cannot strip comments from jsx file as it crashes
-        .pipe(strip({ safe : true }))		
-        .pipe(removeEmptyLines())
-        .pipe(concat('jsxcompiled.js'))
-        .pipe(gulp.dest('./src/jsxcompiled'));	
+    .pipe(strip({ safe : true }))		
+    .pipe(removeEmptyLines())
+    .pipe(concat('jsxcompiled.js'))
+    .pipe(gulp.dest('./src/jsxcompiled'));	
 });
 
 gulp.task('3:cssBundle', function(){   
   return gulp.src(paths.sass)
+    .pipe(plumber({
+      errorHandler: function(error) {
+        gutil.log(
+          gutil.colors.cyan('Plumber') + gutil.colors.red(' found an error:\n'),
+          error.toString()
+        );
+        this.emit('end');
+      }
+    }))
     .pipe(sass({
       // outputStyle: 'compressed',
       outputStyle: 'nested',
       sourceComments: 'map',
       includePaths: []
     }))
+    .pipe(plumber.stop())
     .pipe(autoprefixer())
 		// insert header comment showing filename and tag it so its not deleted
 		.pipe(insert.transform(function(contents, file) {
