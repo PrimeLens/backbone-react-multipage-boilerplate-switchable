@@ -53,8 +53,6 @@ gulp.task('build', function(callback){
 gulp.task('1:partials', function(){   
   return gulp.src(paths.partials)
 		.pipe(fc2json('htmlpartials.js', {extname:false, flat:true}))   // add  , {extname:false})) if they accept my pull request
-		// The following line of code is in because the flat option does not work on Windows. The bug for this plugin is logged @ https://github.com/briangonzalez/gulp-file-contents-to-json/issues/8.
-		.pipe(replace('views-special\\\\structure\\\\structure', 'structure'))
 		.pipe(insert.prepend('window.htmlpartials = '))
 		.pipe(insert.append(';'))
 		.pipe(gulp.dest('./src/htmlcompiled'));
