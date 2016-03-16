@@ -37,6 +37,7 @@ var paths = {
     './src/js/router/appstarter*.js'
   ],
   unitTests: [
+    './platform.spec.js',
     './!(node_modules)/**/*.spec.js'
   ]
 };

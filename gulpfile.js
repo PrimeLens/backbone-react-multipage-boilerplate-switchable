@@ -20,7 +20,6 @@
 
 
 var gulp = require('gulp');
-var del = require('del');
 var gutil = require('gulp-util');
 var plumber = require('gulp-plumber');
 var runSequence = require('run-sequence');
@@ -146,40 +145,13 @@ gulp.task('4:jsBundle', function(){
         .pipe(gulp.dest('./public/prod')) ;   
 });
 
-/*
- *  Per request, platform unit tests are defined in this gulp js file.
- *  Global tests are written to a temporary spec file that the test runner's browser loads.
- *  The temporary spec file is deleted when Gulp is done watching for changes.
-*/
-gulp.task('writePlatformTests', function(done) {
-  var tests = function() {
-    it('Router base js should not be changed', function() {
-      console.log('Router base js should not be changed.');
-      var checksum = objectHash(routerSetupConfig);
-      expect(checksum).toBe('0b01bfaaf5a56e818198731fc6fa85ff322fcfe0');
-    });
-    it('should run this example test', function() {
-      console.log('This sample test should run.');
-      expect(1).toBe(1);
-    });
-  };
-  tests = 'describe(\'suite of tests for the platform\',' + tests + ');';
-  return string_src('platform.spec.js', tests)
-    .pipe(gulp.dest('./'))
-});
-
 gulp.task('test', function(done) {
   new karma({
     configFile: __dirname + '/karma.conf.js'
-  }, function(){ gulp.run('clean'); done(); }).start();
-});
-
-gulp.task('clean', function(done) {
-  del(['./platform.spec.js']);
+  }, function(){ done(); }).start();
 });
 
 gulp.task('buildwatch', function(done) {
-  gulp.start('writePlatformTests');
   gulp.watch(paths.partials, ['1:partials']);
   gulp.watch(paths.jsx, ['2:jsx']);
   gulp.watch(paths.sass, ['3:cssBundle']);

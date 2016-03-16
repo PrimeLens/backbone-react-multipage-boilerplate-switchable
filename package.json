@@ -22,7 +22,6 @@
     "babel-template": "^6.3.13",
     "babel-traverse": "^6.3.26",
     "babel-types": "^6.4.3",
-    "del": "^2.2.0",
     "gulp": "^3.8.11",
     "gulp-add-src": "^0.2.0",
     "gulp-autoprefixer": "^3.1.0",
