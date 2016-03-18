@@ -210,22 +210,6 @@ body {
   color: #a33;
   text-decoration: underline; }
 
-/*! inception/inception.scss */ 
-.inceptionpage {
-  border: 3px dotted #eee;
-  font-size: 1.75rem; }
-  .inceptionpage .inceptionpage {
-    float: left;
-    margin: 10px;
-    font-size: 1.25rem; }
-    .inceptionpage .inceptionpage .inceptionpage {
-      font-size: .75rem; }
-  .inceptionpage img {
-    width: 11.375em !important;
-    height: auto;
-    float: left;
-    margin-right: 10px; }
-
 /*! hungergames/hungergames.scss */ 
 #hungergamespage .hungerinput {
   display: inline-block; }
@@ -262,6 +246,22 @@ body {
   border-color: #adadad;
   cursor: default;
   text-decoration: none; }
+
+/*! inception/inception.scss */ 
+.inceptionpage {
+  border: 3px dotted #eee;
+  font-size: 1.75rem; }
+  .inceptionpage .inceptionpage {
+    float: left;
+    margin: 10px;
+    font-size: 1.25rem; }
+    .inceptionpage .inceptionpage .inceptionpage {
+      font-size: .75rem; }
+  .inceptionpage img {
+    width: 11.375em !important;
+    height: auto;
+    float: left;
+    margin-right: 10px; }
 
 /*! madmax/madmax.scss */ 
 #madmaxpage img {

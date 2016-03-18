@@ -296,47 +296,6 @@ rc.homePageComponent = React.createClass({
     }
 });
 'use strict';
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-/*! inception/inception.jsx */
-rc.inceptionPageComponent = function (_React$Component) {
-  _inherits(InceptionPageComponent, _React$Component);
-  function InceptionPageComponent(props) {
-    _classCallCheck(this, InceptionPageComponent);
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(InceptionPageComponent).call(this, props));
-    var self = _this;
-    _this.state = _.extend(app.status, {});
-    _this.displayName = 'inceptionPageComponent';
-    if (typeof app.status.inception === 'undefined' || app.status.inception.level > 2) {
-      app.status.inception = {};
-      app.status.inception.level = 0;
-    }
-    return _this;
-  }
-  _createClass(InceptionPageComponent, [{
-    key: 'render',
-    value: function render() {
-      console.log(this.displayName + ' render()');
-      var inception = app.status.inception.level < 2 ? React.createElement(rc.inceptionPageComponent, null) : null;
-      app.status.inception.level++;
-      return React.createElement(
-        'div',
-        { className: 'inceptionpage clearfix' },
-        React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/inception/inception.jpg' }),
-        React.createElement(
-          'p',
-          null,
-          'Here we have an example of inception. Also, it is an example of creating a React component using ES6 class notation.'
-        ),
-        inception
-      );
-    }
-  }]);
-  return InceptionPageComponent;
-}(React.Component);
-'use strict';
 /*! hungergames/hungergames.jsx */
 rc.hungergamesPageComponent = React.createClass({
     displayName: 'hungergamesPageComponent',
@@ -425,6 +384,47 @@ rc.hungergamesPageComponent = React.createClass({
         );
     }
 });
+'use strict';
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+/*! inception/inception.jsx */
+rc.inceptionPageComponent = function (_React$Component) {
+  _inherits(InceptionPageComponent, _React$Component);
+  function InceptionPageComponent(props) {
+    _classCallCheck(this, InceptionPageComponent);
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(InceptionPageComponent).call(this, props));
+    var self = _this;
+    _this.state = _.extend(app.status, {});
+    _this.displayName = 'inceptionPageComponent';
+    if (typeof app.status.inception === 'undefined' || app.status.inception.level > 2) {
+      app.status.inception = {};
+      app.status.inception.level = 0;
+    }
+    return _this;
+  }
+  _createClass(InceptionPageComponent, [{
+    key: 'render',
+    value: function render() {
+      console.log(this.displayName + ' render()');
+      var inception = app.status.inception.level < 2 ? React.createElement(rc.inceptionPageComponent, null) : null;
+      app.status.inception.level++;
+      return React.createElement(
+        'div',
+        { className: 'inceptionpage clearfix' },
+        React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/inception/inception.jpg' }),
+        React.createElement(
+          'p',
+          null,
+          'Here we have an example of inception. Also, it is an example of creating a React component using ES6 class notation.'
+        ),
+        inception
+      );
+    }
+  }]);
+  return InceptionPageComponent;
+}(React.Component);
 'use strict';
 /*! madmax/madmax.jsx */
 rc.madmaxPageComponent = React.createClass({
@@ -846,62 +846,62 @@ rc.nav = React.createClass({
 			null,
 			React.createElement(
 				'a',
-				{ className: this.getClassNameWithActive('home'), href: '#' },
+				{ className: this.getClassNameWithActive('home'), href: '/' },
 				'Home'
 			),
 			React.createElement(
 				'a',
-				{ className: this.getClassNameWithActive('exmachina'), href: '#/exmachina' },
+				{ className: this.getClassNameWithActive('exmachina'), href: '/exmachina' },
 				'Ex Machina'
 			),
 			React.createElement(
 				'a',
-				{ className: this.getClassNameWithActive('gameofthrones'), href: '#/gameofthrones' },
+				{ className: this.getClassNameWithActive('gameofthrones'), href: '/gameofthrones' },
 				'Game Of Thrones'
 			),
 			React.createElement(
 				'a',
-				{ className: this.getClassNameWithActive('trueblood'), href: '#/trueblood' },
+				{ className: this.getClassNameWithActive('trueblood'), href: '/trueblood' },
 				'True Blood'
 			),
 			React.createElement(
 				'a',
-				{ className: this.getClassNameWithActive('dexter'), href: '#/dexter' },
+				{ className: this.getClassNameWithActive('dexter'), href: '/dexter' },
 				'Dexter'
 			),
 			React.createElement(
 				'a',
-				{ className: this.getClassNameWithActive('walkingdead'), href: '#/walkingdead' },
+				{ className: this.getClassNameWithActive('walkingdead'), href: '/walkingdead' },
 				'Walking Dead'
 			),
 			React.createElement(
 				'a',
-				{ className: this.getClassNameWithActive('hungergames'), href: '#/hungergames' },
+				{ className: this.getClassNameWithActive('hungergames'), href: '/hungergames' },
 				'Hunger Games'
 			),
 			React.createElement(
 				'a',
-				{ className: this.getClassNameWithActive('hannibal'), href: '#/hannibal' },
+				{ className: this.getClassNameWithActive('hannibal'), href: '/hannibal' },
 				'Hannibal'
 			),
 			React.createElement(
 				'a',
-				{ className: this.getClassNameWithActive('breakingbad'), href: '#/breakingbad' },
+				{ className: this.getClassNameWithActive('breakingbad'), href: '/breakingbad' },
 				'Breaking Bad'
 			),
 			React.createElement(
 				'a',
-				{ className: this.getClassNameWithActive('firefly'), href: '#/firefly' },
+				{ className: this.getClassNameWithActive('firefly'), href: '/firefly' },
 				'Firefly'
 			),
 			React.createElement(
 				'a',
-				{ className: this.getClassNameWithActive('madmax'), href: '#/madmax' },
+				{ className: this.getClassNameWithActive('madmax'), href: '/madmax' },
 				'Mad Max'
 			),
 			React.createElement(
 				'a',
-				{ className: this.getClassNameWithActive('inception'), href: '#/inception' },
+				{ className: this.getClassNameWithActive('inception'), href: '/inception' },
 				'Inception'
 			)
 		);
