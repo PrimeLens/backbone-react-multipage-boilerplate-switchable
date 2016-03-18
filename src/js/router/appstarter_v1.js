@@ -29,7 +29,7 @@ $(document).ready(function() {
     $('#appContainer').replaceWith( htmlpartials.structure );
 
     window.app = new Router();
-    Backbone.history.start();
+    Backbone.history.start({ pushState: true });
 
 
     // this will maintain highlight state in the nav
