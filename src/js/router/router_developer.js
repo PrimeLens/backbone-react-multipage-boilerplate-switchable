@@ -78,13 +78,34 @@ routerSetupConfig.routes =  {
 
 
 
-// ROUTER pre
+// ROUTER hooks
 
 routerSetupConfig.prePageChange =  function(){
-    // any code that must happen before every page change ... place here
+    /*  any code that must happen before every page change ... place here
+        a page means the first url fragment so changing from 
+        #/walkingdead/daryl 
+        to 
+        #/walkingdead/michonne 
+        would NOT qualify 
+    */
+};
+
+routerSetupConfig.postPageChange =  function(){
+    // any code that must happen after every page change ... place here
 
 };
 
+
+
+routerSetupConfig.postRouteChange =  function(){
+    /*  any code that must happen after every ROUTE change ... place here
+        changing from 
+        #/walkingdead/daryl 
+        to 
+        #/walkingdead/michonne 
+        WOULD qualify 
+    */
+}
 
 
 

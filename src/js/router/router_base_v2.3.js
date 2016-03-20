@@ -9,7 +9,7 @@ routerSetupConfig.status = {
     currentRoute : '',
     currentFragsArray : [],
     currentQueryString : '',
-    currentQueryStringArray : [],
+    currentQueryArray : [],
     completedPreload : {}
     // app.status is for app wide vars (this may include data returned from ajax)
     // for page level vars, please store in the view or the component for that page. 
@@ -34,20 +34,26 @@ routerSetupConfig.routeTunnel = function(renderEngine, currentPage, pageHandle, 
         this.status.currentPage = currentPage;
     }
     this.status.currentRoute = Backbone.history.fragment;
-    this.status.currentFragsArray =  f ? f.split('/') : [];
+    this.status.currentFragString = f;
     this.status.currentQueryString = q;
+    this.status.currentFragsArray =  f ? f.split('/') : [];
     /*  convert query string to Array of objects  */
-    this.status.currentQueryStringArray = (typeof q ==='string') ? q.split('&') : [];
+    this.status.currentQueryArray = (typeof q ==='string') ? q.split('&') : [];
     // filter out any arg that does not contain an '='
-    this.status.currentQueryStringArray = _.filter(this.status.currentQueryStringArray, function(v){ return v.indexOf('=') > -1; });
-    // convert to object
-    _.each(this.status.currentQueryStringArray, function(v,i){
+    this.status.currentQueryArray = _.filter(this.status.currentQueryArray, function(v){ return v.indexOf('=') > -1; });
+    // convert to array of objects for currentQueryArray
+    // and create the currentQueryObject
+    this.status.currentQueryObject = {};
+    _.each(this.status.currentQueryArray, function(v,i){
         if (v.indexOf('=') > -1) {
-            self.status.currentQueryStringArray[i] = JSON.parse('{"' + v.replace('=', '":"') + '"}');
+            v = v.split('=');
+            var temp = self.status.currentQueryArray[i] = {};
+            temp[  v[0]  ] = v[1];  
+            self.status.currentQueryObject[  v[0]  ] = v[1]; 
         }
     });        
 
-    // track routing on the console
+    // log routing on the console
     if (pageChanged) { 
         console.log('\n-- new route (new page)'); 
     } else { 
@@ -92,6 +98,8 @@ routerSetupConfig.routeTunnel = function(renderEngine, currentPage, pageHandle, 
                 break;
         }
 
+        // fire the pre-page change hook
+        this.postPageChange();   
     }else {
         // page is not changing but route did so fire the hook
         switch(renderEngine){
@@ -108,6 +116,11 @@ routerSetupConfig.routeTunnel = function(renderEngine, currentPage, pageHandle, 
                 break;
         }
     }
+
+
+    // fire the post route change hook
+    this.postRouteChange();
+
 
 
 

@@ -168,6 +168,8 @@ body {
 #breakingbadpage .panel {
   clear: both; }
 
+/*! dexter/dexter.scss */ 
+
 /*! firefly/firefly.scss */ 
 #fireflypage .mainpic {
   width: 100%;
@@ -190,8 +192,6 @@ body {
   float: left;
   margin: 10px; }
 
-/*! dexter/dexter.scss */ 
-
 /*! hannibal/hannibal.scss */ 
 #hannibalpage img {
   max-width: 300px;
@@ -209,22 +209,6 @@ body {
 #homepage .pagetitle:hover {
   color: #a33;
   text-decoration: underline; }
-
-/*! inception/inception.scss */ 
-.inceptionpage {
-  border: 3px dotted #eee;
-  font-size: 1.75rem; }
-  .inceptionpage .inceptionpage {
-    float: left;
-    margin: 10px;
-    font-size: 1.25rem; }
-    .inceptionpage .inceptionpage .inceptionpage {
-      font-size: .75rem; }
-  .inceptionpage img {
-    width: 11.375em !important;
-    height: auto;
-    float: left;
-    margin-right: 10px; }
 
 /*! hungergames/hungergames.scss */ 
 #hungergamespage .hungerinput {
@@ -262,6 +246,22 @@ body {
   border-color: #adadad;
   cursor: default;
   text-decoration: none; }
+
+/*! inception/inception.scss */ 
+.inceptionpage {
+  border: 3px dotted #eee;
+  font-size: 1.75rem; }
+  .inceptionpage .inceptionpage {
+    float: left;
+    margin: 10px;
+    font-size: 1.25rem; }
+    .inceptionpage .inceptionpage .inceptionpage {
+      font-size: .75rem; }
+  .inceptionpage img {
+    width: 11.375em !important;
+    height: auto;
+    float: left;
+    margin-right: 10px; }
 
 /*! madmax/madmax.scss */ 
 #madmaxpage img {
@@ -316,12 +316,3 @@ body {
   border-color: #adadad;
   cursor: default;
   text-decoration: none; }
-
-/*! home/work in progress/home.scss */ 
-#homepage .pagetitle {
-  font-style: italic;
-  color: #777;
-  display: inline-block; }
-#homepage .pagetitle:hover {
-  color: #a33;
-  text-decoration: underline; }

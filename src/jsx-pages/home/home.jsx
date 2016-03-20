@@ -51,11 +51,15 @@ rc.homePageComponent = React.createClass({
     <p>
         <a className={'pagetitle'} href="#/firefly">Firefly</a> - 
         this page has two sibling components that communicate to each other
-        using event architecture. I've named the event dispatcher grandCentral.
+        using event architecture. The event dispatcher is named grandCentral.
     </p>
     <p>
         <a className={'pagetitle'} href="#/madmax">Mad Max</a> - 
         this page gives an example of how to use the image loader component in conjunction with the BBPreload library.
+    </p>
+    <p>
+        <a className={'pagetitle'} href="#/inception">Inception</a> - 
+        the inception page demonstrates how we can use ES6 notion in our JSX
     </p>
 </div>
 
