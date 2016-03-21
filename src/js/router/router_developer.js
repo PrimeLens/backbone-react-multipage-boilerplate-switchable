@@ -21,6 +21,10 @@ routerSetupConfig.initialize = function() {
     React.render(
         React.createElement( rc.nav ),
         document.getElementById('navcontainer')
+    );
+    React.render(
+        React.createElement( rc.mainmodal ),
+        document.getElementById('modalcontainer')
     );    
     React.render(
         React.createElement( rc.loader ),
@@ -63,9 +67,9 @@ routerSetupConfig.routes =  {
     'hannibal(/*path)': function(f, q){ this.routeTunnel('react', 'hannibal', rc.hannibalPageComponent, f, q); },
     'breakingbad(/*path)': function(f, q){ this.routeTunnel('react', 'breakingbad', rc.breakingbadPageComponent, f, q); },
     'firefly(/*path)': function(f, q){ this.routeTunnel('react', 'firefly', rc.fireflyPageComponent, f, q); },
-
     'madmax(/*path)': function(f, q){ this.routeTunnel('react', 'madmax', rc.madmaxPageComponent, f, q); },
     'inception(/*path)': function(f, q){ this.routeTunnel('react', 'inception', rc.inceptionPageComponent, f, q); },
+    'anime(/*path)': function(f, q){ this.routeTunnel('react', 'anime', rc.animePageComponent, f, q); },
 
 
     '*badroute': function(){ this.navigate('#', {trigger: true}); }
@@ -105,6 +109,12 @@ routerSetupConfig.postRouteChange =  function(){
         #/walkingdead/michonne 
         WOULD qualify 
     */
+
+    // check for modal deeplink
+    if (this.status.currentQueryObject.modalShow) {
+        grandCentral.trigger( 'modalShow', this.status.currentQueryObject.modalShow ); 
+    }
+
 }
 
 

@@ -1,0 +1,103 @@
+
+/* RESPONSIVE STRUCTURE SECTION */
+/* - be repetative as this helps with clarity for debuging */
+/* - change display and float to turn things on and off and lay them out */
+/* - styling, color, borders, font and similar should be done outside this section */
+@media (max-width: 767px) {
+	#modalcontainer {
+		.modalwrapper { 
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+			width: 100%;	
+		}   
+		.modalCloseButtonWrapper { 
+			position : relative;
+			height: 10px; 
+		}
+		.modalCloseButton {
+			position: absolute;
+			top: 0;
+			right: 0;
+		}
+	}
+}
+@media (min-width: 768px) and (max-width: 991px) {
+	#modalcontainer {
+		.modalwrapper { 
+		    position: absolute;
+		    top: 60px;
+		    left: 10%;
+			width: 80%;
+		} 
+		.modalCloseButtonWrapper { 
+			position : relative;
+			height: 0; 
+		}
+		.modalCloseButton {
+			position: absolute;
+			top: -20px;
+			right: -20px;
+		}		
+	}
+}
+@media (min-width: 992px) {
+	#modalcontainer {
+		.modalwrapper { 
+		    position: absolute;
+		    top: 120px;
+		    left: 25%;		
+			width: 50%;
+		}
+		.modalCloseButtonWrapper { 
+			position : relative;
+			height: 0; 
+		}
+		.modalCloseButton {
+			position: absolute;
+			top: -20px;
+			right: -20px;
+		}		
+	}
+}
+
+
+
+
+#modalcontainer { 
+
+	.absolutewrapper {
+    	position: absolute;
+	    top: 0;
+	    height: 100%;
+	    width: 100%;
+		display : none;
+	}
+
+	.greybacking {	
+	    position: relative;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	    background: rgba(77, 77, 77, 0.7);
+	}
+
+	.absolutewrapper.active {
+	    display : block;
+	}	
+
+	.modalwrapper {
+	    background: white;
+	    border-radius: 13px;
+	    border: 2px solid #666;
+	}
+
+	.modalCloseButton img {
+		display: block;
+		border: 0;
+	}
+	.modalContentsWrapper {
+	    padding: 20px;
+	}
+}

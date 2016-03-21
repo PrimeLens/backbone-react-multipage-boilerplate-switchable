@@ -34,7 +34,8 @@ rc.nav = React.createClass({
 	<a className={this.getClassNameWithActive('breakingbad')} href="#/breakingbad">Breaking Bad</a>
 	<a className={this.getClassNameWithActive('firefly')} href="#/firefly">Firefly</a>
 	<a className={this.getClassNameWithActive('madmax')} href="#/madmax">Mad Max</a>
-  <a className={this.getClassNameWithActive('inception')} href="#/inception">Inception</a>
+	<a className={this.getClassNameWithActive('inception')} href="#/inception">Inception</a>
+	<a className={this.getClassNameWithActive('anime')} href="#/anime">Anime</a>
 </div>
         );
     }

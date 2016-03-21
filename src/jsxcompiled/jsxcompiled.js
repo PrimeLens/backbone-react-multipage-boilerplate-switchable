@@ -2,6 +2,83 @@
 /*! rc_header_v1.js */
 var rc = {};
 'use strict';
+/*! anime/anime.jsx */
+rc.animePageComponent = React.createClass({
+    displayName: 'animePageComponent',
+    getInitialState: function getInitialState() {
+        return _.extend(app.status, {});
+    },
+    handleAnimeClick: function handleAnimeClick(modaltemplate) {
+        grandCentral.trigger('modalShow', modaltemplate);
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'animepage' },
+            React.createElement(
+                'p',
+                null,
+                'The anime page is a demonstration of how to have event driven modals that can be deep linkable.'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'Click the following to open just using events and without altering the URL',
+                React.createElement('br', null),
+                React.createElement(
+                    'div',
+                    { className: 'animelink', onClick: this.handleAnimeClick.bind(self, 'deathnoteModal') },
+                    React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/anime/deathnote.jpg' })
+                ),
+                React.createElement(
+                    'div',
+                    { className: 'animelink', onClick: this.handleAnimeClick.bind(self, 'attackontitanModal') },
+                    React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/anime/attackontitan.jpg' })
+                )
+            ),
+            React.createElement(
+                'p',
+                null,
+                'Click the following to open using a deep link. Note this uses the query string parameters.'
+            ),
+            React.createElement(
+                'p',
+                null,
+                React.createElement(
+                    'a',
+                    { className: 'animelink', href: '#/anime?modalShow=deathnoteModal' },
+                    React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/anime/deathnote.jpg' })
+                ),
+                React.createElement(
+                    'a',
+                    { className: 'animelink', href: '#/anime?modalShow=attackontitanModal' },
+                    React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/anime/attackontitan.jpg' })
+                )
+            ),
+            React.createElement(
+                'p',
+                null,
+                'When there is a complex query string the modal close preserves the other query parameters. Clicking below will add other paramters to the query string so you can observe the close.'
+            ),
+            React.createElement(
+                'p',
+                null,
+                React.createElement(
+                    'a',
+                    { className: 'animelink', href: '#/anime?modalShow=deathnoteModal&aaa=111&bbb=222' },
+                    React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/anime/deathnote.jpg' })
+                ),
+                React.createElement(
+                    'a',
+                    { className: 'animelink', href: '#/anime?xxx=555&yyy=999&modalShow=attackontitanModal' },
+                    React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/anime/attackontitan.jpg' })
+                )
+            )
+        );
+    }
+});
+'use strict';
 /*! breakingbad/breakingbad.jsx */
 rc.breakingbadPageComponent = React.createClass({
     displayName: 'breakingbadPageComponent',
@@ -767,6 +844,52 @@ rc.walkingPanelCTA = React.createClass({
         );
     }
 });
+'use strict';
+/*! mainmodal/templates/attackontitanModal/attackontitanModal.jsx */
+rc.attackontitanModal = React.createClass({
+    displayName: 'attackontitanModal',
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'attackontitanModal' },
+            React.createElement(
+                'h3',
+                null,
+                'Attack on Titan'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'Attack on Titan is a Japanese anime and manga series. After his hometown is destroyed and his mother is killed, young Eren Jaegar vows to cleanse the earth of the giant humanoid Titans that have brought humanity to the brink of extinction.'
+            ),
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/anime/attackontitan.jpg' })
+        );
+    }
+});
+'use strict';
+/*! mainmodal/templates/deathnoteModal/deathnoteModal.jsx */
+rc.deathnoteModal = React.createClass({
+    displayName: 'deathnoteModal',
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'deathnoteModal' },
+            React.createElement(
+                'h3',
+                null,
+                'Death Note'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'Death Note is a Japanese anime and manga series. Light Yagami, an ordinary university student, receives a death note which changes his life. The death note awakens his warped sense of justice and genius.'
+            ),
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/anime/deathnote.jpg' })
+        );
+    }
+});
 "use strict";
 /*! header/header.jsx */
 rc.header = React.createClass({
@@ -822,6 +945,75 @@ rc.loader = React.createClass({
                 'div',
                 { className: 'loadingmessage' },
                 React.createElement('img', { className: 'spinner', src: SiteConfig.assetsDirectory + 'images/ui/spinner.gif' })
+            )
+        );
+    }
+});
+'use strict';
+/*! mainmodal/mainmodal.jsx */
+rc.mainmodal = React.createClass({
+    displayName: 'mainmodal',
+    getInitialState: function getInitialState() {
+        return {
+            show: false,
+            whichTemplate: ''
+        };
+    },
+    componentDidMount: function componentDidMount() {
+        var self = this;
+        grandCentral.off('modalHide').on('modalHide', function () {
+            self.setState({ show: false, whichTemplate: '' });
+        });
+        grandCentral.off('modalShow').on('modalShow', function (payLoad) {
+            self.setState({ show: true, whichTemplate: payLoad });
+        });
+    },
+    handleModalClose: function handleModalClose() {
+        grandCentral.trigger('modalHide');
+        if (app.status.currentQueryObject.modalShow) {
+            var newURL = '#/' + app.status.currentRoute;
+            var stringToRemove = 'modalShow=' + app.status.currentQueryObject.modalShow;
+            newURL = newURL.replace('&' + stringToRemove, '');
+            newURL = newURL.replace(stringToRemove + '&', '');
+            newURL = newURL.replace('?' + stringToRemove, '');
+            window.location.replace(newURL);
+        }
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        var self = this;
+        var classes = this.state.show ? 'absolutewrapper active' : 'absolutewrapper ';
+        var outputArray = [];
+        switch (this.state.whichTemplate) {
+            case 'attackontitanModal':
+                outputArray.push(React.createElement(rc.attackontitanModal, null));break;
+            case 'deathnoteModal':
+                outputArray.push(React.createElement(rc.deathnoteModal, null));break;
+        }
+        return React.createElement(
+            'div',
+            { className: classes },
+            React.createElement(
+                'div',
+                { className: 'greybacking' },
+                React.createElement(
+                    'div',
+                    { className: 'modalwrapper' },
+                    React.createElement(
+                        'div',
+                        { className: 'modalCloseButtonWrapper' },
+                        React.createElement(
+                            'div',
+                            { className: 'modalCloseButton', onClick: self.handleModalClose },
+                            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/ui/modal-close-btn.png' })
+                        )
+                    ),
+                    React.createElement(
+                        'div',
+                        { className: 'modalContentsWrapper' },
+                        outputArray
+                    )
+                )
             )
         );
     }
@@ -913,6 +1105,11 @@ rc.nav = React.createClass({
 				'a',
 				{ className: this.getClassNameWithActive('inception'), href: '#/inception' },
 				'Inception'
+			),
+			React.createElement(
+				'a',
+				{ className: this.getClassNameWithActive('anime'), href: '#/anime' },
+				'Anime'
 			)
 		);
 	}

@@ -7,9 +7,11 @@ routerSetupConfig.status = {
     currentPage : '',
     lastPage : '',
     currentRoute : '',
+    currentFragString : '',
     currentFragsArray : [],
     currentQueryString : '',
     currentQueryArray : [],
+    currentQueryObject : {},
     completedPreload : {}
     // app.status is for app wide vars (this may include data returned from ajax)
     // for page level vars, please store in the view or the component for that page. 
@@ -59,11 +61,11 @@ routerSetupConfig.routeTunnel = function(renderEngine, currentPage, pageHandle, 
     } else { 
         console.log('\n-- new route (hashchange only)'); 
     }
-    console.log('app.status.currentPage='+this.status.currentPage +
-        '\napp.status.lastPage='+this.status.lastPage +
-        '\napp.status.currentRoute='+this.status.currentRoute +
-        '\napp.status.currentFragsArray='+JSON.stringify(this.status.currentFragsArray) +
-        '\napp.status.currentQueryString='+this.status.currentQueryString
+    console.log('app.status.currentPage= '+this.status.currentPage +
+        '\napp.status.lastPage= '+this.status.lastPage +
+        '\napp.status.currentRoute= '+this.status.currentRoute +
+        '\napp.status.currentFragsArray= '+JSON.stringify(this.status.currentFragsArray) +
+        '\napp.status.currentQueryString= '+this.status.currentQueryString
     );
 
 

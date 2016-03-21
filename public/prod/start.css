@@ -46,6 +46,10 @@ body {
 #exmachina a:hover {
   color: #a33; }
 
+/*! mainmodal/templates/attackontitanModal/attackontitanModal.scss */ 
+
+/*! mainmodal/templates/deathnoteModal/deathnoteModal.scss */ 
+
 /*! header/header.scss */ 
 #headercontainer {
   width: 100%;
@@ -81,6 +85,71 @@ body {
 #loadercontainer .spinner {
   width: auto;
   margin-top: -400px; }
+
+/*! mainmodal/mainmodal.scss */ 
+@media (max-width: 767px) {
+  #modalcontainer .modalwrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; }
+  #modalcontainer .modalCloseButtonWrapper {
+    position: relative;
+    height: 10px; }
+  #modalcontainer .modalCloseButton {
+    position: absolute;
+    top: 0;
+    right: 0; } }
+@media (min-width: 768px) and (max-width: 991px) {
+  #modalcontainer .modalwrapper {
+    position: absolute;
+    top: 60px;
+    left: 10%;
+    width: 80%; }
+  #modalcontainer .modalCloseButtonWrapper {
+    position: relative;
+    height: 0; }
+  #modalcontainer .modalCloseButton {
+    position: absolute;
+    top: -20px;
+    right: -20px; } }
+@media (min-width: 992px) {
+  #modalcontainer .modalwrapper {
+    position: absolute;
+    top: 120px;
+    left: 25%;
+    width: 50%; }
+  #modalcontainer .modalCloseButtonWrapper {
+    position: relative;
+    height: 0; }
+  #modalcontainer .modalCloseButton {
+    position: absolute;
+    top: -20px;
+    right: -20px; } }
+#modalcontainer .absolutewrapper {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  display: none; }
+#modalcontainer .greybacking {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(77, 77, 77, 0.7); }
+#modalcontainer .absolutewrapper.active {
+  display: block; }
+#modalcontainer .modalwrapper {
+  background: white;
+  border-radius: 13px;
+  border: 2px solid #666; }
+#modalcontainer .modalCloseButton img {
+  display: block;
+  border: 0; }
+#modalcontainer .modalContentsWrapper {
+  padding: 20px; }
 
 /*! nav/nav.scss */ 
 #navcontainer {
@@ -158,6 +227,18 @@ body {
   text-decoration: underline;
   margin: 20px 20px 40px 0;
   float: left; }
+
+/*! anime/anime.scss */ 
+#animepage {
+  padding-bottom: 200px; }
+  #animepage .animelink {
+    font-style: italic;
+    color: #777;
+    width: 70px;
+    margin-right: 20px;
+    display: inline-block; }
+  #animepage .animelink:hover img {
+    opacity: 0.8; }
 
 /*! breakingbad/breakingbad.scss */ 
 #breakingbadpage img {

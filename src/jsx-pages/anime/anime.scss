@@ -1,0 +1,15 @@
+#animepage {
+	.animelink {
+	    font-style: italic;
+	    color: #777;
+	    width: 70px;
+	    margin-right: 20px;
+	    display: inline-block;
+	}
+	.animelink:hover img {
+		opacity : 0.8;
+	}
+	padding-bottom : 200px;
+
+}
+
