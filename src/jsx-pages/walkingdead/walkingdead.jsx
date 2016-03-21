@@ -21,7 +21,7 @@ rc.walkingPageComponent = React.createClass({
             data = SiteConfig.walking[ key ];
             // errorcheck that the deeplink exists in the config and redirect if its bad
             if (!data) {
-                window.location.replace('#/walkingdead');
+                app.navigate('#/walkingdead');
             } else {
                 panel = <rc.walkingPanel imagepath={ SiteConfig.assetsDirectory + data.path} />;
             }
