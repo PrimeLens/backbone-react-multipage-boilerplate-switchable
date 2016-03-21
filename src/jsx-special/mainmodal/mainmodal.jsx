@@ -22,23 +22,27 @@ rc.mainmodal = React.createClass({
     },  
 
     handleModalClose : function(){
+        // first close the modal
         grandCentral.trigger('modalHide');
-        // now check for modal deeplink and remove it if needed
-        // we will use a url change as we want any url change tracking to notice 
-        // we will rely on react diff to manage and minimize rerender
+        // now check for modal deeplink and remove it from url
+        // the removal must use a url change, this accounts for 
+        // browser back button and tracking done on url changes
+        // we will rely on reactJS diff to manage and minimize page rerender
         // any ajax calls on any such page should be coded to handle page reloads
-        // to my knowledge, browser back buttons do not recognize query string chages
-        if (app.status.currentQueryObject.modalShow) { 
-            var newURL = '#/' + app.status.currentRoute;
-            var stringToRemove = 'modalShow='+app.status.currentQueryObject.modalShow;
-            // check all three possibilities in this order
-            newURL = newURL.replace('&'+stringToRemove,'');
-            newURL = newURL.replace(stringToRemove+'&','');
-            newURL = newURL.replace('?'+stringToRemove,'');
-            // update the URL
-            window.location.replace(newURL);
+        if (app.status.currentFragString) {
+            if (app.status.currentFragString.indexOf('modalShow-') > -1) { 
+                var newURL = '#/' + app.status.currentRoute;
+                var stringToRemove = 'modalShow-'+this.state.whichTemplate;
+                console.log('removing '+ stringToRemove +'from the URL');
+                // check all three possibilities in this order
+                newURL = newURL.replace('/'+stringToRemove,'');
+                newURL = newURL.replace(stringToRemove+'/','');
+                newURL = newURL.replace(stringToRemove,'');
+                // update the URL
+                app.navigate(newURL, true);
+            }
         }
-    },  
+    },
 
     render:function(){
         console.log(this.constructor.displayName+' render()');

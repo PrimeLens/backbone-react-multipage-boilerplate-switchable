@@ -29,29 +29,18 @@ rc.animePageComponent = React.createClass({
     </p>
     <p>
         Click the following to open using a deep link.
-        Note this uses the query string parameters.        
+        The url fragment must consist of modalShow-nameoftemplate 
+        where nameoftemplate is the name of the modal template you want to open
+        Note that modalShow-nameoftemplate must be the last URL fragment.        
     </p>
     <p>
-        <a className="animelink" href="#/anime?modalShow=deathnoteModal">
+        <a className="animelink" href="#/anime/modalShow-deathnoteModal">
             <img src={SiteConfig.assetsDirectory+'images/anime/deathnote.jpg'}/>
         </a> 
-        <a className="animelink" href="#/anime?modalShow=attackontitanModal">
+        <a className="animelink" href="#/anime/modalShow-attackontitanModal">
             <img src={SiteConfig.assetsDirectory+'images/anime/attackontitan.jpg'}/>
         </a>    
-    </p>
-    <p>
-        When there is a complex query string the modal close preserves 
-        the other query parameters. Clicking below will add other paramters 
-        to the query string so you can observe the close.
-    </p>
-    <p>
-        <a className="animelink" href="#/anime?modalShow=deathnoteModal&aaa=111&bbb=222">
-            <img src={SiteConfig.assetsDirectory+'images/anime/deathnote.jpg'}/>
-        </a> 
-        <a className="animelink" href="#/anime?xxx=555&yyy=999&modalShow=attackontitanModal">
-            <img src={SiteConfig.assetsDirectory+'images/anime/attackontitan.jpg'}/>
-        </a>    
-    </p>         
+    </p>     
 </div>
 
         );

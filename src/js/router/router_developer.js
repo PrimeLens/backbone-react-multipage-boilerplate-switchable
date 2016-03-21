@@ -111,10 +111,29 @@ routerSetupConfig.postRouteChange =  function(){
     */
 
     // check for modal deeplink
-    if (this.status.currentQueryObject.modalShow) {
-        grandCentral.trigger( 'modalShow', this.status.currentQueryObject.modalShow ); 
+    if (this.status.currentFragString) {
+        if (this.status.currentFragString.indexOf('modalShow-') > -1) {
+            // get the url fragment that contains 'modalShow-'
+            var modalFragment = _.find(
+                this.status.currentFragsArray,
+                function(item){ return item.indexOf('modalShow-') === 0; }
+            );
+            // get the template name out of that url fragment
+            var chosenTemplate = modalFragment.replace('modalShow-','');
+            // get the index of that fragment out of currentFragsArray
+            var p = this.status.currentFragsArray.indexOf(modalFragment);
+            // now check to make sure that our modalShow- is the LAST fragment
+            // and that chosenTemplate is not an empty string
+            // before calling to open the modal
+            if (p === this.status.currentFragsArray.length-1  && chosenTemplate!='') {
+                console.log('modalShow detected as the last fragment, opening ', chosenTemplate);
+                grandCentral.trigger( 'modalShow', chosenTemplate ); 
+            }
+        }
+    } else {
+        // fire close event anyway in case we are using the browser back button 
+        grandCentral.trigger('modalHide');
     }
-
 }
 
 

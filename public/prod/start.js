@@ -187,38 +187,19 @@ rc.animePageComponent = React.createClass({
             React.createElement(
                 'p',
                 null,
-                'Click the following to open using a deep link. Note this uses the query string parameters.'
+                'Click the following to open using a deep link. The url fragment must consist of modalShow-nameoftemplate where nameoftemplate is the name of the modal template you want to open Note that modalShow-nameoftemplate must be the last URL fragment.'
             ),
             React.createElement(
                 'p',
                 null,
                 React.createElement(
                     'a',
-                    { className: 'animelink', href: '#/anime?modalShow=deathnoteModal' },
+                    { className: 'animelink', href: '#/anime/modalShow-deathnoteModal' },
                     React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/anime/deathnote.jpg' })
                 ),
                 React.createElement(
                     'a',
-                    { className: 'animelink', href: '#/anime?modalShow=attackontitanModal' },
-                    React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/anime/attackontitan.jpg' })
-                )
-            ),
-            React.createElement(
-                'p',
-                null,
-                'When there is a complex query string the modal close preserves the other query parameters. Clicking below will add other paramters to the query string so you can observe the close.'
-            ),
-            React.createElement(
-                'p',
-                null,
-                React.createElement(
-                    'a',
-                    { className: 'animelink', href: '#/anime?modalShow=deathnoteModal&aaa=111&bbb=222' },
-                    React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/anime/deathnote.jpg' })
-                ),
-                React.createElement(
-                    'a',
-                    { className: 'animelink', href: '#/anime?xxx=555&yyy=999&modalShow=attackontitanModal' },
+                    { className: 'animelink', href: '#/anime/modalShow-attackontitanModal' },
                     React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/anime/attackontitan.jpg' })
                 )
             )
@@ -976,28 +957,6 @@ rc.walkingPanelCTA = React.createClass({
         );
     }
 });
-/*! mainmodal/templates/attackontitanModal/attackontitanModal.jsx */
-rc.attackontitanModal = React.createClass({
-    displayName: 'attackontitanModal',
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'attackontitanModal' },
-            React.createElement(
-                'h3',
-                null,
-                'Attack on Titan'
-            ),
-            React.createElement(
-                'p',
-                null,
-                'Attack on Titan is a Japanese anime and manga series. After his hometown is destroyed and his mother is killed, young Eren Jaegar vows to cleanse the earth of the giant humanoid Titans that have brought humanity to the brink of extinction.'
-            ),
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/anime/attackontitan.jpg' })
-        );
-    }
-});
 /*! mainmodal/templates/deathnoteModal/deathnoteModal.jsx */
 rc.deathnoteModal = React.createClass({
     displayName: 'deathnoteModal',
@@ -1017,6 +976,28 @@ rc.deathnoteModal = React.createClass({
                 'Death Note is a Japanese anime and manga series. Light Yagami, an ordinary university student, receives a death note which changes his life. The death note awakens his warped sense of justice and genius.'
             ),
             React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/anime/deathnote.jpg' })
+        );
+    }
+});
+/*! mainmodal/templates/attackontitanModal/attackontitanModal.jsx */
+rc.attackontitanModal = React.createClass({
+    displayName: 'attackontitanModal',
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'attackontitanModal' },
+            React.createElement(
+                'h3',
+                null,
+                'Attack on Titan'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'Attack on Titan is a Japanese anime and manga series. After his hometown is destroyed and his mother is killed, young Eren Jaegar vows to cleanse the earth of the giant humanoid Titans that have brought humanity to the brink of extinction.'
+            ),
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/anime/attackontitan.jpg' })
         );
     }
 });
@@ -1097,13 +1078,16 @@ rc.mainmodal = React.createClass({
     },
     handleModalClose: function handleModalClose() {
         grandCentral.trigger('modalHide');
-        if (app.status.currentQueryObject.modalShow) {
-            var newURL = '#/' + app.status.currentRoute;
-            var stringToRemove = 'modalShow=' + app.status.currentQueryObject.modalShow;
-            newURL = newURL.replace('&' + stringToRemove, '');
-            newURL = newURL.replace(stringToRemove + '&', '');
-            newURL = newURL.replace('?' + stringToRemove, '');
-            window.location.replace(newURL);
+        if (app.status.currentFragString) {
+            if (app.status.currentFragString.indexOf('modalShow-') > -1) {
+                var newURL = '#/' + app.status.currentRoute;
+                var stringToRemove = 'modalShow-' + this.state.whichTemplate;
+                console.log('removing ' + stringToRemove + 'from the URL');
+                newURL = newURL.replace('/' + stringToRemove, '');
+                newURL = newURL.replace(stringToRemove + '/', '');
+                newURL = newURL.replace(stringToRemove, '');
+                app.navigate(newURL, true);
+            }
         }
     },
     render: function render() {
@@ -1448,8 +1432,21 @@ routerSetupConfig.prePageChange =  function(){
 routerSetupConfig.postPageChange =  function(){
 };
 routerSetupConfig.postRouteChange =  function(){
-    if (this.status.currentQueryObject.modalShow) {
-        grandCentral.trigger( 'modalShow', this.status.currentQueryObject.modalShow ); 
+    if (this.status.currentFragString) {
+        if (this.status.currentFragString.indexOf('modalShow-') > -1) {
+            var modalFragment = _.find(
+                this.status.currentFragsArray,
+                function(item){ return item.indexOf('modalShow-') === 0; }
+            );
+            var chosenTemplate = modalFragment.replace('modalShow-','');
+            var p = this.status.currentFragsArray.indexOf(modalFragment);
+            if (p === this.status.currentFragsArray.length-1  && chosenTemplate!='') {
+                console.log('modalShow detected as the last fragment, opening ', chosenTemplate);
+                grandCentral.trigger( 'modalShow', chosenTemplate ); 
+            }
+        }
+    } else {
+        grandCentral.trigger('modalHide');
     }
 }
 routerSetupConfig.appStatusNowReady =  function(){
