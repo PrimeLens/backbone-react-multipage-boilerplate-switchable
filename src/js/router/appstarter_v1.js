@@ -25,7 +25,10 @@ catch(e){}
 
 var Router = Backbone.Router.extend( routerSetupConfig );
 $(document).ready(function() {
-
+    // Added the following line so the line after that does not throw an error when Karma runs the tests without index.html.
+    if (!$('#appContainer').length) {
+        $('body').append("<div id='appContainer'></div>");
+    }
     $('#appContainer').replaceWith( htmlpartials.structure );
 
     window.app = new Router();

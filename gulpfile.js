@@ -46,8 +46,8 @@ gulp.task('default', function(){
 });
 
 // build
-gulp.task('build', function(callback){
-  runSequence(['1:partials', '2:jsx', '3:cssBundle'], ['4:jsBundle'], callback);
+gulp.task('build', function(done){
+  runSequence(['1:partials', '2:jsx', '3:cssBundle'], ['4:jsBundle'], done);
 });
 
 gulp.task('1:partials', function(){   
@@ -63,7 +63,6 @@ gulp.task('2:jsx', function(){
 		.pipe(insert.transform(function(contents, file) {
 			var filename = file.path.replace(file.base,'');
 			var comment = '/*! ' + filename + ' */ \n';
-			console.log('- ', filename);
 			return comment + contents;
 		}))
     /*
@@ -144,9 +143,25 @@ gulp.task('4:jsBundle', function(){
 });
 
 gulp.task('test', function(done) {
+  var karmaServer = new karma({
+    singleRun: true,
+    configFile: __dirname + '/karma.conf.js'
+  });
+  karmaServer.on('run_complete', function(browsers, results) {
+    done(results.error ? 'There are test failures' : null);
+  });
+  karmaServer.start();
+});
+
+gulp.task('testwatch', function(done) {
   new karma({
+    singleRun: false,
     configFile: __dirname + '/karma.conf.js'
   }, function(){ done(); }).start();
+});
+
+gulp.task('buildtest', function(done) {
+  runSequence(['build'], ['test']);
 });
 
 gulp.task('buildwatch', function(done) {
@@ -154,7 +169,7 @@ gulp.task('buildwatch', function(done) {
   gulp.watch(paths.jsx, ['2:jsx']);
   gulp.watch(paths.sass, ['3:cssBundle']);
   gulp.watch(paths.js, ['4:jsBundle']);
-  gulp.watch(paths.unitTests, ['test']);
+  gulp.watch(paths.unitTests, ['testwatch']);
 });
 
 function string_src(filename, string) {

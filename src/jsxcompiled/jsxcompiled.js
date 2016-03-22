@@ -659,7 +659,7 @@ rc.walkingPageComponent = React.createClass({
         if (key) {
             data = SiteConfig.walking[key];
             if (!data) {
-                window.location.replace('#/walkingdead');
+                app.navigate('#/walkingdead');
             } else {
                 panel = React.createElement(rc.walkingPanel, { imagepath: SiteConfig.assetsDirectory + data.path });
             }
@@ -826,29 +826,6 @@ rc.walkingPanelCTA = React.createClass({
     }
 });
 'use strict';
-/*! mainmodal/templates/deathnoteModal/deathnoteModal.jsx */
-rc.deathnoteModal = React.createClass({
-    displayName: 'deathnoteModal',
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'deathnoteModal' },
-            React.createElement(
-                'h3',
-                null,
-                'Death Note'
-            ),
-            React.createElement(
-                'p',
-                null,
-                'Death Note is a Japanese anime and manga series. Light Yagami, an ordinary university student, receives a death note which changes his life. The death note awakens his warped sense of justice and genius.'
-            ),
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/anime/deathnote.jpg' })
-        );
-    }
-});
-'use strict';
 /*! mainmodal/templates/attackontitanModal/attackontitanModal.jsx */
 rc.attackontitanModal = React.createClass({
     displayName: 'attackontitanModal',
@@ -868,6 +845,29 @@ rc.attackontitanModal = React.createClass({
                 'Attack on Titan is a Japanese anime and manga series. After his hometown is destroyed and his mother is killed, young Eren Jaegar vows to cleanse the earth of the giant humanoid Titans that have brought humanity to the brink of extinction.'
             ),
             React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/anime/attackontitan.jpg' })
+        );
+    }
+});
+'use strict';
+/*! mainmodal/templates/deathnoteModal/deathnoteModal.jsx */
+rc.deathnoteModal = React.createClass({
+    displayName: 'deathnoteModal',
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'deathnoteModal' },
+            React.createElement(
+                'h3',
+                null,
+                'Death Note'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'Death Note is a Japanese anime and manga series. Light Yagami, an ordinary university student, receives a death note which changes his life. The death note awakens his warped sense of justice and genius.'
+            ),
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/anime/deathnote.jpg' })
         );
     }
 });
