@@ -8,10 +8,6 @@ module.exports = function(config) {
     , filesToTest = [
       './src/js/lib/object-hash.js',
       './public/prod/start.js',
-      './src/js/lib/react.js',
-      './src/js/lib/jquery*.js',
-      './src/js/lib/underscore.js',
-      './src/js/lib/backbone.js',
       platformSpecFile,
       specFiles
     ]; 
@@ -70,7 +66,7 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false,
+    singleRun: true,
 
     // Concurrency level
     // how many browser should be started simultaneous
