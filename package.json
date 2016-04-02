@@ -45,10 +45,7 @@
     "run-sequence": "^1.1.5"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "gulp": "gulp",
-    "build": "gulp build",
-    "buildwatch": "gulp buildwatch"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "PrimeLens",
   "license": ""
