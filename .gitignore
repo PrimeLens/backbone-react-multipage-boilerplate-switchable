@@ -1,4 +1,5 @@
-keys.js
+**/keys.js
+./aws/keys.js
 .idea
 .DS_Store
 *.DS_Store
