@@ -39,7 +39,7 @@ rc.mainmodal = React.createClass({
                 newURL = newURL.replace(stringToRemove+'/','');
                 newURL = newURL.replace(stringToRemove,'');
                 // update the URL
-                app.navigate(newURL, true);
+                app.navigate(newURL);
             }
         }
     },
