@@ -1,3 +1,7 @@
+/* We import the SASS variables file once for the entire project,
+	and then use GULP to push across all files before pushing to prod folder 
+*/
+@import '../../src/views-special/structure/variables';
 
 /*  essential site wide css, please don't delete */
 body, html, A, IMG { padding: 0; border: 0; margin: 0; }

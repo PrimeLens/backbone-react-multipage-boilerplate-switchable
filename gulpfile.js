@@ -102,12 +102,7 @@ gulp.task('3:cssBundle', function(){
         this.emit('end');
       }
     }))
-    .pipe(sass({
-      // outputStyle: 'compressed',
-      outputStyle: 'nested',
-      sourceComments: 'map',
-      includePaths: []
-    }))
+
     .pipe(plumber.stop())
     .pipe(autoprefixer())
 		// insert header comment showing filename and tag it so its not deleted
@@ -117,11 +112,18 @@ gulp.task('3:cssBundle', function(){
 			return comment + contents;
 		}))
 		// remove comments, cannot strip comments from jsx file as it crashes
+        .pipe(concat('start.scss'))
+        .pipe(sass({
+          // outputStyle: 'compressed',
+          outputStyle: 'nested',
+          sourceComments: 'map',
+          includePaths: []
+        }))
         .pipe(stripcss())
         .pipe(removeEmptyLines())
         .pipe(addsrc.prepend('./src/css/bootstrap.min.css'))
         .pipe(concat('start.css'))
-        .pipe(gulp.dest('./public/prod'));	         
+        .pipe(gulp.dest('./public/prod'));           
 });
 
 gulp.task('4:jsBundle', function(){   
@@ -165,6 +167,7 @@ gulp.task('buildtest', function(done) {
 });
 
 gulp.task('buildwatch', function(done) {
+  runSequence(['build']);
   gulp.watch(paths.partials, ['1:partials']);
   gulp.watch(paths.jsx, ['2:jsx']);
   gulp.watch(paths.sass, ['3:cssBundle']);
