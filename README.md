@@ -20,6 +20,11 @@
 - node
 - global install of gulp-cli. to do this type npm install --global gulp-cli
 
+# warning for SASS being added
+- the usefulness of nesting to force scope of css rules to a component is too good to ignore
+- SASS support in gulp only covers nesting and variables
+- any SASS complexity you may want above that would be on your own fork and may not be supported by this gulp implementation
+
 # Usage commands
 - node server
 - gulp build
