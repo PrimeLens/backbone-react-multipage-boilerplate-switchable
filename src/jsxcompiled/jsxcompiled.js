@@ -60,6 +60,34 @@ rc.animePageComponent = React.createClass({
     }
 });
 'use strict';
+/*! dexter/dexter.jsx */
+rc.dexterPageComponent = React.createClass({
+    displayName: 'dexterPageComponent',
+    getInitialState: function getInitialState() {
+        return _.extend(app.status, {});
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'dexterpage' },
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/dexterpage/dexter.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                'The Dexter page (as well as the True Blood page) bring in a Parents Advisory child component. Components such as parentsadvisory.jsx are stored in ',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    '/public/jsx-special'
+                ),
+                ' along with any other component that might be shared between pages.'
+            ),
+            React.createElement(rc.parentsadvisory, null)
+        );
+    }
+});
+'use strict';
 /*! breakingbad/breakingbad.jsx */
 rc.breakingbadPageComponent = React.createClass({
     displayName: 'breakingbadPageComponent',
@@ -88,34 +116,6 @@ rc.breakingbadPageComponent = React.createClass({
                 )
             ),
             React.createElement(rc.quizComponent, { data: SiteConfig.quiz.breakingbad })
-        );
-    }
-});
-'use strict';
-/*! dexter/dexter.jsx */
-rc.dexterPageComponent = React.createClass({
-    displayName: 'dexterPageComponent',
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {});
-    },
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'dexterpage' },
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/dexterpage/dexter.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                'The Dexter page (as well as the True Blood page) bring in a Parents Advisory child component. Components such as parentsadvisory.jsx are stored in ',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    '/public/jsx-special'
-                ),
-                ' along with any other component that might be shared between pages.'
-            ),
-            React.createElement(rc.parentsadvisory, null)
         );
     }
 });
@@ -364,47 +364,6 @@ rc.homePageComponent = React.createClass({
     }
 });
 'use strict';
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-/*! inception/inception.jsx */
-rc.inceptionPageComponent = function (_React$Component) {
-  _inherits(InceptionPageComponent, _React$Component);
-  function InceptionPageComponent(props) {
-    _classCallCheck(this, InceptionPageComponent);
-    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(InceptionPageComponent).call(this, props));
-    var self = _this;
-    _this.state = _.extend(app.status, {});
-    _this.displayName = 'inceptionPageComponent';
-    if (typeof app.status.inception === 'undefined' || app.status.inception.level > 2) {
-      app.status.inception = {};
-      app.status.inception.level = 0;
-    }
-    return _this;
-  }
-  _createClass(InceptionPageComponent, [{
-    key: 'render',
-    value: function render() {
-      console.log(this.displayName + ' render()');
-      var inception = app.status.inception.level < 2 ? React.createElement(rc.inceptionPageComponent, null) : null;
-      app.status.inception.level++;
-      return React.createElement(
-        'div',
-        { className: 'inceptionpage clearfix' },
-        React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/inception/inception.jpg' }),
-        React.createElement(
-          'p',
-          null,
-          'Here we have an example of inception. Also, it is an example of creating a React component using ES6 class notation.'
-        ),
-        inception
-      );
-    }
-  }]);
-  return InceptionPageComponent;
-}(React.Component);
-'use strict';
 /*! hungergames/hungergames.jsx */
 rc.hungergamesPageComponent = React.createClass({
     displayName: 'hungergamesPageComponent',
@@ -493,6 +452,47 @@ rc.hungergamesPageComponent = React.createClass({
         );
     }
 });
+'use strict';
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+/*! inception/inception.jsx */
+rc.inceptionPageComponent = function (_React$Component) {
+  _inherits(InceptionPageComponent, _React$Component);
+  function InceptionPageComponent(props) {
+    _classCallCheck(this, InceptionPageComponent);
+    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(InceptionPageComponent).call(this, props));
+    var self = _this;
+    _this.state = _.extend(app.status, {});
+    _this.displayName = 'inceptionPageComponent';
+    if (typeof app.status.inception === 'undefined' || app.status.inception.level > 2) {
+      app.status.inception = {};
+      app.status.inception.level = 0;
+    }
+    return _this;
+  }
+  _createClass(InceptionPageComponent, [{
+    key: 'render',
+    value: function render() {
+      console.log(this.displayName + ' render()');
+      var inception = app.status.inception.level < 2 ? React.createElement(rc.inceptionPageComponent, null) : null;
+      app.status.inception.level++;
+      return React.createElement(
+        'div',
+        { className: 'inceptionpage clearfix' },
+        React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/inception/inception.jpg' }),
+        React.createElement(
+          'p',
+          null,
+          'Here we have an example of inception. Also, it is an example of creating a React component using ES6 class notation.'
+        ),
+        inception
+      );
+    }
+  }]);
+  return InceptionPageComponent;
+}(React.Component);
 'use strict';
 /*! madmax/madmax.jsx */
 rc.madmaxPageComponent = React.createClass({
@@ -871,6 +871,18 @@ rc.deathnoteModal = React.createClass({
         );
     }
 });
+"use strict";
+/*! header/header.jsx */
+rc.header = React.createClass({
+    displayName: "header",
+    render: function render() {
+        return React.createElement(
+            "h2",
+            null,
+            "Backbone Multipage Boilerplate"
+        );
+    }
+});
 'use strict';
 /*! loader/loader.jsx */
 rc.loader = React.createClass({
@@ -947,7 +959,7 @@ rc.mainmodal = React.createClass({
                 newURL = newURL.replace('/' + stringToRemove, '');
                 newURL = newURL.replace(stringToRemove + '/', '');
                 newURL = newURL.replace(stringToRemove, '');
-                app.navigate(newURL, true);
+                app.navigate(newURL);
             }
         }
     },
@@ -1085,18 +1097,6 @@ rc.nav = React.createClass({
 			)
 		);
 	}
-});
-"use strict";
-/*! header/header.jsx */
-rc.header = React.createClass({
-    displayName: "header",
-    render: function render() {
-        return React.createElement(
-            "h2",
-            null,
-            "Backbone Multipage Boilerplate"
-        );
-    }
 });
 "use strict";
 /*! parentsadvisory/parentsadvisory.jsx */
