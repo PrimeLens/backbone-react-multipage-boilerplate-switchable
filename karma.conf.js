@@ -3,10 +3,10 @@
 module.exports = function(config) {
 
   // './src/js/lib/**/*.js',
-  var specFiles = './!(node_modules)/**/*.spec.js'
-      platformSpecFile = './platform.spec.js'
-    , filesToTest = [
-      './src/js/lib/object-hash.js',
+  var specFiles = './!(node_modules)/**/*.spec.js',
+      platformSpecFile = './platform.spec.js',
+      filesToTest = [
+      './src/js/lib/md5.js',
       './public/prod/start.js',
       platformSpecFile,
       specFiles
