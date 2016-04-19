@@ -34,6 +34,8 @@ routerSetupConfig.initialize = function() {
     // the only page that is set up as Backbone view
     this.exmachinaView = new ExmachinaView();
 
+    // Initialize Tracking for Google Analytics
+    // GATracker.initGA('**ENTER ID HERE**'); 
 
 };
 
@@ -110,6 +112,8 @@ routerSetupConfig.postRouteChange =  function(){
         WOULD qualify 
     */
 
+    //GATracker.setPageview();
+
     // check for modal deeplink
     if (this.status.currentFragString) {
         if (this.status.currentFragString.indexOf('modalShow-') > -1) {
@@ -144,7 +148,7 @@ routerSetupConfig.postRouteChange =  function(){
 
 routerSetupConfig.appStatusNowReady =  function(){
 
-
+    //GATracker.setGA();
 
 };
 

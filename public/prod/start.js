@@ -127,6 +127,45 @@ var BBPreload = ( function() {
         batchpreload : batchpreload
 	};
 } )();
+/*! GATracker.js */
+var GATracker = (function(){
+	function initGA(gaid){
+		if (typeof ga == "undefined"){
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        } else {
+        }
+        ga('create', gaid, { 
+            'cookieDomain': 'none', 
+            'name': 'mactrack'
+        }); 
+	}
+	function setGA(){
+		console.log("GATracker.setGA() launched");
+		$('body').off('mouseup','[data-track]').on({
+            'mouseup': function(event) {
+                var eventCategory = 'macmillantrack',
+                    eventAction = 'click',
+                    eventValue = event.currentTarget.attributes["data-track"].value;
+                console.log("jquery--- ", eventCategory, eventAction, eventValue);
+                ga('mactrack.send', 'event', eventCategory, eventAction, eventValue);
+            }
+        }, '[data-track]');
+	}
+	function setPageview(){
+		console.log('*** page ***', window.location.hash);
+		ga('mactrack.send', 'pageview', {
+		    'page': window.location.hash 
+		});
+	}
+	return {
+		initGA: initGA,
+		setGA: setGA,
+		setPageview: setPageview
+	}
+})();
 /*! htmlpartials.js */
  window.htmlpartials = {
   "structure": "<div id=\"appContainer\">\n    <div id=\"headercontainer\"></div>\n    <div id=\"navcontainer\"></div>\n    <div id=\"pagecontainer\"></div>\n    <div id=\"footercontainer\"></div>\n    <div id=\"modalcontainer\"></div>\n    <div id=\"loadercontainer\"></div>\n</div>",
@@ -1058,77 +1097,6 @@ rc.loader = React.createClass({
         );
     }
 });
-/*! mainmodal/mainmodal.jsx */
-rc.mainmodal = React.createClass({
-    displayName: 'mainmodal',
-    getInitialState: function getInitialState() {
-        return {
-            show: false,
-            whichTemplate: ''
-        };
-    },
-    componentDidMount: function componentDidMount() {
-        var self = this;
-        grandCentral.off('modalHide').on('modalHide', function () {
-            self.setState({ show: false, whichTemplate: '' });
-        });
-        grandCentral.off('modalShow').on('modalShow', function (payLoad) {
-            self.setState({ show: true, whichTemplate: payLoad });
-        });
-    },
-    handleModalClose: function handleModalClose() {
-        grandCentral.trigger('modalHide');
-        if (app.status.currentFragString) {
-            if (app.status.currentFragString.indexOf('modalShow-') > -1) {
-                var newURL = '#/' + app.status.currentRoute;
-                var stringToRemove = 'modalShow-' + this.state.whichTemplate;
-                console.log('removing ' + stringToRemove + 'from the URL');
-                newURL = newURL.replace('/' + stringToRemove, '');
-                newURL = newURL.replace(stringToRemove + '/', '');
-                newURL = newURL.replace(stringToRemove, '');
-                app.navigate(newURL);
-            }
-        }
-    },
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        var self = this;
-        var classes = this.state.show ? 'absolutewrapper active' : 'absolutewrapper ';
-        var outputArray = [];
-        switch (this.state.whichTemplate) {
-            case 'attackontitanModal':
-                outputArray.push(React.createElement(rc.attackontitanModal, null));break;
-            case 'deathnoteModal':
-                outputArray.push(React.createElement(rc.deathnoteModal, null));break;
-        }
-        return React.createElement(
-            'div',
-            { className: classes },
-            React.createElement(
-                'div',
-                { className: 'greybacking' },
-                React.createElement(
-                    'div',
-                    { className: 'modalwrapper' },
-                    React.createElement(
-                        'div',
-                        { className: 'modalCloseButtonWrapper' },
-                        React.createElement(
-                            'div',
-                            { className: 'modalCloseButton', onClick: self.handleModalClose },
-                            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/ui/modal-close-btn.png' })
-                        )
-                    ),
-                    React.createElement(
-                        'div',
-                        { className: 'modalContentsWrapper' },
-                        outputArray
-                    )
-                )
-            )
-        );
-    }
-});
 /*! nav/nav.jsx */
 rc.nav = React.createClass({
 	displayName: 'nav',
@@ -1223,6 +1191,77 @@ rc.nav = React.createClass({
 			)
 		);
 	}
+});
+/*! mainmodal/mainmodal.jsx */
+rc.mainmodal = React.createClass({
+    displayName: 'mainmodal',
+    getInitialState: function getInitialState() {
+        return {
+            show: false,
+            whichTemplate: ''
+        };
+    },
+    componentDidMount: function componentDidMount() {
+        var self = this;
+        grandCentral.off('modalHide').on('modalHide', function () {
+            self.setState({ show: false, whichTemplate: '' });
+        });
+        grandCentral.off('modalShow').on('modalShow', function (payLoad) {
+            self.setState({ show: true, whichTemplate: payLoad });
+        });
+    },
+    handleModalClose: function handleModalClose() {
+        grandCentral.trigger('modalHide');
+        if (app.status.currentFragString) {
+            if (app.status.currentFragString.indexOf('modalShow-') > -1) {
+                var newURL = '#/' + app.status.currentRoute;
+                var stringToRemove = 'modalShow-' + this.state.whichTemplate;
+                console.log('removing ' + stringToRemove + 'from the URL');
+                newURL = newURL.replace('/' + stringToRemove, '');
+                newURL = newURL.replace(stringToRemove + '/', '');
+                newURL = newURL.replace(stringToRemove, '');
+                app.navigate(newURL);
+            }
+        }
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        var self = this;
+        var classes = this.state.show ? 'absolutewrapper active' : 'absolutewrapper ';
+        var outputArray = [];
+        switch (this.state.whichTemplate) {
+            case 'attackontitanModal':
+                outputArray.push(React.createElement(rc.attackontitanModal, null));break;
+            case 'deathnoteModal':
+                outputArray.push(React.createElement(rc.deathnoteModal, null));break;
+        }
+        return React.createElement(
+            'div',
+            { className: classes },
+            React.createElement(
+                'div',
+                { className: 'greybacking' },
+                React.createElement(
+                    'div',
+                    { className: 'modalwrapper' },
+                    React.createElement(
+                        'div',
+                        { className: 'modalCloseButtonWrapper' },
+                        React.createElement(
+                            'div',
+                            { className: 'modalCloseButton', onClick: self.handleModalClose },
+                            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/ui/modal-close-btn.png' })
+                        )
+                    ),
+                    React.createElement(
+                        'div',
+                        { className: 'modalContentsWrapper' },
+                        outputArray
+                    )
+                )
+            )
+        );
+    }
 });
 /*! parentsadvisory/parentsadvisory.jsx */
 rc.parentsadvisory = React.createClass({
