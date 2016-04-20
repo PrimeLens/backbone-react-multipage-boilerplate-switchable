@@ -128,7 +128,7 @@ var BBPreload = ( function() {
 	};
 } )();
 /*! GATracker.js */
-var GATracker = (function(){
+ var GATracker = (function(){
 	function initGA(gaid){
 		if (typeof ga == "undefined"){
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -141,21 +141,15 @@ var GATracker = (function(){
             'cookieDomain': 'none', 
             'name': 'mactrack'
         }); 
+        console.log("GA Initalized");
 	}
-	function setGA(){
-		console.log("GATracker.setGA() launched");
-		$('body').off('mouseup','[data-track]').on({
-            'mouseup': function(event) {
-                var eventCategory = 'macmillantrack',
-                    eventAction = 'click',
-                    eventValue = event.currentTarget.attributes["data-track"].value;
-                console.log("jquery--- ", eventCategory, eventAction, eventValue);
-                ga('mactrack.send', 'event', eventCategory, eventAction, eventValue);
-            }
-        }, '[data-track]');
+	function setGA(eventAction, eventValue){
+		var eventCategory = 'macmillantrack';
+		ga('mactrack.send', 'event', eventCategory, eventAction, eventValue);
+		console.log("GA Event: ", eventCategory, eventAction, eventValue);
 	}
 	function setPageview(){
-		console.log('*** page ***', window.location.hash);
+		console.log("GA Pageview Event: ", window.location.hash);
 		ga('mactrack.send', 'pageview', {
 		    'page': window.location.hash 
 		});
@@ -164,6 +158,49 @@ var GATracker = (function(){
 		initGA: initGA,
 		setGA: setGA,
 		setPageview: setPageview
+	}
+})();
+/*! NuxTracker.js */
+var NuxTracker = (function(){
+	var GA = false;
+	var Splunk = false; 
+	var SQSQ = false; 
+	function initTrack(obj){
+		console.log("Initialize tracking for: ", _.keys(obj));
+		if(obj.GA){
+			GATracker.initGA(obj.GA);
+			GA = true;
+		}
+		if(obj.Splunk){
+			console.log("Splunk");
+			Splunk = true;
+		}
+		if(obj.SQSQ){
+			console.log("SQSQ");
+			SQSQ = true;
+		}
+	}
+	function attachTrack(){
+		console.log("Attach Event Tracking");
+		$('body').off('mouseup','[data-track]').on({
+            'mouseup': function(event) {
+                var eventValue = event.currentTarget.attributes["data-track"].value;
+                console.log("click track: ", eventValue);
+                if(GA){
+                	GATracker.setGA("click", eventValue);
+                }
+            }
+        }, '[data-track]');
+	}
+	function sendPageview(){
+		if(GA){
+			GATracker.setPageview();
+		}
+	}
+	return {
+		initTrack: initTrack,
+		attachTrack: attachTrack,
+		sendPageview: sendPageview
 	}
 })();
 /*! htmlpartials.js */
@@ -245,33 +282,6 @@ rc.animePageComponent = React.createClass({
         );
     }
 });
-/*! dexter/dexter.jsx */
-rc.dexterPageComponent = React.createClass({
-    displayName: 'dexterPageComponent',
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {});
-    },
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'dexterpage' },
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/dexterpage/dexter.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                'The Dexter page (as well as the True Blood page) bring in a Parents Advisory child component. Components such as parentsadvisory.jsx are stored in ',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    '/public/jsx-special'
-                ),
-                ' along with any other component that might be shared between pages.'
-            ),
-            React.createElement(rc.parentsadvisory, null)
-        );
-    }
-});
 /*! breakingbad/breakingbad.jsx */
 rc.breakingbadPageComponent = React.createClass({
     displayName: 'breakingbadPageComponent',
@@ -300,6 +310,33 @@ rc.breakingbadPageComponent = React.createClass({
                 )
             ),
             React.createElement(rc.quizComponent, { data: SiteConfig.quiz.breakingbad })
+        );
+    }
+});
+/*! dexter/dexter.jsx */
+rc.dexterPageComponent = React.createClass({
+    displayName: 'dexterPageComponent',
+    getInitialState: function getInitialState() {
+        return _.extend(app.status, {});
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'dexterpage' },
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/dexterpage/dexter.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                'The Dexter page (as well as the True Blood page) bring in a Parents Advisory child component. Components such as parentsadvisory.jsx are stored in ',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    '/public/jsx-special'
+                ),
+                ' along with any other component that might be shared between pages.'
+            ),
+            React.createElement(rc.parentsadvisory, null)
         );
     }
 });
@@ -1097,6 +1134,77 @@ rc.loader = React.createClass({
         );
     }
 });
+/*! mainmodal/mainmodal.jsx */
+rc.mainmodal = React.createClass({
+    displayName: 'mainmodal',
+    getInitialState: function getInitialState() {
+        return {
+            show: false,
+            whichTemplate: ''
+        };
+    },
+    componentDidMount: function componentDidMount() {
+        var self = this;
+        grandCentral.off('modalHide').on('modalHide', function () {
+            self.setState({ show: false, whichTemplate: '' });
+        });
+        grandCentral.off('modalShow').on('modalShow', function (payLoad) {
+            self.setState({ show: true, whichTemplate: payLoad });
+        });
+    },
+    handleModalClose: function handleModalClose() {
+        grandCentral.trigger('modalHide');
+        if (app.status.currentFragString) {
+            if (app.status.currentFragString.indexOf('modalShow-') > -1) {
+                var newURL = '#/' + app.status.currentRoute;
+                var stringToRemove = 'modalShow-' + this.state.whichTemplate;
+                console.log('removing ' + stringToRemove + 'from the URL');
+                newURL = newURL.replace('/' + stringToRemove, '');
+                newURL = newURL.replace(stringToRemove + '/', '');
+                newURL = newURL.replace(stringToRemove, '');
+                app.navigate(newURL);
+            }
+        }
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        var self = this;
+        var classes = this.state.show ? 'absolutewrapper active' : 'absolutewrapper ';
+        var outputArray = [];
+        switch (this.state.whichTemplate) {
+            case 'attackontitanModal':
+                outputArray.push(React.createElement(rc.attackontitanModal, null));break;
+            case 'deathnoteModal':
+                outputArray.push(React.createElement(rc.deathnoteModal, null));break;
+        }
+        return React.createElement(
+            'div',
+            { className: classes },
+            React.createElement(
+                'div',
+                { className: 'greybacking' },
+                React.createElement(
+                    'div',
+                    { className: 'modalwrapper' },
+                    React.createElement(
+                        'div',
+                        { className: 'modalCloseButtonWrapper' },
+                        React.createElement(
+                            'div',
+                            { className: 'modalCloseButton', onClick: self.handleModalClose },
+                            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/ui/modal-close-btn.png' })
+                        )
+                    ),
+                    React.createElement(
+                        'div',
+                        { className: 'modalContentsWrapper' },
+                        outputArray
+                    )
+                )
+            )
+        );
+    }
+});
 /*! nav/nav.jsx */
 rc.nav = React.createClass({
 	displayName: 'nav',
@@ -1191,77 +1299,6 @@ rc.nav = React.createClass({
 			)
 		);
 	}
-});
-/*! mainmodal/mainmodal.jsx */
-rc.mainmodal = React.createClass({
-    displayName: 'mainmodal',
-    getInitialState: function getInitialState() {
-        return {
-            show: false,
-            whichTemplate: ''
-        };
-    },
-    componentDidMount: function componentDidMount() {
-        var self = this;
-        grandCentral.off('modalHide').on('modalHide', function () {
-            self.setState({ show: false, whichTemplate: '' });
-        });
-        grandCentral.off('modalShow').on('modalShow', function (payLoad) {
-            self.setState({ show: true, whichTemplate: payLoad });
-        });
-    },
-    handleModalClose: function handleModalClose() {
-        grandCentral.trigger('modalHide');
-        if (app.status.currentFragString) {
-            if (app.status.currentFragString.indexOf('modalShow-') > -1) {
-                var newURL = '#/' + app.status.currentRoute;
-                var stringToRemove = 'modalShow-' + this.state.whichTemplate;
-                console.log('removing ' + stringToRemove + 'from the URL');
-                newURL = newURL.replace('/' + stringToRemove, '');
-                newURL = newURL.replace(stringToRemove + '/', '');
-                newURL = newURL.replace(stringToRemove, '');
-                app.navigate(newURL);
-            }
-        }
-    },
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        var self = this;
-        var classes = this.state.show ? 'absolutewrapper active' : 'absolutewrapper ';
-        var outputArray = [];
-        switch (this.state.whichTemplate) {
-            case 'attackontitanModal':
-                outputArray.push(React.createElement(rc.attackontitanModal, null));break;
-            case 'deathnoteModal':
-                outputArray.push(React.createElement(rc.deathnoteModal, null));break;
-        }
-        return React.createElement(
-            'div',
-            { className: classes },
-            React.createElement(
-                'div',
-                { className: 'greybacking' },
-                React.createElement(
-                    'div',
-                    { className: 'modalwrapper' },
-                    React.createElement(
-                        'div',
-                        { className: 'modalCloseButtonWrapper' },
-                        React.createElement(
-                            'div',
-                            { className: 'modalCloseButton', onClick: self.handleModalClose },
-                            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/ui/modal-close-btn.png' })
-                        )
-                    ),
-                    React.createElement(
-                        'div',
-                        { className: 'modalContentsWrapper' },
-                        outputArray
-                    )
-                )
-            )
-        );
-    }
 });
 /*! parentsadvisory/parentsadvisory.jsx */
 rc.parentsadvisory = React.createClass({
@@ -1449,6 +1486,12 @@ routerSetupConfig.initialize = function() {
         document.getElementById('loadercontainer')
     );   
     this.exmachinaView = new ExmachinaView();
+    NuxTracker.initTrack(
+        { 
+            'GA':'', 
+            'Splunk':''
+        }
+    );
 };
 routerSetupConfig.routes =  {
     '(?*path)': function(f, q){ this.routeTunnel('react', 'home', rc.homePageComponent, f, q); },
@@ -1471,6 +1514,7 @@ routerSetupConfig.prePageChange =  function(){
 routerSetupConfig.postPageChange =  function(){
 };
 routerSetupConfig.postRouteChange =  function(){
+    NuxTracker.sendPageview();
     if (this.status.currentFragString) {
         if (this.status.currentFragString.indexOf('modalShow-') > -1) {
             var modalFragment = _.find(
@@ -1489,6 +1533,7 @@ routerSetupConfig.postRouteChange =  function(){
     }
 }
 routerSetupConfig.appStatusNowReady =  function(){
+    NuxTracker.attachTrack();
 };
 
 /*! appstarter_v1.js */
