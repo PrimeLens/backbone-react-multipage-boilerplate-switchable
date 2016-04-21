@@ -1,13 +1,8 @@
-/*
-	DEPENDS ON jQUERY
-		*see note on Line 55 for pure Javascript
-*/
 
 var GATracker = (function(){
 
 	// Function to initialize Google Analytics
-	// GATracker.initGA(); should be called somewhere global to the app
-	// Typical placement will be in routerSetupConfig.initialize
+	// Called in NuxTracker.initTrack();
 	function initGA(gaid){
 		if (typeof ga == "undefined"){
 
@@ -24,14 +19,12 @@ var GATracker = (function(){
             'cookieDomain': 'none', // localhost testing
             'name': 'mactrack'
         }); 
+        console.log("GA Initalized");
 	}
 
-	// Function to add Event Tracking based on the 'data-track' attribute
-	// GATracker.setGA(); should be placed on every page you want to track
-	// Typical placement will be in routerSetupConfig.appStatusNowReady
-	function setGA(){
-		console.log("GATracker.setGA() launched");
-
+	// Function to send an event to Google Analytics
+	// Called in NuxTracker.attachTrack();
+	function setGA(eventAction, eventValue){
 		/* example:
 			ga('send', {
 				'hitType': 'event',          // Required.
@@ -41,32 +34,20 @@ var GATracker = (function(){
 				'eventValue': 4
 			}); */
 
-		$('body').off('mouseup','[data-track]').on({
-            'mouseup': function(event) {
-                var eventCategory = 'macmillantrack',
-                    eventAction = 'click',
-                    //parent_container = $(event.currentTarget).closest('[id*="ontainer"]').attr('id'),
-                    eventValue = event.currentTarget.attributes["data-track"].value;
-                console.log("jquery--- ", eventCategory, eventAction, eventValue);
-                ga('mactrack.send', 'event', eventCategory, eventAction, eventValue);
-            }
-        }, '[data-track]');
+		var eventCategory = 'macmillantrack';
+			//parent_container = $(event.currentTarget).closest('[id*="ontainer"]').attr('id'),
 
-        // In order to use pure javascript and underscore, you would need to call the setGA() function in componentDidMount()
-		/*_.each(document.body.querySelectorAll('[data-track]'), function(obj){
-			obj.onclick = function(event){
-				console.log("js--- ", event, event.currentTarget);
-			}
-		});*/
+		ga('mactrack.send', 'event', eventCategory, eventAction, eventValue);
+		console.log("GA Event: ", eventCategory, eventAction, eventValue);
+
 	}
 
-	// Function to add Pageview Tracking based on the window.location.hash
-	// GATracker.setPageview(); should be placed on every page/route you want a pageview to be fired
-	// Typical placement will be in componentDidMount() wherever you want to track
+	// Function to send a Pageview event based on the window.location.hash
+	// Called in NuxTracker.sendPageview();
 	function setPageview(){
-		console.log('*** page ***', window.location.hash);
+		console.log("GA Pageview Event: ", window.location.hash);
 		ga('mactrack.send', 'pageview', {
-		    'page': window.location.hash 
+		    'page': window.location.hash // use window.location.pathname for Production Student TOC?
 		});
 	}
 

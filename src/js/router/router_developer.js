@@ -34,8 +34,13 @@ routerSetupConfig.initialize = function() {
     // the only page that is set up as Backbone view
     this.exmachinaView = new ExmachinaView();
 
-    // Initialize Tracking for Google Analytics
-    // GATracker.initGA('**ENTER ID HERE**'); 
+    //Initialize Tracking
+    NuxTracker.initTrack(
+        { 
+            'GA':'', // Insert Campaign Property ID here (starts with UA-)
+            'Splunk':''
+        }
+    );
 
 };
 
@@ -112,7 +117,8 @@ routerSetupConfig.postRouteChange =  function(){
         WOULD qualify 
     */
 
-    //GATracker.setPageview();
+    // Trigger Pageview Tracking
+    NuxTracker.sendPageview();
 
     // check for modal deeplink
     if (this.status.currentFragString) {
@@ -148,7 +154,8 @@ routerSetupConfig.postRouteChange =  function(){
 
 routerSetupConfig.appStatusNowReady =  function(){
 
-    //GATracker.setGA();
+    // Attach Event Tracking to the page
+    NuxTracker.attachTrack();
 
 };
 
