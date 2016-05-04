@@ -2,7 +2,7 @@
 var GATracker = (function(){
 
 	// Function to initialize Google Analytics
-	// Called in NuxTracker.initTrack();
+	// Called in Nux.initTrack();
 	function initGA(gaid){
 		if (typeof ga == "undefined"){
 
@@ -23,7 +23,7 @@ var GATracker = (function(){
 	}
 
 	// Function to send an event to Google Analytics
-	// Called in NuxTracker.attachTrack();
+	// Called in Nux.attachTrack();
 	function setGA(eventAction, eventValue){
 		/* example:
 			ga('send', {
@@ -42,12 +42,12 @@ var GATracker = (function(){
 
 	}
 
-	// Function to send a Pageview event based on the window.location.hash
-	// Called in NuxTracker.sendPageview();
+	// Function to send a Pageview event based on the window.location.hash (or window.location.pathname?)
+	// Called in Nux.sendPageview();
 	function setPageview(){
 		console.log("GA Pageview Event: ", window.location.hash);
 		ga('mactrack.send', 'pageview', {
-		    'page': window.location.hash // use window.location.pathname for Production Student TOC?
+		    'page': window.location.hash
 		});
 	}
 

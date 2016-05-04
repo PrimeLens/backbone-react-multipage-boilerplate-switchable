@@ -35,7 +35,7 @@ routerSetupConfig.initialize = function() {
     this.exmachinaView = new ExmachinaView();
 
     //Initialize Tracking
-    NuxTracker.initTrack(
+    Nux.initTrack(
         { 
             'GA':'', // Insert Campaign Property ID here (starts with UA-)
             'Splunk':''
@@ -118,7 +118,7 @@ routerSetupConfig.postRouteChange =  function(){
     */
 
     // Trigger Pageview Tracking
-    NuxTracker.sendPageview();
+    Nux.sendPageview();
 
     // check for modal deeplink
     if (this.status.currentFragString) {
@@ -155,7 +155,7 @@ routerSetupConfig.postRouteChange =  function(){
 routerSetupConfig.appStatusNowReady =  function(){
 
     // Attach Event Tracking to the page
-    NuxTracker.attachTrack();
+    Nux.attachTrack();
 
 };
 

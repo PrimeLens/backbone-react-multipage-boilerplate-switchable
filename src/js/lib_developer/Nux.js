@@ -3,7 +3,7 @@
 		*see note on Line 56 for pure Javascript
 */
 
-var NuxTracker = (function(){
+var Nux = (function(){
 
 	// List out possible Tracking Vendors
 	var GA = false;
@@ -11,7 +11,7 @@ var NuxTracker = (function(){
 	var SQSQ = false; // testing
 
 	// Function to initialize Tracking
-	// NuxTracker.initTrack(obj); should be called somewhere global to the app
+	// Nux.initTrack(obj); should be called somewhere global to the app
 	// Typical placement will be in routerSetupConfig.initialize
 	function initTrack(obj){
 		console.log("Initialize tracking for: ", _.keys(obj));
@@ -37,7 +37,7 @@ var NuxTracker = (function(){
 	}
 
 	// Function to add Event Tracking based on the 'data-track' attribute
-	// Nuxtracker.attachTrack(); should be placed on every page you want to track
+	// Nux.attachTrack(); should be placed on every page you want to track
 	// Typical placement will be in routerSetupConfig.appStatusNowReady
 	function attachTrack(){
 		console.log("Attach Event Tracking");
@@ -63,7 +63,7 @@ var NuxTracker = (function(){
 	}
 
 	// Function to add Pageview Tracking
-	// NuxTracker.sendPageview(); should be placed on every page/route you want a pageview to be fired
+	// Nux.sendPageview(); should be placed on every page/route you want a pageview to be fired
 	// Typical placement will be in componentDidMount() wherever you want to track
 	function sendPageview(){
 		
