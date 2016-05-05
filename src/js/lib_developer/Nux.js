@@ -62,6 +62,15 @@ var Nux = (function(){
 		});*/
 	}
 
+	// Function to send a Manual Event
+	// Nux.sendManualEvent(vendor, eventAction, eventValue); should be placed wherever you want an event to be tracked other than data-track click events
+	function sendManualEvent(vendor, eventAction, eventValue){
+		// Send Google Analytics Event
+		if(GA && vendor == 'GA'){
+			GATracker.setGA(eventAction, eventValue);
+		}
+	}
+
 	// Function to add Pageview Tracking
 	// Nux.sendPageview(); should be placed on every page/route you want a pageview to be fired
 	// Typical placement will be in componentDidMount() wherever you want to track
@@ -76,6 +85,7 @@ var Nux = (function(){
 	return {
 		initTrack: initTrack,
 		attachTrack: attachTrack,
+		sendManualEvent: sendManualEvent,
 		sendPageview: sendPageview
 	}
 
