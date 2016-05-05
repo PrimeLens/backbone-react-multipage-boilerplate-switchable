@@ -230,6 +230,7 @@ body {
     display: inline-block; }
   #animepage .animelink:hover img {
     opacity: 0.8; }
+/*! dexter/dexter.scss */
 /*! breakingbad/breakingbad.scss */
 #breakingbadpage img {
   max-width: 300px;
@@ -238,7 +239,6 @@ body {
   margin: 0 20px 20px 0; }
 #breakingbadpage .panel {
   clear: both; }
-/*! dexter/dexter.scss */
 /*! firefly/firefly.scss */
 #fireflypage .mainpic {
   width: 100%;

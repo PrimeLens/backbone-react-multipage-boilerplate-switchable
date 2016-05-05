@@ -127,7 +127,7 @@ var BBPreload = ( function() {
         batchpreload : batchpreload
 	};
 } )();
-/*! GATracker.js */
+/*! GATracker_v1.js */
  var GATracker = (function(){
 	function initGA(gaid){
 		if (typeof ga == "undefined"){
@@ -151,7 +151,7 @@ var BBPreload = ( function() {
 	function setPageview(){
 		console.log("GA Pageview Event: ", window.location.hash);
 		ga('mactrack.send', 'pageview', {
-		    'page': window.location.hash 
+		    'page': window.location.hash
 		});
 	}
 	return {
@@ -160,8 +160,8 @@ var BBPreload = ( function() {
 		setPageview: setPageview
 	}
 })();
-/*! NuxTracker.js */
-var NuxTracker = (function(){
+/*! Nux_v1.js */
+var Nux = (function(){
 	var GA = false;
 	var Splunk = false; 
 	var SQSQ = false; 
@@ -192,6 +192,11 @@ var NuxTracker = (function(){
             }
         }, '[data-track]');
 	}
+	function sendManualEvent(vendor, eventAction, eventValue){
+		if(GA && vendor == 'GA'){
+			GATracker.setGA(eventAction, eventValue);
+		}
+	}
 	function sendPageview(){
 		if(GA){
 			GATracker.setPageview();
@@ -200,6 +205,7 @@ var NuxTracker = (function(){
 	return {
 		initTrack: initTrack,
 		attachTrack: attachTrack,
+		sendManualEvent: sendManualEvent,
 		sendPageview: sendPageview
 	}
 })();
@@ -282,6 +288,33 @@ rc.animePageComponent = React.createClass({
         );
     }
 });
+/*! dexter/dexter.jsx */
+rc.dexterPageComponent = React.createClass({
+    displayName: 'dexterPageComponent',
+    getInitialState: function getInitialState() {
+        return _.extend(app.status, {});
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'dexterpage' },
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/dexterpage/dexter.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                'The Dexter page (as well as the True Blood page) bring in a Parents Advisory child component. Components such as parentsadvisory.jsx are stored in ',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    '/public/jsx-special'
+                ),
+                ' along with any other component that might be shared between pages.'
+            ),
+            React.createElement(rc.parentsadvisory, null)
+        );
+    }
+});
 /*! breakingbad/breakingbad.jsx */
 rc.breakingbadPageComponent = React.createClass({
     displayName: 'breakingbadPageComponent',
@@ -310,33 +343,6 @@ rc.breakingbadPageComponent = React.createClass({
                 )
             ),
             React.createElement(rc.quizComponent, { data: SiteConfig.quiz.breakingbad })
-        );
-    }
-});
-/*! dexter/dexter.jsx */
-rc.dexterPageComponent = React.createClass({
-    displayName: 'dexterPageComponent',
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {});
-    },
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'dexterpage' },
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/dexterpage/dexter.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                'The Dexter page (as well as the True Blood page) bring in a Parents Advisory child component. Components such as parentsadvisory.jsx are stored in ',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    '/public/jsx-special'
-                ),
-                ' along with any other component that might be shared between pages.'
-            ),
-            React.createElement(rc.parentsadvisory, null)
         );
     }
 });
@@ -1486,7 +1492,7 @@ routerSetupConfig.initialize = function() {
         document.getElementById('loadercontainer')
     );   
     this.exmachinaView = new ExmachinaView();
-    NuxTracker.initTrack(
+    Nux.initTrack(
         { 
             'GA':'', 
             'Splunk':''
@@ -1514,7 +1520,7 @@ routerSetupConfig.prePageChange =  function(){
 routerSetupConfig.postPageChange =  function(){
 };
 routerSetupConfig.postRouteChange =  function(){
-    NuxTracker.sendPageview();
+    Nux.sendPageview();
     if (this.status.currentFragString) {
         if (this.status.currentFragString.indexOf('modalShow-') > -1) {
             var modalFragment = _.find(
@@ -1533,7 +1539,7 @@ routerSetupConfig.postRouteChange =  function(){
     }
 }
 routerSetupConfig.appStatusNowReady =  function(){
-    NuxTracker.attachTrack();
+    Nux.attachTrack();
 };
 
 /*! appstarter_v1.js */
