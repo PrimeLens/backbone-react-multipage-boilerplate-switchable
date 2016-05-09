@@ -120,6 +120,84 @@ rc.breakingbadPageComponent = React.createClass({
     }
 });
 'use strict';
+/*! firefly/firefly.jsx */
+rc.fireflyPageComponent = React.createClass({
+    displayName: 'fireflyPageComponent',
+    getInitialState: function getInitialState() {
+        return _.extend(app.status, {});
+    },
+    componentDidMount: function componentDidMount() {
+        grandCentral.trigger('to_fireflyDescriptions', {
+            imagepath: SiteConfig.assetsDirectory + 'images/fireflypage/firefly-reaver.jpg',
+            description: 'Ghoulish Reaver Ships, attacking a village'
+        });
+        grandCentral.trigger('to_fireflyDescriptions', {
+            imagepath: SiteConfig.assetsDirectory + 'images/fireflypage/firefly-spacestation.jpg',
+            description: 'Niska\'s Skyplex Spacestation, orbiting Ezra'
+        });
+        grandCentral.trigger('to_fireflyDescriptions', {
+            imagepath: SiteConfig.assetsDirectory + 'images/fireflypage/firefly.jpg',
+            description: 'Serenity, Firefly class spaceship'
+        });
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'fireflypage' },
+            React.createElement('img', { className: 'mainpic', src: SiteConfig.assetsDirectory + 'images/fireflypage/firefly-cast.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                'This page is an example of event driven architecture where sibling components communicate and pass data.'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'Click on an item below and it will move to the other container. An item will either take on text form or image form depending upon which container it is in.'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'Each child component is different and does not save its state when changing away to another page. To do this the state data should be stored in',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    'app.status'
+                )
+            ),
+            React.createElement(
+                'p',
+                null,
+                'When an item is clicked the component takes care of itself by removing the item from its model, sending the event to Grand Central with appropriate payload data and finally rerendering according to its models new content.'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'The last thing to note is that the code for these views is not stored in ',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    '/jsx-special'
+                ),
+                'I chose to do this because its not instanciated on different pages.  Instead each component is instanciated once and is specific to the FireFly page experience.  Therefore it makes sense to store the javascript in ',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    '/jsx-pages/firefly'
+                )
+            ),
+            React.createElement(
+                'p',
+                null,
+                'Note the JSX filenames are ignored at compile time, I could have put all components in the one file and it would be the same.'
+            ),
+            React.createElement(rc.fireflyDescriptions, null),
+            React.createElement(rc.fireflyImages, null)
+        );
+    }
+});
+'use strict';
 /*! hannibal/hannibal.jsx */
 rc.hannibalPageComponent = React.createClass({
     displayName: 'hannibalPageComponent',
@@ -375,84 +453,6 @@ rc.hungergamesPageComponent = React.createClass({
     }
 });
 'use strict';
-/*! firefly/firefly.jsx */
-rc.fireflyPageComponent = React.createClass({
-    displayName: 'fireflyPageComponent',
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {});
-    },
-    componentDidMount: function componentDidMount() {
-        grandCentral.trigger('to_fireflyDescriptions', {
-            imagepath: SiteConfig.assetsDirectory + 'images/fireflypage/firefly-reaver.jpg',
-            description: 'Ghoulish Reaver Ships, attacking a village'
-        });
-        grandCentral.trigger('to_fireflyDescriptions', {
-            imagepath: SiteConfig.assetsDirectory + 'images/fireflypage/firefly-spacestation.jpg',
-            description: 'Niska\'s Skyplex Spacestation, orbiting Ezra'
-        });
-        grandCentral.trigger('to_fireflyDescriptions', {
-            imagepath: SiteConfig.assetsDirectory + 'images/fireflypage/firefly.jpg',
-            description: 'Serenity, Firefly class spaceship'
-        });
-    },
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'fireflypage' },
-            React.createElement('img', { className: 'mainpic', src: SiteConfig.assetsDirectory + 'images/fireflypage/firefly-cast.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                'This page is an example of event driven architecture where sibling components communicate and pass data.'
-            ),
-            React.createElement(
-                'p',
-                null,
-                'Click on an item below and it will move to the other container. An item will either take on text form or image form depending upon which container it is in.'
-            ),
-            React.createElement(
-                'p',
-                null,
-                'Each child component is different and does not save its state when changing away to another page. To do this the state data should be stored in',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    'app.status'
-                )
-            ),
-            React.createElement(
-                'p',
-                null,
-                'When an item is clicked the component takes care of itself by removing the item from its model, sending the event to Grand Central with appropriate payload data and finally rerendering according to its models new content.'
-            ),
-            React.createElement(
-                'p',
-                null,
-                'The last thing to note is that the code for these views is not stored in ',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    '/jsx-special'
-                ),
-                'I chose to do this because its not instanciated on different pages.  Instead each component is instanciated once and is specific to the FireFly page experience.  Therefore it makes sense to store the javascript in ',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    '/jsx-pages/firefly'
-                )
-            ),
-            React.createElement(
-                'p',
-                null,
-                'Note the JSX filenames are ignored at compile time, I could have put all components in the one file and it would be the same.'
-            ),
-            React.createElement(rc.fireflyDescriptions, null),
-            React.createElement(rc.fireflyImages, null)
-        );
-    }
-});
-'use strict';
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -493,38 +493,6 @@ rc.inceptionPageComponent = function (_React$Component) {
   }]);
   return InceptionPageComponent;
 }(React.Component);
-'use strict';
-/*! thrones/thrones.jsx */
-rc.thronesPageComponent = React.createClass({
-    displayName: 'thronesPageComponent',
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {});
-    },
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { className: 'whatevercssclass' },
-            React.createElement(
-                'p',
-                null,
-                'All the other pages follow specific css pattern. The purpose of this page is to demonstrate that this is not locked to this boilerplate. You can set your own.'
-            ),
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/thronespage/gamethrones.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                React.createElement(
-                    'span',
-                    { className: 'specialQuote' },
-                    'Valar morghulis'
-                ),
-                React.createElement('br', null),
-                'translates to "all men must die"'
-            )
-        );
-    }
-});
 'use strict';
 /*! madmax/madmax.jsx */
 rc.madmaxPageComponent = React.createClass({
@@ -614,6 +582,38 @@ rc.madmaxPageComponent = React.createClass({
             );
         }
         return renderHandle;
+    }
+});
+'use strict';
+/*! thrones/thrones.jsx */
+rc.thronesPageComponent = React.createClass({
+    displayName: 'thronesPageComponent',
+    getInitialState: function getInitialState() {
+        return _.extend(app.status, {});
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { className: 'whatevercssclass' },
+            React.createElement(
+                'p',
+                null,
+                'All the other pages follow specific css pattern. The purpose of this page is to demonstrate that this is not locked to this boilerplate. You can set your own.'
+            ),
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/thronespage/gamethrones.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                React.createElement(
+                    'span',
+                    { className: 'specialQuote' },
+                    'Valar morghulis'
+                ),
+                React.createElement('br', null),
+                'translates to "all men must die"'
+            )
+        );
     }
 });
 'use strict';
@@ -1099,6 +1099,26 @@ rc.nav = React.createClass({
 	}
 });
 "use strict";
+/*! parentsadvisory/parentsadvisory.jsx */
+rc.parentsadvisory = React.createClass({
+    displayName: "parentsadvisory",
+    render: function render() {
+        return React.createElement(
+            "div",
+            { className: "parentsadvisory" },
+            React.createElement(
+                "strong",
+                null,
+                "Don't"
+            ),
+            React.createElement("br", null),
+            "let kids",
+            React.createElement("br", null),
+            "watch this"
+        );
+    }
+});
+"use strict";
 /*! quiz/quiz.jsx */
 rc.quizComponent = React.createClass({
     displayName: "quizComponent",
@@ -1131,26 +1151,6 @@ rc.quizComponent = React.createClass({
                 { className: "submitquizbtn" },
                 "Submit"
             )
-        );
-    }
-});
-"use strict";
-/*! parentsadvisory/parentsadvisory.jsx */
-rc.parentsadvisory = React.createClass({
-    displayName: "parentsadvisory",
-    render: function render() {
-        return React.createElement(
-            "div",
-            { className: "parentsadvisory" },
-            React.createElement(
-                "strong",
-                null,
-                "Don't"
-            ),
-            React.createElement("br", null),
-            "let kids",
-            React.createElement("br", null),
-            "watch this"
         );
     }
 });

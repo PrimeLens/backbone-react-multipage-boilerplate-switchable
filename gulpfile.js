@@ -35,7 +35,7 @@ var addsrc = require('gulp-add-src');
 var karma = require('karma').Server;
 var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
-var paths = require('./config/gulpconfig.js');
+var paths = require('./gulpconfig/gulpconfig.js');
 
 
 gulp.task('default', function(){   
@@ -112,18 +112,18 @@ gulp.task('3:cssBundle', function(){
 			return comment + contents;
 		}))
 		// remove comments, cannot strip comments from jsx file as it crashes
-        .pipe(concat('start.scss'))
-        .pipe(sass({
-          // outputStyle: 'compressed',
-          outputStyle: 'nested',
-          sourceComments: 'map',
-          includePaths: []
-        }))
-        .pipe(stripcss())
-        .pipe(removeEmptyLines())
-        .pipe(addsrc.prepend('./src/css/bootstrap.min.css'))
-        .pipe(concat('start.css'))
-        .pipe(gulp.dest('./public/prod'));           
+    .pipe(concat('start.scss'))
+    .pipe(sass({
+      // outputStyle: 'compressed',
+      outputStyle: 'nested',
+      sourceComments: 'map',
+      includePaths: []
+    }))
+    .pipe(stripcss())
+    .pipe(removeEmptyLines())
+    .pipe(addsrc.prepend('./src/css/bootstrap.min.css'))
+    .pipe(concat('start.css'))
+    .pipe(gulp.dest('./public/prod'));           
 });
 
 gulp.task('4:jsBundle', function(){   
@@ -137,11 +137,11 @@ gulp.task('4:jsBundle', function(){
 			return comment + contents;
 		}))
 		// remove comments, cannot strip comments from jsx file as it crashes
-        .pipe(strip({ safe : true }))
-        .pipe(removeEmptyLines())
-        .pipe(addsrc.prepend(paths.thirdParty))
-        .pipe(concat('start.js'))
-        .pipe(gulp.dest('./public/prod')) ;   
+    .pipe(strip({ safe : true }))
+    .pipe(removeEmptyLines())
+    .pipe(addsrc.prepend(paths.thirdParty))
+    .pipe(concat('start.js'))
+    .pipe(gulp.dest('./public/prod')) ;   
 });
 
 gulp.task('test', function(done) {
