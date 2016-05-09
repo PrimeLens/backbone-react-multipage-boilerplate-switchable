@@ -55,7 +55,7 @@ gulp.task('1:partials', function(){
 		.pipe(fc2json('htmlpartials.js', {extname:false, flat:true}))   // add  , {extname:false})) if they accept my pull request
 		.pipe(insert.prepend('window.htmlpartials = '))
 		.pipe(insert.append(';'))
-		.pipe(gulp.dest('./src/htmlcompiled'));
+		.pipe(gulp.dest('./srcbase/htmlcompiled'));
 });
 gulp.task('2:jsx', function(){   
   return gulp.src(paths.jsx)
@@ -88,7 +88,7 @@ gulp.task('2:jsx', function(){
     .pipe(strip({ safe : true }))		
     .pipe(removeEmptyLines())
     .pipe(concat('jsxcompiled.js'))
-    .pipe(gulp.dest('./src/jsxcompiled'));	
+    .pipe(gulp.dest('./srcbase/jsxcompiled'));	
 });
 
 gulp.task('3:cssBundle', function(){   
