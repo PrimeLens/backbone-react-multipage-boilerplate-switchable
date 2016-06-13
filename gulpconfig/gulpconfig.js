@@ -22,6 +22,7 @@ var paths = {
     ],
     jsx: [
         './srcbase/js/rc_header_v1.js',
+        './srcbase/js/dc_header_v1.js',       
         './src/jsx-pages/**/*.jsx',
         './src/jsx-special/**/*.jsx'
     ],

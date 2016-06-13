@@ -15,7 +15,16 @@ routerSetupConfig.status = {
     completedPreload : {}
     // app.status is for app wide vars (this may include data returned from ajax)
     // for page level vars, please store in the view or the component for that page. 
-},
+};
+
+
+routerSetupConfig.stores = {
+    // we use app.status when binding to changes in the URL
+    // we use app.stores when binding to data that is NOT in the URL
+    // for example data may come from the server and be written here by a transform library
+    // alert the component by grandCentral event 
+    // upond hearing event component does this.setState( app.stores.whatevernameData )
+};
 
 
 // pageHandle arg can be a react component or a backbone view, depends on renderEngine arg

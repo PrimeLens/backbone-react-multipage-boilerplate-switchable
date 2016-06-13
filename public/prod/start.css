@@ -185,23 +185,6 @@ body {
   border-color: #adadad;
   cursor: default;
   text-decoration: none; }
-/*! quiz/quiz.scss */
-.quizheader {
-  color: #aaa;
-  font-size: 20px;
-  font-weight: bold;
-  padding-top: 30px;
-  clear: both; }
-.quizitem {
-  font-size: 12px;
-  color: #888;
-  margin: 10px 0; }
-.submitquizbtn {
-  font-size: 12px;
-  color: #888;
-  text-decoration: underline;
-  margin: 20px 20px 40px 0;
-  float: left; }
 /*! parentsadvisory/parentsadvisory.scss */
 .parentsadvisory {
   padding: 14px;
@@ -219,6 +202,23 @@ body {
   transform: rotate(20deg); }
 .parentsadvisory strong {
   font-size: 16px; }
+/*! quiz/quiz.scss */
+.quizheader {
+  color: #aaa;
+  font-size: 20px;
+  font-weight: bold;
+  padding-top: 30px;
+  clear: both; }
+.quizitem {
+  font-size: 12px;
+  color: #888;
+  margin: 10px 0; }
+.submitquizbtn {
+  font-size: 12px;
+  color: #888;
+  text-decoration: underline;
+  margin: 20px 20px 40px 0;
+  float: left; }
 /*! anime/anime.scss */
 #animepage {
   padding-bottom: 200px; }
@@ -230,7 +230,6 @@ body {
     display: inline-block; }
   #animepage .animelink:hover img {
     opacity: 0.8; }
-/*! dexter/dexter.scss */
 /*! breakingbad/breakingbad.scss */
 #breakingbadpage img {
   max-width: 300px;
@@ -239,6 +238,28 @@ body {
   margin: 0 20px 20px 0; }
 #breakingbadpage .panel {
   clear: both; }
+/*! dexter/dexter.scss */
+/*! firefly/firefly.scss */
+#fireflypage .mainpic {
+  width: 100%;
+  max-width: 370px;
+  float: left;
+  margin: 0 20px 20px 0; }
+#fireflypage .container {
+  min-height: 80px;
+  padding: 10px;
+  border: 5px solid #ccc;
+  border-radius: 15px;
+  margin-bottom: 15px; }
+#fireflypage .container.one > * {
+  padding: 10px;
+  border: 1px solid #aaa;
+  margin: 10px;
+  border-radius: 5px; }
+#fireflypage .container.two IMG {
+  height: 100px;
+  float: left;
+  margin: 10px; }
 /*! hannibal/hannibal.scss */
 #hannibalpage img {
   max-width: 300px;
@@ -291,27 +312,6 @@ body {
   border-color: #adadad;
   cursor: default;
   text-decoration: none; }
-/*! firefly/firefly.scss */
-#fireflypage .mainpic {
-  width: 100%;
-  max-width: 370px;
-  float: left;
-  margin: 0 20px 20px 0; }
-#fireflypage .container {
-  min-height: 80px;
-  padding: 10px;
-  border: 5px solid #ccc;
-  border-radius: 15px;
-  margin-bottom: 15px; }
-#fireflypage .container.one > * {
-  padding: 10px;
-  border: 1px solid #aaa;
-  margin: 10px;
-  border-radius: 5px; }
-#fireflypage .container.two IMG {
-  height: 100px;
-  float: left;
-  margin: 10px; }
 /*! inception/inception.scss */
 .inceptionpage {
   border: 3px dotted #eee;
@@ -327,9 +327,6 @@ body {
     height: auto;
     float: left;
     margin-right: 10px; }
-/*! thrones/thrones.scss */
-.whatevercssclass .specialQuote {
-  font-style: italic; }
 /*! madmax/madmax.scss */
 #madmaxpage img {
   Box-sizing: Border-box;
@@ -337,6 +334,9 @@ body {
   min-width: 250px;
   padding: 3px;
   float: left; }
+/*! thrones/thrones.scss */
+.whatevercssclass .specialQuote {
+  font-style: italic; }
 /*! trueblood/trueblood.scss */
 /*! walkingdead/walking.scss */
 #walkingpage .panel {
