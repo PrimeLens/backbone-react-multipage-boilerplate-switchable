@@ -9,6 +9,8 @@
 - checksum on files that shouldn't be edited
 - sass so we can use nesting
 
+![diagram of javascript reference architecture](./readme/boilerplate-code-division-v2.jpg?raw=true)
+
 # Philosophy notes
 - The router is separated or wrapped from the rest of the app so it can be replaced with minimal rewrite if we need to change the tech stack. In this case only the route tunnel function is re-written.
 - All react components are siblings hanging off the window level rc object. No component should reach into another to run a method.  We aim for complete decoupling. Components communicate using events via grandCentral. Any parent child relationship required by layout UI only exists in the DOM. This allows for fast designer redesigns.
