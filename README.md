@@ -155,11 +155,11 @@ to
 work in progress
 
 
-# Pre-requisites
+## Pre-requisites
 - node
 - global install of gulp-cli. to do this type npm install --global gulp-cli
 
-# note on SASS being added
+## Final note on SASS being added
 - SASS support in gulp only covers nesting and variables
 - any SASS complexity you may want above that would be on your own fork and may not be supported by this gulp implementation
 
