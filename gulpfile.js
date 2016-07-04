@@ -107,7 +107,7 @@ gulp.task('3:cssBundle', function(){
         .pipe(autoprefixer())
             // insert header comment showing filename and tag it so its not deleted
             .pipe(insert.transform(function(contents, file) {
-                var filename = file.path.replace(file.base,'').replace('.css','.scss');
+                var filename = file.path.replace(file.base,'');
                 var comment = '/*! ' + filename + ' */ \n';
                 return comment + contents;
             }))

@@ -5,10 +5,15 @@
 var paths = {
     sass: [
         './src/views-special/**/structure.scss',
+        './src/views-special/**/structure.css',
         './src/views-special/**/*.scss',
+        './src/views-special/**/*.css',
         './src/views-pages/**/*.scss',
+        './src/views-pages/**/*.css',
         './src/jsx-special/**/*.scss',
-        './src/jsx-pages/**/*.scss'
+        './src/jsx-special/**/*.css',
+        './src/jsx-pages/**/*.scss',
+        './src/jsx-pages/**/*.css'
     ],
     partials: [
         './src/views-*/**/*.html'
@@ -35,7 +40,7 @@ var paths = {
         './src/views-special/**/*.js',
         './src/views-pages/**/*.js',
         './src/jsx-pages/**/*.js',  // looks for dev's logic libs here as well
-        './src/jsx-special/**/*.js'  // looks for dev's logic libs here as well
+        './src/jsx-special/**/*.js',  // looks for dev's logic libs here as well
         './srcbase/jsxcompiled/jsxcompiled.js',            
         './srcbase/js/grandcentral.js',
         './srcbase/js/router_base*.js',
