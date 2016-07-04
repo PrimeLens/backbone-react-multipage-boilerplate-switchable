@@ -1,0 +1,59 @@
+#jessicajonespage {
+	.itemContainer, 
+	.itemReadout, 
+	.pageDescription {
+		clear: both;
+		margin-top: 20px;
+	}
+	.pageDescription p {
+		margin: 0 0 28px;
+	}	
+	.itemContainer { margin-bottom: 200px; }
+	.poster {
+		height: 120px;
+		float: right;
+		margin: 0 0 8px 14px;
+	}	
+	.item {
+	    font-family: helvetica, arial, sans-serif;
+	    font-weight: bold;
+	    color: #888;
+	    background-color: #fff;
+	    border: 1px solid #ccc;
+	    display: block;
+	    margin-bottom: 15px;
+	    margin-right: 15px;
+	    font-size: 14px;
+	    font-weight: 400;
+	    height: 30px;
+	    line-height: 30px;
+	    text-align: center;
+	    white-space: nowrap;
+	    vertical-align: middle;
+	    cursor: pointer;
+	    -webkit-user-select: none;
+	    -moz-user-select: none;
+	    -ms-user-select: none;
+	    user-select: none;
+	    background-image: none;
+	    border-radius: 4px;
+	    text-decoration: none;
+		-webkit-transition: height .6s;
+		transition: height .6s;
+		-webkit-animation-timing-function: ease-in-out;	    
+	}
+	.item.open {
+	    color: #333;
+	    height: 80px;
+	    border-color: #adadad;
+	    cursor: default;
+	    text-decoration: none;
+	}
+	.item:hover {
+	    text-decoration: underline;
+	    color: #555;
+	    border-color: #777;
+	}
+
+}
+

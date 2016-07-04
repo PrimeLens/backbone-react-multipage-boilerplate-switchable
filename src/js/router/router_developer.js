@@ -13,6 +13,9 @@ routerSetupConfig.initialize = function() {
     this.status.currentPage = this.status.lastPage = this.status.currentRoute = null;
 
 
+    // set up empty stores objects that are required by any components
+    this.stores.jessicajones = {};
+
     // Permanent items as react components
     React.render(
         React.createElement( rc.header ),
@@ -77,6 +80,7 @@ routerSetupConfig.routes =  {
     'madmax(/*path)': function(f, q){ this.routeTunnel('react', 'madmax', rc.madmaxPageComponent, f, q); },
     'inception(/*path)': function(f, q){ this.routeTunnel('react', 'inception', rc.inceptionPageComponent, f, q); },
     'anime(/*path)': function(f, q){ this.routeTunnel('react', 'anime', rc.animePageComponent, f, q); },
+    'jessicajones(/*path)': function(f, q){ this.routeTunnel('react', 'jessicajones', rc.jessicajonesPageComponent, f, q); },
 
 
     '*badroute': function(){ this.navigate('#', {trigger: true}); }

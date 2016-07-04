@@ -15,7 +15,7 @@ rc.inceptionPageComponent = class InceptionPageComponent extends React.Component
     app.status.inception.level++;
     return (
       <div className="inceptionpage clearfix">
-        <img src= {SiteConfig.assetsDirectory+'images/inception/inception.jpg'}/>
+        <img src= {SiteConfig.assetsDirectory+'images/inceptionpage/inception.jpg'}/>
         <p>
             Here we have an example of inception. Also, it is an example of creating a React component using ES6 class notation.
         </p>

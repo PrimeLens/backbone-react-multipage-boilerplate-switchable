@@ -260,12 +260,12 @@ rc.animePageComponent = React.createClass({
                 React.createElement(
                     'div',
                     { className: 'animelink', onClick: this.handleAnimeClick.bind(self, 'deathnoteModal') },
-                    React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/anime/deathnote.jpg' })
+                    React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/animepage/deathnote.jpg' })
                 ),
                 React.createElement(
                     'div',
                     { className: 'animelink', onClick: this.handleAnimeClick.bind(self, 'attackontitanModal') },
-                    React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/anime/attackontitan.jpg' })
+                    React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/animepage/attackontitan.jpg' })
                 )
             ),
             React.createElement(
@@ -279,12 +279,12 @@ rc.animePageComponent = React.createClass({
                 React.createElement(
                     'a',
                     { className: 'animelink', href: '#/anime/modalShow-deathnoteModal' },
-                    React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/anime/deathnote.jpg' })
+                    React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/animepage/deathnote.jpg' })
                 ),
                 React.createElement(
                     'a',
                     { className: 'animelink', href: '#/anime/modalShow-attackontitanModal' },
-                    React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/anime/attackontitan.jpg' })
+                    React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/animepage/attackontitan.jpg' })
                 )
             )
         );
@@ -705,7 +705,7 @@ rc.inceptionPageComponent = function (_React$Component) {
       return React.createElement(
         'div',
         { className: 'inceptionpage clearfix' },
-        React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/inception/inception.jpg' }),
+        React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/inceptionpage/inception.jpg' }),
         React.createElement(
           'p',
           null,
@@ -717,6 +717,70 @@ rc.inceptionPageComponent = function (_React$Component) {
   }]);
   return InceptionPageComponent;
 }(React.Component);
+/*! jessicajones/jessicajones.jsx */
+rc.jessicajonesPageComponent = React.createClass({
+    displayName: 'jessicajonesPageComponent',
+    getInitialState: function getInitialState() {
+        return app.stores.jessicajones;
+    },
+    componentWillMount: function componentWillMount() {
+        if (!app.stores.jessicajones.characters) {
+            app.stores.jessicajones.characters = [{ id: '1-jessica', name: 'Jessica Jones', open: false }, { id: '2-luke', name: 'Luke Cage', open: false }, { id: '3-trish', name: 'Trish Walker', open: false }, { id: '4-will', name: 'Will Simpson', open: false }, { id: '5-jeri', name: 'Jeri Hogarth', open: false }, { id: '6-kilgrave', name: 'Kilgrave', open: false }, { id: '7-malcolm', name: 'Malcolm Ducasse', open: false }, { id: '8-hope', name: 'Hope Shlottman', open: false }];
+        }
+    },
+    handleBubbledClick: function handleBubbledClick(e) {
+        console.log('bubbled clicked on ' + e.target.id);
+        var founditem = _.findWhere(app.stores.jessicajones.characters, { id: e.target.id });
+        _.each(app.stores.jessicajones.characters, function (item, k) {
+            item.open = false;
+        });
+        if (founditem) founditem.open = true;
+        this.setState(app.stores.jessicajones);
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        var outputArray = [];
+        _.each(app.stores.jessicajones.characters, function (item, k) {
+            var classes = item.open ? 'item open' : 'item';
+            outputArray.push(React.createElement(
+                'div',
+                { className: classes, id: item.id },
+                item.name
+            ));
+        });
+        var openItem = _.findWhere(app.stores.jessicajones.characters, { open: true });
+        var openItemMessage = openItem ? 'The open item is ' + openItem.id : 'There is no open item';
+        return React.createElement(
+            'div',
+            { id: 'jessicajonespage' },
+            React.createElement(
+                'div',
+                { className: 'pageDescription clearfix' },
+                React.createElement('img', { className: 'poster', src: SiteConfig.assetsDirectory + 'images/jessicajonespage/jjposter.jpg' }),
+                React.createElement(
+                    'p',
+                    null,
+                    'The Jessica Jones page differs from earlier examples becasue if you navigate away and come back the page remembers which item is open. Check app.stores for debugging purposes and you can see the current data in your components \'model\' or store.'
+                ),
+                React.createElement(
+                    'p',
+                    null,
+                    'Additionally this page is an example of listening to bubbled events. There is only one listener on the wrapper of all the clickable items. To support deeplinking the store should be updated with the correct open item during componentWillMount.'
+                )
+            ),
+            React.createElement(
+                'div',
+                { className: 'itemReadout' },
+                openItemMessage
+            ),
+            React.createElement(
+                'div',
+                { className: 'itemContainer', onClick: this.handleBubbledClick },
+                outputArray
+            )
+        );
+    }
+});
 /*! madmax/madmax.jsx */
 rc.madmaxPageComponent = React.createClass({
     displayName: 'madmaxPageComponent',
@@ -1304,6 +1368,11 @@ rc.nav = React.createClass({
 				'a',
 				{ className: this.getClassNameWithActive('anime'), href: '#/anime' },
 				'Anime'
+			),
+			React.createElement(
+				'a',
+				{ className: this.getClassNameWithActive('jessicajones'), href: '#/jessicajones' },
+				'Jessica Jones'
 			)
 		);
 	}
@@ -1479,6 +1548,7 @@ routerSetupConfig.routeTunnel = function(renderEngine, currentPage, pageHandle, 
 routerSetupConfig.initialize = function() {
     console.log('router initialize()');
     this.status.currentPage = this.status.lastPage = this.status.currentRoute = null;
+    this.stores.jessicajones = {};
     React.render(
         React.createElement( rc.header ),
         document.getElementById('headercontainer')
@@ -1517,6 +1587,7 @@ routerSetupConfig.routes =  {
     'madmax(/*path)': function(f, q){ this.routeTunnel('react', 'madmax', rc.madmaxPageComponent, f, q); },
     'inception(/*path)': function(f, q){ this.routeTunnel('react', 'inception', rc.inceptionPageComponent, f, q); },
     'anime(/*path)': function(f, q){ this.routeTunnel('react', 'anime', rc.animePageComponent, f, q); },
+    'jessicajones(/*path)': function(f, q){ this.routeTunnel('react', 'jessicajones', rc.jessicajonesPageComponent, f, q); },
     '*badroute': function(){ this.navigate('#', {trigger: true}); }
 };
 routerSetupConfig.prePageChange =  function(){

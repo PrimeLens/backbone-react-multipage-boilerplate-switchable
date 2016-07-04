@@ -21,10 +21,10 @@ rc.animePageComponent = React.createClass({
     <p>
         Click the following to open just using events and without altering the URL<br/>
         <div className="animelink" onClick={this.handleAnimeClick.bind(self,'deathnoteModal')}>
-            <img src={SiteConfig.assetsDirectory+'images/anime/deathnote.jpg'}/>
+            <img src={SiteConfig.assetsDirectory+'images/animepage/deathnote.jpg'}/>
         </div> 
         <div className="animelink" onClick={this.handleAnimeClick.bind(self,'attackontitanModal')}>
-            <img src={SiteConfig.assetsDirectory+'images/anime/attackontitan.jpg'}/>
+            <img src={SiteConfig.assetsDirectory+'images/animepage/attackontitan.jpg'}/>
         </div>    
     </p>
     <p>
@@ -35,10 +35,10 @@ rc.animePageComponent = React.createClass({
     </p>
     <p>
         <a className="animelink" href="#/anime/modalShow-deathnoteModal">
-            <img src={SiteConfig.assetsDirectory+'images/anime/deathnote.jpg'}/>
+            <img src={SiteConfig.assetsDirectory+'images/animepage/deathnote.jpg'}/>
         </a> 
         <a className="animelink" href="#/anime/modalShow-attackontitanModal">
-            <img src={SiteConfig.assetsDirectory+'images/anime/attackontitan.jpg'}/>
+            <img src={SiteConfig.assetsDirectory+'images/animepage/attackontitan.jpg'}/>
         </a>    
     </p>     
 </div>

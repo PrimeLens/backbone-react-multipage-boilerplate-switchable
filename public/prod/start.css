@@ -47,23 +47,6 @@ body {
   color: #a33; }
 /*! mainmodal/templates/attackontitanModal/attackontitanModal.scss */
 /*! mainmodal/templates/deathnoteModal/deathnoteModal.scss */
-/*! header/header.scss */
-#headercontainer {
-  width: 100%;
-  background: #e8e8e8;
-  border-top: 4px solid #333;
-  height: 100px;
-  color: #333;
-  font-family: helvetica, arial, sans-serif; }
-#headercontainer h2 {
-  margin: 20px 0 0;
-  padding-left: 20px;
-  background: #eeeeee;
-  background: -webkit-gradient(linear, left top, right top, color-stop(0%, #eeeeee), color-stop(28%, white), color-stop(79%, #eeeeee));
-  background: -webkit-linear-gradient(left, #eeeeee 0%, white 28%, #eeeeee 79%);
-  background: linear-gradient(to right, #eeeeee 0%, white 28%, #eeeeee 79%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#eeeeee',GradientType=1 );
-   }
 /*! loader/loader.scss */
 #loadercontainer #loader {
   display: none;
@@ -81,6 +64,23 @@ body {
 #loadercontainer .spinner {
   width: auto;
   margin-top: -400px; }
+/*! header/header.scss */
+#headercontainer {
+  width: 100%;
+  background: #e8e8e8;
+  border-top: 4px solid #333;
+  height: 100px;
+  color: #333;
+  font-family: helvetica, arial, sans-serif; }
+#headercontainer h2 {
+  margin: 20px 0 0;
+  padding-left: 20px;
+  background: #eeeeee;
+  background: -webkit-gradient(linear, left top, right top, color-stop(0%, #eeeeee), color-stop(28%, white), color-stop(79%, #eeeeee));
+  background: -webkit-linear-gradient(left, #eeeeee 0%, white 28%, #eeeeee 79%);
+  background: linear-gradient(to right, #eeeeee 0%, white 28%, #eeeeee 79%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#eeeeee',GradientType=1 );
+   }
 /*! mainmodal/mainmodal.scss */
 @media (max-width: 767px) {
   #modalcontainer .modalwrapper {
@@ -327,6 +327,57 @@ body {
     height: auto;
     float: left;
     margin-right: 10px; }
+/*! jessicajones/jessicajones.scss */
+#jessicajonespage .itemContainer,
+#jessicajonespage .itemReadout,
+#jessicajonespage .pageDescription {
+  clear: both;
+  margin-top: 20px; }
+#jessicajonespage .pageDescription p {
+  margin: 0 0 28px; }
+#jessicajonespage .itemContainer {
+  margin-bottom: 200px; }
+#jessicajonespage .poster {
+  height: 120px;
+  float: right;
+  margin: 0 0 8px 14px; }
+#jessicajonespage .item {
+  font-family: helvetica, arial, sans-serif;
+  font-weight: bold;
+  color: #888;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  display: block;
+  margin-bottom: 15px;
+  margin-right: 15px;
+  font-size: 14px;
+  font-weight: 400;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border-radius: 4px;
+  text-decoration: none;
+  -webkit-transition: height .6s;
+  transition: height .6s;
+  -webkit-animation-timing-function: ease-in-out; }
+#jessicajonespage .item.open {
+  color: #333;
+  height: 80px;
+  border-color: #adadad;
+  cursor: default;
+  text-decoration: none; }
+#jessicajonespage .item:hover {
+  text-decoration: underline;
+  color: #555;
+  border-color: #777; }
 /*! madmax/madmax.scss */
 #madmaxpage img {
   Box-sizing: Border-box;

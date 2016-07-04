@@ -40,7 +40,9 @@ var paths = {
         './src/views-special/**/*.js',
         './src/views-pages/**/*.js',
         './src/jsx-pages/**/*.js',  // looks for dev's logic libs here as well
+        '!./src/jsx-pages/**/*.spec.js',   //exclude unit test
         './src/jsx-special/**/*.js',  // looks for dev's logic libs here as well
+        '!./src/jsx-special/**/*.spec.js', //exclude unit tests
         './srcbase/jsxcompiled/jsxcompiled.js',            
         './srcbase/js/grandcentral.js',
         './srcbase/js/router_base*.js',
