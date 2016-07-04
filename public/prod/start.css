@@ -45,25 +45,8 @@ body {
   color: #777; }
 #exmachina a:hover {
   color: #a33; }
-/*! mainmodal/templates/attackontitanModal/attackontitanModal.scss */
 /*! mainmodal/templates/deathnoteModal/deathnoteModal.scss */
-/*! loader/loader.scss */
-#loadercontainer #loader {
-  display: none;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.8);
-  top: 0;
-  left: 0; }
-#loadercontainer #loader.active {
-  display: block; }
-#loadercontainer .loadingmessage {
-  top: 50%;
-  position: relative; }
-#loadercontainer .spinner {
-  width: auto;
-  margin-top: -400px; }
+/*! mainmodal/templates/attackontitanModal/attackontitanModal.scss */
 /*! header/header.scss */
 #headercontainer {
   width: 100%;
@@ -81,6 +64,23 @@ body {
   background: linear-gradient(to right, #eeeeee 0%, white 28%, #eeeeee 79%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#eeeeee',GradientType=1 );
    }
+/*! loader/loader.scss */
+#loadercontainer #loader {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  top: 0;
+  left: 0; }
+#loadercontainer #loader.active {
+  display: block; }
+#loadercontainer .loadingmessage {
+  top: 50%;
+  position: relative; }
+#loadercontainer .spinner {
+  width: auto;
+  margin-top: -400px; }
 /*! mainmodal/mainmodal.scss */
 @media (max-width: 767px) {
   #modalcontainer .modalwrapper {
@@ -238,7 +238,6 @@ body {
   margin: 0 20px 20px 0; }
 #breakingbadpage .panel {
   clear: both; }
-/*! dexter/dexter.scss */
 /*! firefly/firefly.scss */
 #fireflypage .mainpic {
   width: 100%;
@@ -260,6 +259,7 @@ body {
   height: 100px;
   float: left;
   margin: 10px; }
+/*! dexter/dexter.scss */
 /*! hannibal/hannibal.scss */
 #hannibalpage img {
   max-width: 300px;

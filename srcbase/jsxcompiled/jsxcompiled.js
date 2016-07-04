@@ -97,34 +97,6 @@ rc.breakingbadPageComponent = React.createClass({
     }
 });
 'use strict';
-/*! dexter/dexter.jsx */
-rc.dexterPageComponent = React.createClass({
-    displayName: 'dexterPageComponent',
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {});
-    },
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'dexterpage' },
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/dexterpage/dexter.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                'The Dexter page (as well as the True Blood page) bring in a Parents Advisory child component. Components such as parentsadvisory.jsx are stored in ',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    '/public/jsx-special'
-                ),
-                ' along with any other component that might be shared between pages.'
-            ),
-            React.createElement(rc.parentsadvisory, null)
-        );
-    }
-});
-'use strict';
 /*! firefly/firefly.jsx */
 rc.fireflyPageComponent = React.createClass({
     displayName: 'fireflyPageComponent',
@@ -199,6 +171,34 @@ rc.fireflyPageComponent = React.createClass({
             ),
             React.createElement(rc.fireflyDescriptions, null),
             React.createElement(rc.fireflyImages, null)
+        );
+    }
+});
+'use strict';
+/*! dexter/dexter.jsx */
+rc.dexterPageComponent = React.createClass({
+    displayName: 'dexterPageComponent',
+    getInitialState: function getInitialState() {
+        return _.extend(app.status, {});
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'dexterpage' },
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/dexterpage/dexter.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                'The Dexter page (as well as the True Blood page) bring in a Parents Advisory child component. Components such as parentsadvisory.jsx are stored in ',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    '/public/jsx-special'
+                ),
+                ' along with any other component that might be shared between pages.'
+            ),
+            React.createElement(rc.parentsadvisory, null)
         );
     }
 });
@@ -364,6 +364,26 @@ rc.homePageComponent = React.createClass({
                     'Inception'
                 ),
                 ' - the inception page demonstrates how we can use ES6 notion in our JSX'
+            ),
+            React.createElement(
+                'p',
+                null,
+                React.createElement(
+                    'a',
+                    { className: 'pagetitle', href: '#/anime' },
+                    'Anime'
+                ),
+                ' - The anime page is a demonstration of how to have event driven modals that can be deep linkable.'
+            ),
+            React.createElement(
+                'p',
+                null,
+                React.createElement(
+                    'a',
+                    { className: 'pagetitle', href: '#/jessicajones' },
+                    'Jessica Jones'
+                ),
+                ' - Example of a component remembering state after navigating away. Also bubbled events.'
             )
         );
     }
@@ -896,29 +916,6 @@ rc.walkingPanelCTA = React.createClass({
     }
 });
 'use strict';
-/*! mainmodal/templates/attackontitanModal/attackontitanModal.jsx */
-rc.attackontitanModal = React.createClass({
-    displayName: 'attackontitanModal',
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'attackontitanModal' },
-            React.createElement(
-                'h3',
-                null,
-                'Attack on Titan'
-            ),
-            React.createElement(
-                'p',
-                null,
-                'Attack on Titan is a Japanese anime and manga series. After his hometown is destroyed and his mother is killed, young Eren Jaegar vows to cleanse the earth of the giant humanoid Titans that have brought humanity to the brink of extinction.'
-            ),
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/anime/attackontitan.jpg' })
-        );
-    }
-});
-'use strict';
 /*! mainmodal/templates/deathnoteModal/deathnoteModal.jsx */
 rc.deathnoteModal = React.createClass({
     displayName: 'deathnoteModal',
@@ -938,6 +935,29 @@ rc.deathnoteModal = React.createClass({
                 'Death Note is a Japanese anime and manga series. Light Yagami, an ordinary university student, receives a death note which changes his life. The death note awakens his warped sense of justice and genius.'
             ),
             React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/anime/deathnote.jpg' })
+        );
+    }
+});
+'use strict';
+/*! mainmodal/templates/attackontitanModal/attackontitanModal.jsx */
+rc.attackontitanModal = React.createClass({
+    displayName: 'attackontitanModal',
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'attackontitanModal' },
+            React.createElement(
+                'h3',
+                null,
+                'Attack on Titan'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'Attack on Titan is a Japanese anime and manga series. After his hometown is destroyed and his mother is killed, young Eren Jaegar vows to cleanse the earth of the giant humanoid Titans that have brought humanity to the brink of extinction.'
+            ),
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/anime/attackontitan.jpg' })
         );
     }
 });

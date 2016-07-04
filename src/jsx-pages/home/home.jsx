@@ -61,6 +61,18 @@ rc.homePageComponent = React.createClass({
         <a className={'pagetitle'} href="#/inception">Inception</a> - 
         the inception page demonstrates how we can use ES6 notion in our JSX
     </p>
+
+    <p>
+        <a className={'pagetitle'} href="#/anime">Anime</a> - 
+        The anime page is a demonstration of how to have event driven modals that can be deep linkable.
+    </p>
+
+        <p>
+        <a className={'pagetitle'} href="#/jessicajones">Jessica Jones</a> - 
+        Example of a component remembering state after navigating away. Also bubbled events.
+    </p>
+
+
 </div>
 
 
