@@ -34,6 +34,8 @@ var paths = {
         './srcbase/htmlcompiled/htmlpartials.js',
         './src/views-special/**/*.js',
         './src/views-pages/**/*.js',
+        './src/jsx-pages/**/*.js',  // looks for dev's logic libs here as well
+        './src/jsx-special/**/*.js'  // looks for dev's logic libs here as well
         './srcbase/jsxcompiled/jsxcompiled.js',            
         './srcbase/js/grandcentral.js',
         './srcbase/js/router_base*.js',
