@@ -16,7 +16,8 @@ var paths = {
         './src/jsx-pages/**/*.css'
     ],
     partials: [
-        './src/views-*/**/*.html'
+        './src/views-*/**/*.html',
+        '!./src/views-ignored/**/*.html',
     ],
     thirdParty: [
         './src/js/lib/react-min.js',   // React MUST be first or it empties <body>                
