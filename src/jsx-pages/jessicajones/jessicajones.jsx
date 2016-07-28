@@ -1,7 +1,7 @@
 rc.jessicajonesPageComponent = React.createClass({
     getInitialState: function(){ 
         // dependencies:  the store must exist before instanciation
-        // delare it as an empty object in router_developer initialize() 
+        if (!app.stores.jessicajones) app.stores.jessicajones = {};        
         return app.stores.jessicajones
     },
     componentWillMount: function(){

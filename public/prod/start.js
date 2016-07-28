@@ -287,6 +287,30 @@ rc.animePageComponent = React.createClass({
         );
     }
 });
+/*! dexter/dexter.jsx */
+rc.dexterPageComponent = React.createClass({
+    displayName: 'dexterPageComponent',
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'dexterpage' },
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/dexterpage/dexter.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                'The Dexter page (as well as the True Blood page) bring in a Parents Advisory child component. Components such as parentsadvisory.jsx are stored in ',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    '/public/jsx-special'
+                ),
+                ' along with any other component that might be shared between pages.'
+            ),
+            React.createElement(rc.parentsadvisory, null)
+        );
+    }
+});
 /*! breakingbad/breakingbad.jsx */
 rc.breakingbadPageComponent = React.createClass({
     displayName: 'breakingbadPageComponent',
@@ -312,30 +336,6 @@ rc.breakingbadPageComponent = React.createClass({
                 )
             ),
             React.createElement(rc.quizComponent, { data: SiteConfig.quiz.breakingbad })
-        );
-    }
-});
-/*! dexter/dexter.jsx */
-rc.dexterPageComponent = React.createClass({
-    displayName: 'dexterPageComponent',
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'dexterpage' },
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/dexterpage/dexter.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                'The Dexter page (as well as the True Blood page) bring in a Parents Advisory child component. Components such as parentsadvisory.jsx are stored in ',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    '/public/jsx-special'
-                ),
-                ' along with any other component that might be shared between pages.'
-            ),
-            React.createElement(rc.parentsadvisory, null)
         );
     }
 });
@@ -721,6 +721,7 @@ rc.inceptionPageComponent = function (_React$Component) {
 rc.jessicajonesPageComponent = React.createClass({
     displayName: 'jessicajonesPageComponent',
     getInitialState: function getInitialState() {
+        if (!app.stores.jessicajones) app.stores.jessicajones = {};
         return app.stores.jessicajones;
     },
     componentWillMount: function componentWillMount() {
@@ -798,7 +799,6 @@ rc.madmaxPageComponent = React.createClass({
             grandCentral.trigger('loaderEnd', 'pageload');
         });
     },
-    stillPreloading: true,
     componentWillMount: function componentWillMount() {
         var name = this.constructor.displayName;
         if (!app.status.completedPreload[name]) {
@@ -1093,28 +1093,6 @@ rc.walkingPanelCTA = React.createClass({
         );
     }
 });
-/*! mainmodal/templates/deathnoteModal/deathnoteModal.jsx */
-rc.deathnoteModal = React.createClass({
-    displayName: 'deathnoteModal',
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'deathnoteModal' },
-            React.createElement(
-                'h3',
-                null,
-                'Death Note'
-            ),
-            React.createElement(
-                'p',
-                null,
-                'Death Note is a Japanese anime and manga series. Light Yagami, an ordinary university student, receives a death note which changes his life. The death note awakens his warped sense of justice and genius.'
-            ),
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/animepage/deathnote.jpg' })
-        );
-    }
-});
 /*! mainmodal/templates/attackontitanModal/attackontitanModal.jsx */
 rc.attackontitanModal = React.createClass({
     displayName: 'attackontitanModal',
@@ -1134,6 +1112,28 @@ rc.attackontitanModal = React.createClass({
                 'Attack on Titan is a Japanese anime and manga series. After his hometown is destroyed and his mother is killed, young Eren Jaegar vows to cleanse the earth of the giant humanoid Titans that have brought humanity to the brink of extinction.'
             ),
             React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/animepage/attackontitan.jpg' })
+        );
+    }
+});
+/*! mainmodal/templates/deathnoteModal/deathnoteModal.jsx */
+rc.deathnoteModal = React.createClass({
+    displayName: 'deathnoteModal',
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'deathnoteModal' },
+            React.createElement(
+                'h3',
+                null,
+                'Death Note'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'Death Note is a Japanese anime and manga series. Light Yagami, an ordinary university student, receives a death note which changes his life. The death note awakens his warped sense of justice and genius.'
+            ),
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/animepage/deathnote.jpg' })
         );
     }
 });
@@ -1536,7 +1536,6 @@ routerSetupConfig.routeTunnel = function(renderEngine, currentPage, pageHandle, 
 routerSetupConfig.initialize = function() {
     console.log('router initialize()');
     this.status.currentPage = this.status.lastPage = this.status.currentRoute = null;
-    this.stores.jessicajones = {};
     React.render(
         React.createElement( rc.header ),
         document.getElementById('headercontainer')

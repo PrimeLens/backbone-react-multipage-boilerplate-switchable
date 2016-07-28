@@ -41,8 +41,7 @@ rc.madmaxPageComponent = React.createClass({
             // message the component with spinning gif
             grandCentral.trigger('loaderEnd', 'pageload');
         });
-    },
-    stillPreloading : true,    
+    },   
     componentWillMount: function(){
         var name = this.constructor.displayName;
         if (!app.status.completedPreload[name]){

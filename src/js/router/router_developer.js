@@ -12,10 +12,6 @@ routerSetupConfig.initialize = function() {
     console.log('router initialize()');
     this.status.currentPage = this.status.lastPage = this.status.currentRoute = null;
 
-
-    // set up empty stores objects that are required by any components
-    this.stores.jessicajones = {};
-
     // Permanent items as react components
     React.render(
         React.createElement( rc.header ),
