@@ -11,7 +11,7 @@ rc.deathnoteModal = React.createClass({
                 note which changes his life. The death note awakens his warped 
                 sense of justice and genius.
                 </p>
-                <img src={SiteConfig.assetsDirectory+'images/anime/deathnote.jpg'}/>     
+                <img src={SiteConfig.assetsDirectory+'images/animepage/deathnote.jpg'}/>     
             </div>
          );
     }

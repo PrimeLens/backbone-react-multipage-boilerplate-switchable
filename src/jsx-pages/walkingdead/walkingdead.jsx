@@ -1,8 +1,4 @@
 rc.walkingPageComponent = React.createClass({
-    getInitialState:function(){
-        return _.extend(app.status, {
-        })
-    },     
 
     render:function(){
         console.log(this.constructor.displayName+' render()');
@@ -13,7 +9,7 @@ rc.walkingPageComponent = React.createClass({
         // inject a Call To Action line of copy to prompt the user
         // use an if else condition as per https://facebook.github.io/react/tips/if-else-in-JSX.html
 
-        var key = this.state.currentFragsArray[0];
+        var key = app.status.currentFragsArray[0];
         var data;
         var panel;
         

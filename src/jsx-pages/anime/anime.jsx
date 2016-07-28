@@ -1,10 +1,5 @@
 rc.animePageComponent = React.createClass({
 
-    getInitialState:function(){
-        return _.extend(app.status, {
-        })
-    },
-
     handleAnimeClick : function(modaltemplate){
         grandCentral.trigger('modalShow', modaltemplate);
     },

@@ -10,9 +10,6 @@ var dc = {};
 /*! anime/anime.jsx */
 rc.animePageComponent = React.createClass({
     displayName: 'animePageComponent',
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {});
-    },
     handleAnimeClick: function handleAnimeClick(modaltemplate) {
         grandCentral.trigger('modalShow', modaltemplate);
     },
@@ -68,9 +65,6 @@ rc.animePageComponent = React.createClass({
 /*! breakingbad/breakingbad.jsx */
 rc.breakingbadPageComponent = React.createClass({
     displayName: 'breakingbadPageComponent',
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {});
-    },
     render: function render() {
         console.log(this.constructor.displayName + ' render()');
         return React.createElement(
@@ -97,12 +91,34 @@ rc.breakingbadPageComponent = React.createClass({
     }
 });
 'use strict';
+/*! dexter/dexter.jsx */
+rc.dexterPageComponent = React.createClass({
+    displayName: 'dexterPageComponent',
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'dexterpage' },
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/dexterpage/dexter.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                'The Dexter page (as well as the True Blood page) bring in a Parents Advisory child component. Components such as parentsadvisory.jsx are stored in ',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    '/public/jsx-special'
+                ),
+                ' along with any other component that might be shared between pages.'
+            ),
+            React.createElement(rc.parentsadvisory, null)
+        );
+    }
+});
+'use strict';
 /*! firefly/firefly.jsx */
 rc.fireflyPageComponent = React.createClass({
     displayName: 'fireflyPageComponent',
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {});
-    },
     componentDidMount: function componentDidMount() {
         grandCentral.trigger('to_fireflyDescriptions', {
             imagepath: SiteConfig.assetsDirectory + 'images/fireflypage/firefly-reaver.jpg',
@@ -175,40 +191,9 @@ rc.fireflyPageComponent = React.createClass({
     }
 });
 'use strict';
-/*! dexter/dexter.jsx */
-rc.dexterPageComponent = React.createClass({
-    displayName: 'dexterPageComponent',
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {});
-    },
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'dexterpage' },
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/dexterpage/dexter.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                'The Dexter page (as well as the True Blood page) bring in a Parents Advisory child component. Components such as parentsadvisory.jsx are stored in ',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    '/public/jsx-special'
-                ),
-                ' along with any other component that might be shared between pages.'
-            ),
-            React.createElement(rc.parentsadvisory, null)
-        );
-    }
-});
-'use strict';
 /*! hannibal/hannibal.jsx */
 rc.hannibalPageComponent = React.createClass({
     displayName: 'hannibalPageComponent',
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {});
-    },
     render: function render() {
         console.log(this.constructor.displayName + ' render()');
         return React.createElement(
@@ -238,9 +223,6 @@ rc.hannibalPageComponent = React.createClass({
 /*! home/home.jsx */
 rc.homePageComponent = React.createClass({
     displayName: 'homePageComponent',
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {});
-    },
     render: function render() {
         console.log(this.constructor.displayName + ' render()');
         return React.createElement(
@@ -393,10 +375,10 @@ rc.homePageComponent = React.createClass({
 rc.hungergamesPageComponent = React.createClass({
     displayName: 'hungergamesPageComponent',
     getInitialState: function getInitialState() {
-        return _.extend(app.status, {
+        return {
             districtNumber: 13,
             sheSaid: ['Peeta I love you', 'Let\'s kill President Snow']
-        });
+        };
     },
     addSaying: function addSaying() {
         this.setState({
@@ -587,9 +569,6 @@ rc.jessicajonesPageComponent = React.createClass({
 /*! madmax/madmax.jsx */
 rc.madmaxPageComponent = React.createClass({
     displayName: 'madmaxPageComponent',
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {});
-    },
     preloadArray: [SiteConfig.assetsDirectory + 'images/madmaxpage/furiosa.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/guitarmadmax.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/immortanjoe.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/nuxvehicle.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/openingscene.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/prisoner.jpg', SiteConfig.assetsDirectory + 'images/madmaxpage/witnessme.jpg'],
     preload: function preload() {
         var self = this;
@@ -678,9 +657,6 @@ rc.madmaxPageComponent = React.createClass({
 /*! thrones/thrones.jsx */
 rc.thronesPageComponent = React.createClass({
     displayName: 'thronesPageComponent',
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {});
-    },
     render: function render() {
         console.log(this.constructor.displayName + ' render()');
         return React.createElement(
@@ -710,9 +686,6 @@ rc.thronesPageComponent = React.createClass({
 /*! trueblood/trueblood.jsx */
 rc.truebloodPageComponent = React.createClass({
     displayName: 'truebloodPageComponent',
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {});
-    },
     render: function render() {
         console.log(this.constructor.displayName + ' render()');
         return React.createElement(
@@ -738,12 +711,9 @@ rc.truebloodPageComponent = React.createClass({
 /*! walkingdead/walkingdead.jsx */
 rc.walkingPageComponent = React.createClass({
     displayName: 'walkingPageComponent',
-    getInitialState: function getInitialState() {
-        return _.extend(app.status, {});
-    },
     render: function render() {
         console.log(this.constructor.displayName + ' render()');
-        var key = this.state.currentFragsArray[0];
+        var key = app.status.currentFragsArray[0];
         var data;
         var panel;
         if (key) {
@@ -934,7 +904,7 @@ rc.deathnoteModal = React.createClass({
                 null,
                 'Death Note is a Japanese anime and manga series. Light Yagami, an ordinary university student, receives a death note which changes his life. The death note awakens his warped sense of justice and genius.'
             ),
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/anime/deathnote.jpg' })
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/animepage/deathnote.jpg' })
         );
     }
 });
@@ -957,7 +927,7 @@ rc.attackontitanModal = React.createClass({
                 null,
                 'Attack on Titan is a Japanese anime and manga series. After his hometown is destroyed and his mother is killed, young Eren Jaegar vows to cleanse the earth of the giant humanoid Titans that have brought humanity to the brink of extinction.'
             ),
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/anime/attackontitan.jpg' })
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/animepage/attackontitan.jpg' })
         );
     }
 });

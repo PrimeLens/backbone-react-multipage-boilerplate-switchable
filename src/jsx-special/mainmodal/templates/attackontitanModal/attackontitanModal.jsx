@@ -11,7 +11,7 @@ rc.attackontitanModal = React.createClass({
 	                vows to cleanse the earth of the giant humanoid Titans that have 
 	                brought humanity to the brink of extinction.
                 </p>
-                <img src={SiteConfig.assetsDirectory+'images/anime/attackontitan.jpg'}/>                            
+                <img src={SiteConfig.assetsDirectory+'images/animepage/attackontitan.jpg'}/>                            
             </div>
          );
     }

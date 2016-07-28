@@ -71,11 +71,7 @@ There is a clear line between project files and boilerplate files. When working 
 
 ##### _React Page Template_
 
-    var rc.aboutPageComponent = React.createClass({
-        getInitialState: function(){
-            return _.extend(app.status, {
-            })
-        },    
+    var rc.aboutPageComponent = React.createClass({ 
         render: function(){
             console.log(this.constructor.displayName+' render()');
             return (

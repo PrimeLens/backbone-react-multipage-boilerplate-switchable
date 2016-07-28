@@ -13,10 +13,7 @@
 
 
 rc.madmaxPageComponent = React.createClass({
-    getInitialState:function(){
-        return _.extend(app.status, {
-        })
-    },
+
     preloadArray : [
         SiteConfig.assetsDirectory+'images/madmaxpage/furiosa.jpg',
         SiteConfig.assetsDirectory+'images/madmaxpage/guitarmadmax.jpg',

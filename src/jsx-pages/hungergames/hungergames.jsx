@@ -2,13 +2,13 @@
 rc.hungergamesPageComponent = React.createClass({
     // the components internal model
     getInitialState:function(){
-        return _.extend(app.status, {
+        return {
             districtNumber : 13,
             sheSaid : [
                 'Peeta I love you', 
                 'Let\'s kill President Snow'
             ]
-        })
+        }
     },
 
     // components controllers

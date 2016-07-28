@@ -238,6 +238,7 @@ body {
   margin: 0 20px 20px 0; }
 #breakingbadpage .panel {
   clear: both; }
+/*! dexter/dexter.scss */
 /*! firefly/firefly.scss */
 #fireflypage .mainpic {
   width: 100%;
@@ -259,7 +260,6 @@ body {
   height: 100px;
   float: left;
   margin: 10px; }
-/*! dexter/dexter.scss */
 /*! hannibal/hannibal.scss */
 #hannibalpage img {
   max-width: 300px;

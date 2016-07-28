@@ -1,9 +1,6 @@
 
 rc.fireflyPageComponent = React.createClass({
-    getInitialState:function(){
-        return _.extend(app.status, {
-        })
-    },
+
     componentDidMount : function(){
         // after the page is rendered, send  3 test pieces of 
         // data into one of the components using events

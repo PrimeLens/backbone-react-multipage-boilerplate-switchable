@@ -1,8 +1,5 @@
 rc.homePageComponent = React.createClass({
-    getInitialState:function(){
-        return _.extend(app.status, {
-        })
-    },    
+   
     render:function(){
         console.log(this.constructor.displayName+' render()');
         return (
