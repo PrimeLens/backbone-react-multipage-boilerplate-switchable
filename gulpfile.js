@@ -57,6 +57,7 @@ gulp.task('1:partials', function(){
     	.pipe(insert.append(';'))
     	.pipe(gulp.dest('./srcbase/htmlcompiled'));
 });
+
 gulp.task('2:jsx', function(){   
     return gulp.src(paths.jsx)
 		// insert header comment showing filename and tag it so its not deleted

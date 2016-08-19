@@ -1,3 +1,5 @@
+reactTestUtils = React.addons.TestUtils;
+
 describe('suite of tests for the platform',function () {
     it('Router base js\' status object should not be changed', function() {
         console.log('Router base js\' status object should not be changed');

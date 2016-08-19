@@ -1,4 +1,3 @@
-
 rc.fireflyDescriptions = React.createClass({
     // the components internal model
     // the array that is databound will update in batches so if the events 
