@@ -1,6 +1,6 @@
 describe('Suite of Tests for Firefly Page', function() {
 	var component, element, one, two;
-	var initialItemCount = 3; 											//adjust if firefly.jsx triggers more initial items
+	var initialItemCount = 3; 														//adjust if firefly.jsx triggers more initial items
 
 	beforeAll(function() {
 
@@ -11,7 +11,7 @@ describe('Suite of Tests for Firefly Page', function() {
 
 		component = reactTestUtils.renderIntoDocument(element);
 
-		one = reactTestUtils.findRenderedDOMComponentWithClass(component, 'one');	//***TO DISCUSS: This can probably move to beforeAll not sure why I put it here
+		one = reactTestUtils.findRenderedDOMComponentWithClass(component, 'one');
 		two = reactTestUtils.findRenderedDOMComponentWithClass(component, 'two');
 
 	});
@@ -24,10 +24,10 @@ describe('Suite of Tests for Firefly Page', function() {
 		}).not.toThrow();
 	});
 
-	it('Grand Central Exists', function(){								//This component relies heavily on Grand Central so make sure it exists
-		console.log("typeof GrandCentral = ", typeof grandCentral);
-		expect(typeof grandCentral).not.toBe("undefined")				//***TO DISCUSS: is this a platform test or component test or not needed at all,
-																		//Should there be more thorough grandCentral tests, make sure on/off/trigger exist?
+	it('Grand Central Exists', function(){											//This component relies heavily on Grand Central so make sure it exists
+		console.log("typeof GrandCentral = ", typeof grandCentral);			
+		expect(typeof grandCentral).not.toBe("undefined")							//***TO DISCUSS: is this a platform test or component test or not needed at all,
+																					//Should there be more thorough grandCentral tests, make sure on/off/trigger exist?
 	});
 
 	it('Make Sure Initial Triggers Populate', function(){
@@ -38,13 +38,14 @@ describe('Suite of Tests for Firefly Page', function() {
 		expect(one.children.length).toBe(initialItemCount);
 	});
 
+
 	describe('Sub Suite of Click Tests', function(){
 		var origFirstText;
 
 		beforeAll(function(){
-			origFirstText = one.children[0].textContent;					//store text for test later
-
-			reactTestUtils.Simulate.click(one.children[0]);					//Click the first entry in the first section
+			origFirstText = one.children[0].textContent;							//store text for test later
+		
+			reactTestUtils.Simulate.click(one.children[0]);							//Click the first entry in the first section
 		});
 
 		beforeEach(function(){
@@ -54,12 +55,12 @@ describe('Suite of Tests for Firefly Page', function() {
 		it('Make sure Clicking item in div 1 works', function() {
 			console.log("Testing Click Events from ONE to TWO");
 			
-			expect(one.children.length).toBe(initialItemCount-1);			//We should lose one item
-			expect(two.children.length).toBe(1);							//should gain one
+			expect(one.children.length).toBe(initialItemCount-1);					//We should lose one item
+			expect(two.children.length).toBe(1);									//should gain one
 		});
 		
 		it('Make sure container one has divs and two has imgs', function(){
-			console.log("Make sure container one has divs and two has imgs")	//*** TO DISCUSS: this is an unrelated test to actual clicking but is nice to test after a click
+			console.log("Make sure container one has divs and two has imgs")		//*** TO DISCUSS: this is an unrelated test to actual clicking but is nice to test after a click
 			
 			expect(one.children[0].nodeName.toLowerCase()).toBe("div");
 			expect(two.children[0].nodeName.toLowerCase()).toBe("img");
@@ -69,9 +70,9 @@ describe('Suite of Tests for Firefly Page', function() {
 		it('Testing Click Events from TWO to ONE', function(){
 			console.log("Testing Click Events from TWO to ONE");
 
-			reactTestUtils.Simulate.click(two.children[0]);					//click the first entry in the second section
+			reactTestUtils.Simulate.click(two.children[0]);							//click the first entry in the second section
 
-			expect(one.children.length).toBe(initialItemCount);				//we should have reverted to original counts
+			expect(one.children.length).toBe(initialItemCount);						//we should have reverted to original counts
 			expect(two.children.length).toBe(0);
 		});
 
