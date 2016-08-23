@@ -11,11 +11,9 @@ describe('Suite of Tests for Firefly Page', function() {
 
 		component = reactTestUtils.renderIntoDocument(element);
 
-	});
-
-	beforeEach(function(){
 		one = reactTestUtils.findRenderedDOMComponentWithClass(component, 'one');	//***TO DISCUSS: This can probably move to beforeAll not sure why I put it here
 		two = reactTestUtils.findRenderedDOMComponentWithClass(component, 'two');
+
 	});
 
 	it('The Firefly Page component renders to the page', function() {
@@ -40,29 +38,110 @@ describe('Suite of Tests for Firefly Page', function() {
 		expect(one.children.length).toBe(initialItemCount);
 	});
 
-	it('Make sure Clicking manipluates properly', function() {
+	describe('Sub Suite of Click Tests', function(){
+		var origFirstText;
+
+		beforeAll(function(){
+			origFirstText = one.children[0].textContent;					//store text for test later
+
+			reactTestUtils.Simulate.click(one.children[0]);					//Click the first entry in the first section
+		});
+
+		beforeEach(function(){
+
+		});
+
+		it('Make sure Clicking item in div 1 works', function() {
+			console.log("Testing Click Events from ONE to TWO");
+			
+			expect(one.children.length).toBe(initialItemCount-1);			//We should lose one item
+			expect(two.children.length).toBe(1);							//should gain one
+		});
+		
+		it('Make sure container one has divs and two has imgs', function(){
+			console.log("Make sure container one has divs and two has imgs")	//*** TO DISCUSS: this is an unrelated test to actual clicking but is nice to test after a click
+			
+			expect(one.children[0].nodeName.toLowerCase()).toBe("div");
+			expect(two.children[0].nodeName.toLowerCase()).toBe("img");
+			expect(two.children[0].hasAttribute("src")).toBe(true);
+		});
+			
+		it('Testing Click Events from TWO to ONE', function(){
+			console.log("Testing Click Events from TWO to ONE");
+
+			reactTestUtils.Simulate.click(two.children[0]);					//click the first entry in the second section
+
+			expect(one.children.length).toBe(initialItemCount);				//we should have reverted to original counts
+			expect(two.children.length).toBe(0);
+		});
+
+		it('Orig First Text is now in 3rd position', function(){
+			console.log("Orig First Text is now in 3rd position");
+
+			expect(one.children[0].textContent).not.toBe(origFirstText); 	
+			expect(one.children[initialItemCount - 1].textContent).toBe(origFirstText);
+		});
+	});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	it('Make sure Clicking manipluates properly - jQuery Edition', function(){
 		console.log("Testing Click Events from ONE to TWO");
 		
-		var origFirstText = one.children[0].textContent;				//store text for test later
+		//var origFirstText = jQuery(".one > div:first-child").html();
 
-		reactTestUtils.Simulate.click(one.children[0]);					//Click the first entry in the first section
+		//reactTestUtils.Simulate.click(jQuery(".one > div:first-child")[0]);		
+		//jQuery(".one > div:first-child").click();
 
-		expect(one.children.length).toBe(initialItemCount-1);			//We should lose one item
-		expect(two.children.length).toBe(1);							//should gain one
+		//console.log($("body").html())
 
-																		//*** TO DISCUSS: Reason to split into separate it()'s
+		//expect($(".one > div")).toHaveLength(3)
+
+
+/*	var spyEvent = spyOnEvent('.one > div:first-child', 'click')
+	$('.one > div:first-child').click()
+	expect('click').toHaveBeenTriggeredOn('.one > div:first-child')
+	expect(spyEvent).toHaveBeenTriggered()*/
+
+
+		/*expect(jQuery(".one > div").length).toBe(initialItemCount-1);		
+		expect(jQuery(".two > img").length).toBe(1);						
+
+		
+		console.log("Make sure container one has divs and two has imgs");
+		
+		expect(jQuery(".one > div:first-child").is("div")).toBe(true);	//Uses is filter
+		expect(jQuery(".two > img:first-child").is("img")).toBe(true);
+		expect(jQuery(".two > img:first-child").is("[src]")).toBe(true); //filters on src attribute
+
+		
 		console.log("Testing Click Events from TWO to ONE");
 
-		reactTestUtils.Simulate.click(two.children[0]);					//click the first entry in the second section
+		//reactTestUtils.Simulate.click(jQuery(".two > div:first-child"));
+		jQuery(".two > img:first-child").click();
 
-		expect(one.children.length).toBe(initialItemCount);				//we should revert to original state
-		expect(two.children.length).toBe(0);
+		expect(jQuery(".one > div").length).toBe(initialItemCount);
+		expect(jQuery(".two > img").length).toBe(0);
 
 
 		console.log("Orig First Text is now in 3rd position");
 
-		expect(one.children[0].textContent).not.toBe(origFirstText); 	
-		expect(one.children[initialItemCount - 1].textContent).toBe(origFirstText);
+		expect(jQuery(".one > div:first-child").html()).not.toBe(origFirstText); 	
+		expect(jQuery(".one > div:last-child").html()).toBe(origFirstText);*/
 	});
 
 });
