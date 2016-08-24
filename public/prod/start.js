@@ -287,30 +287,6 @@ rc.animePageComponent = React.createClass({
         );
     }
 });
-/*! dexter/dexter.jsx */
-rc.dexterPageComponent = React.createClass({
-    displayName: 'dexterPageComponent',
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'dexterpage' },
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/dexterpage/dexter.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                'The Dexter page (as well as the True Blood page) bring in a Parents Advisory child component. Components such as parentsadvisory.jsx are stored in ',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    '/public/jsx-special'
-                ),
-                ' along with any other component that might be shared between pages.'
-            ),
-            React.createElement(rc.parentsadvisory, null)
-        );
-    }
-});
 /*! breakingbad/breakingbad.jsx */
 rc.breakingbadPageComponent = React.createClass({
     displayName: 'breakingbadPageComponent',
@@ -336,6 +312,58 @@ rc.breakingbadPageComponent = React.createClass({
                 )
             ),
             React.createElement(rc.quizComponent, { data: SiteConfig.quiz.breakingbad })
+        );
+    }
+});
+/*! dexter/dexter.jsx */
+rc.dexterPageComponent = React.createClass({
+    displayName: 'dexterPageComponent',
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'dexterpage' },
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/dexterpage/dexter.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                'The Dexter page (as well as the True Blood page) bring in a Parents Advisory child component. Components such as parentsadvisory.jsx are stored in ',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    '/public/jsx-special'
+                ),
+                ' along with any other component that might be shared between pages.'
+            ),
+            React.createElement(rc.parentsadvisory, null)
+        );
+    }
+});
+/*! hannibal/hannibal.jsx */
+rc.hannibalPageComponent = React.createClass({
+    displayName: 'hannibalPageComponent',
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'hannibalpage' },
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/hannibalpage/hannibal.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                'Here we instanciate a shared child component called quizComponent which receives its configuration at the time of instanciation.'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'This child component is simple and does not save its state when changing away to another page. To do this the state data should be stored in',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    'app.status'
+                )
+            ),
+            React.createElement(rc.quizComponent, { data: SiteConfig.quiz.hannibal })
         );
     }
 });
@@ -410,34 +438,6 @@ rc.fireflyPageComponent = React.createClass({
             ),
             React.createElement(rc.fireflyDescriptions, null),
             React.createElement(rc.fireflyImages, null)
-        );
-    }
-});
-/*! hannibal/hannibal.jsx */
-rc.hannibalPageComponent = React.createClass({
-    displayName: 'hannibalPageComponent',
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'hannibalpage' },
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/hannibalpage/hannibal.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                'Here we instanciate a shared child component called quizComponent which receives its configuration at the time of instanciation.'
-            ),
-            React.createElement(
-                'p',
-                null,
-                'This child component is simple and does not save its state when changing away to another page. To do this the state data should be stored in',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    'app.status'
-                )
-            ),
-            React.createElement(rc.quizComponent, { data: SiteConfig.quiz.hannibal })
         );
     }
 });
@@ -1031,8 +1031,7 @@ rc.fireflyDescriptions = React.createClass({
         );
     }
 });
-/*! firefly/childcomponents/fireflyImages.jsx */
-rc.fireflyImages = React.createClass({
+/*! firefly/childcomponents/fireflyImages.jsx */rc.fireflyImages = React.createClass({
     displayName: 'fireflyImages',
     getInitialState: function getInitialState() {
         return { databindingArray: [] };
@@ -1067,8 +1066,7 @@ rc.fireflyImages = React.createClass({
         return React.createElement(
             'div',
             { className: 'container two' },
-            outputArray,
-            React.createElement('div', { style: { clear: 'both', height: '1px' } })
+            outputArray
         );
     }
 });

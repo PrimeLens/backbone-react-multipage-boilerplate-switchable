@@ -49,7 +49,7 @@ rc.fireflyImages = React.createClass({
         return(
             <div className="container two">
                 {outputArray}
-                <div style={{clear: 'both', height: '1px'}}></div>
+                {/*<div style={{clear: 'both', height: '1px'}}></div>*/}
             </div>
         );
     }

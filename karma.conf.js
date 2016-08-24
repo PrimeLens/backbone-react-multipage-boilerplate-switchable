@@ -6,8 +6,11 @@ module.exports = function(config) {
     var specFiles = './!(node_modules)/**/*.spec.js',
         platformSpecFile = './platform.spec.js',
         filesToTest = [
-            './src/js/lib/md5.js',
+            './src/js/lib_unittesting/md5.js',
+            './src/js/lib_unittesting/mock-ajax.js',
             './public/prod/start.js',
+            './src/js/lib_unittesting/react-with-addons_ForKarma.js',
+            './src/js/lib_unittesting/jasmine-jquery.js',
             platformSpecFile,
             specFiles
         ]; 
