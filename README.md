@@ -99,6 +99,8 @@ This is the same as creating a page component. Store either in `/jsx-special` or
 
 `node server` starts a server at http://localhost:3000 to change the port number edit `server.js` you will need different port numbers if you want more than one project open
 
+`gulp testwatch` is a newly added task that invokes the karma test runner to run all unit tests written for each component.
+
 
 ## Order of compiling (for your reference)
 
@@ -148,9 +150,8 @@ to
     public/prod/start.js
 
 
-## Unit Testing
-
-work in progress
+## Unit Testing with Jasmine and Karma
+Use the node command `gulp testwatch` which is a newly added task that invokes the karma test runner to run all unit tests written for each component. Developers should keep their unit tests in the same folder as the code for their component.  Example tests are provided for the Firefly demo page.
 
 
 ## Pre-requisites
@@ -161,4 +162,7 @@ work in progress
 - SASS support in gulp only covers nesting and variables
 - any SASS complexity you may want above that would be on your own fork and may not be supported by this gulp implementation
 
-
+## Deploying to heroku
+- this boilerplate is ready to go for heroku git deployment
+- use the heroku cli and follow heroku's instructions for adding a git remote
+- remember you must specify the branch so instead of writing `git push heroku master` on the command line you would write `git push heroku 2016-macmillan:master`
