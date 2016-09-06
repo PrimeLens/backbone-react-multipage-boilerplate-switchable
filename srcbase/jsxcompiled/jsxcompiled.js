@@ -116,35 +116,6 @@ rc.dexterPageComponent = React.createClass({
     }
 });
 'use strict';
-/*! hannibal/hannibal.jsx */
-rc.hannibalPageComponent = React.createClass({
-    displayName: 'hannibalPageComponent',
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'hannibalpage' },
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/hannibalpage/hannibal.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                'Here we instanciate a shared child component called quizComponent which receives its configuration at the time of instanciation.'
-            ),
-            React.createElement(
-                'p',
-                null,
-                'This child component is simple and does not save its state when changing away to another page. To do this the state data should be stored in',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    'app.status'
-                )
-            ),
-            React.createElement(rc.quizComponent, { data: SiteConfig.quiz.hannibal })
-        );
-    }
-});
-'use strict';
 /*! firefly/firefly.jsx */
 rc.fireflyPageComponent = React.createClass({
     displayName: 'fireflyPageComponent',
@@ -216,6 +187,35 @@ rc.fireflyPageComponent = React.createClass({
             ),
             React.createElement(rc.fireflyDescriptions, null),
             React.createElement(rc.fireflyImages, null)
+        );
+    }
+});
+'use strict';
+/*! hannibal/hannibal.jsx */
+rc.hannibalPageComponent = React.createClass({
+    displayName: 'hannibalPageComponent',
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'hannibalpage' },
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/hannibalpage/hannibal.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                'Here we instanciate a shared child component called quizComponent which receives its configuration at the time of instanciation.'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'This child component is simple and does not save its state when changing away to another page. To do this the state data should be stored in',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    'app.status'
+                )
+            ),
+            React.createElement(rc.quizComponent, { data: SiteConfig.quiz.hannibal })
         );
     }
 });
@@ -382,7 +382,7 @@ rc.hungergamesPageComponent = React.createClass({
     },
     addSaying: function addSaying() {
         this.setState({
-            sheSaid: this.state.sheSaid.concat([this.refs.inpText.getDOMNode().value])
+            sheSaid: this.state.sheSaid.concat([this.refs.inpText.value])
         });
     },
     removeSaying: function removeSaying() {
@@ -392,7 +392,7 @@ rc.hungergamesPageComponent = React.createClass({
     },
     updateNumber: function updateNumber() {
         this.setState({
-            districtNumber: this.refs.inpNumber.getDOMNode().value
+            districtNumber: this.refs.inpNumber.value
         });
     },
     render: function render() {
@@ -469,7 +469,7 @@ rc.inceptionPageComponent = function (_React$Component) {
     _inherits(InceptionPageComponent, _React$Component);
     function InceptionPageComponent(props) {
         _classCallCheck(this, InceptionPageComponent);
-        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(InceptionPageComponent).call(this, props));
+        var _this = _possibleConstructorReturn(this, (InceptionPageComponent.__proto__ || Object.getPrototypeOf(InceptionPageComponent)).call(this, props));
         _this.displayName = 'inceptionPageComponent';
         if (typeof app.stores.inception === 'undefined' || app.stores.inception.level > 2) {
             app.stores.inception = {};

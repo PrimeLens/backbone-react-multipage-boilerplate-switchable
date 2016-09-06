@@ -15,7 +15,7 @@ rc.hungergamesPageComponent = React.createClass({
     addSaying : function(){
         // use .concat to create a new array and set it to setState 
         this.setState({
-            sheSaid : this.state.sheSaid.concat( [this.refs.inpText.getDOMNode().value] )
+            sheSaid : this.state.sheSaid.concat( [this.refs.inpText.value] )
         });
     },
     removeSaying : function(){
@@ -26,7 +26,7 @@ rc.hungergamesPageComponent = React.createClass({
     },
     updateNumber : function(){
         this.setState({
-            districtNumber : this.refs.inpNumber.getDOMNode().value
+            districtNumber : this.refs.inpNumber.value
         });
     },
 

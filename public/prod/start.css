@@ -239,14 +239,6 @@ body {
 #breakingbadpage .panel {
   clear: both; }
 /*! dexter/dexter.scss */
-/*! hannibal/hannibal.scss */
-#hannibalpage img {
-  max-width: 300px;
-  width: 100%;
-  float: left;
-  margin: 0 20px 20px 0; }
-#hannibalpage .quizcontainer {
-  clear: both; }
 /*! firefly/firefly.scss */
 #fireflypage .mainpic {
   width: 100%;
@@ -268,6 +260,14 @@ body {
   height: 100px;
   float: left;
   margin: 10px; }
+/*! hannibal/hannibal.scss */
+#hannibalpage img {
+  max-width: 300px;
+  width: 100%;
+  float: left;
+  margin: 0 20px 20px 0; }
+#hannibalpage .quizcontainer {
+  clear: both; }
 /*! home/home.scss */
 #homepage .pagetitle {
   font-style: italic;
