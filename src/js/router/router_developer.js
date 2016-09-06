@@ -13,19 +13,19 @@ routerSetupConfig.initialize = function() {
     this.status.currentPage = this.status.lastPage = this.status.currentRoute = null;
 
     // Permanent items as react components
-    React.render(
+    ReactDOM.render(
         React.createElement( rc.header ),
         document.getElementById('headercontainer')
     ); 
-    React.render(
+    ReactDOM.render(
         React.createElement( rc.nav ),
         document.getElementById('navcontainer')
     );
-    React.render(
+    ReactDOM.render(
         React.createElement( rc.mainmodal ),
         document.getElementById('modalcontainer')
     );    
-    React.render(
+    ReactDOM.render(
         React.createElement( rc.loader ),
         document.getElementById('loadercontainer')
     );   

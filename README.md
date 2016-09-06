@@ -28,7 +28,7 @@ Client side javascript web app boilerplate that allows the route to switch betwe
 `index.html` uses `/public/prod/start.js` and `/public/prod/start.css` and along with a handful of images you can see it all working to show you examples on each page.
 
 ### To see everything working using a node server
-From the command line type `npm install` followed by `node server` and then go to `http://localhost:3000` in the browser. This also gives you access to compile (see below and further down the Summary of Node and Gulp commands).
+Download and checkout the correct git branch. From the command line type `npm install` followed by `node server` and then go to `http://localhost:3000` in the browser. This also gives you access to compile (see below and further down the Summary of Node and Gulp commands).
 
 ### Brief explanation on compile
 

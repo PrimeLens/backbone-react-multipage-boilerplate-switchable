@@ -93,12 +93,12 @@ routerSetupConfig.routeTunnel = function(renderEngine, currentPage, pageHandle, 
         // if a react component is mounted then unmount it 
         if (app.currentReactPage){
             app.currentReactPage = null;
-            React.unmountComponentAtNode(document.getElementById('pagecontainer'));
+            ReactDOM.unmountComponentAtNode(document.getElementById('pagecontainer'));
         }
         // mount a new react component page or backbone ppage
         switch(renderEngine){
             case 'react' : 
-                app.currentReactPage = React.render(
+                app.currentReactPage = ReactDOM.render(
                     React.createElement( pageHandle ),
                     document.getElementById('pagecontainer')
                 );
