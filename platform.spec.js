@@ -9,6 +9,6 @@ describe('suite of tests for the platform',function () {
     it('Router base js\' routeTunnel() function should not be changed', function() {
         console.log('Router base js\' routeTunnel() function should not be changed');
         var checksum = md5(routerSetupConfig.routeTunnel.toString());
-        expect(checksum).toBe('3802edb23129456d1278383b9040ed31');
+        expect(checksum).toBe('d656a594c101d87e724043621e4a0083');
     });
 });
