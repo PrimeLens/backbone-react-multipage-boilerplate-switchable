@@ -44,6 +44,18 @@ routerSetupConfig.initialize = function() {
 };
 
 
+//  Because all the initialize()  functions occur very early before app.status has values like currentPage
+//  we need a function to fire once during the start up and after app.status has populated
+
+routerSetupConfig.appStatusNowReady =  function(){
+
+    // Attach Event Tracking to the page
+    Nux.attachTrack();
+
+    // setup interapp to receive any JSON sent between client side apps via POST request
+    interapp.setup();
+
+};
 
 
 // ROUTER ROUTES
@@ -77,6 +89,7 @@ routerSetupConfig.routes =  {
     'inception(/*path)': function(f, q){ this.routeTunnel('react', 'inception', rc.inceptionPageComponent, f, q); },
     'anime(/*path)': function(f, q){ this.routeTunnel('react', 'anime', rc.animePageComponent, f, q); },
     'jessicajones(/*path)': function(f, q){ this.routeTunnel('react', 'jessicajones', rc.jessicajonesPageComponent, f, q); },
+    'bladerunner(/*path)': function(f, q){ this.routeTunnel('react', 'bladerunner', rc.bladerunnerPageComponent, f, q); },
 
 
     '*badroute': function(){ this.navigate('#', {trigger: true}); }
@@ -149,14 +162,5 @@ routerSetupConfig.postRouteChange =  function(){
 
 
 
-//  Because all the initialize()  functions occur very early before app.status has values like currentPage
-//  we need a function to fire once during the start up and after app.status has populated
-
-routerSetupConfig.appStatusNowReady =  function(){
-
-    // Attach Event Tracking to the page
-    Nux.attachTrack();
-
-};
 
 

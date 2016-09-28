@@ -6,6 +6,8 @@
   "dependencies": {
     "aws-sdk": "^2.2.47",
     "body-parser": "^1.4.3",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.2",
     "express": "^4.5.1"
   },
   "devDependencies": {

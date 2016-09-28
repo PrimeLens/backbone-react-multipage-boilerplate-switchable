@@ -62,6 +62,112 @@ rc.animePageComponent = React.createClass({
     }
 });
 'use strict';
+/*! bladerunner/bladerunner.jsx */
+rc.bladerunnerPageComponent = React.createClass({
+    displayName: 'bladerunnerPageComponent',
+    getInitialState: function getInitialState() {
+        return { count: 0 };
+    },
+    componentWillMount: function componentWillMount() {
+        if (!dc.interappToSend) dc.interappToSend = {
+            clientSideRoute: '#/bladerunner', 
+            characters: []
+        };
+    },
+    clickHandlerAddCharacter: function clickHandlerAddCharacter() {
+        dc.interappToSend.characters.push(this.refs.inpText.value);
+        this.setState({ count: this.state.count + 1 });
+    },
+    clickHandlerPost: function clickHandlerPost() {
+        interapp.post('http://localhost:3001/interapp', dc.interappToSend);
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        var outputArray = [];
+        if (dc.interappReceived) {
+            if (_.isArray(dc.interappReceived)) {
+                _.each(dc.interappReceived, function (e, i) {
+                    outputArray.push(React.createElement(
+                        'div',
+                        null,
+                        JSON.stringify(e)
+                    ));
+                });
+                if (dc.interappReceived.length === 0) outputArray.push(React.createElement(
+                    'div',
+                    null,
+                    'Empty array'
+                ));
+            } else {
+                _.each(dc.interappReceived, function (v, k) {
+                    outputArray.push(React.createElement(
+                        'div',
+                        null,
+                        k + ' : ' + JSON.stringify(v)
+                    ));
+                });
+                if (outputArray.length === 0) outputArray.push(React.createElement(
+                    'div',
+                    null,
+                    'Empty object with no properties'
+                ));
+            }
+        } else {
+            outputArray.push(React.createElement(
+                'div',
+                null,
+                'Nothing received'
+            ));
+        }
+        return React.createElement(
+            'div',
+            { id: 'bladerunner' },
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/bladerunnerpage/blade-runner.jpg' }),
+            'Data received from interapp post',
+            React.createElement('br', null),
+            React.createElement(
+                'div',
+                { className: 'readout' },
+                outputArray
+            ),
+            React.createElement(
+                'p',
+                null,
+                'The Bladerunner page is demonstrating how we can send JSON data from one front end app to another that is hosted on a different server. Make sure you have a another copy of this boilerplate running at port 3001.  Clicking the button below will post JSON data about this movie to http://localhost:3001'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'Please type a name and add it to the list of characters. You can add more than one. Some suggested names from Blade Runner are Deckard, Rachael, Roy, Leon Kowalsk, Pris, J.F. Sebastian and Dr. Tyrell'
+            ),
+            React.createElement('input', { className: 'bladeinput', type: 'text', ref: 'inpText' }),
+            React.createElement(
+                'div',
+                { className: 'bladebutton', onClick: this.clickHandlerAddCharacter },
+                'Add Character'
+            ),
+            React.createElement('br', null),
+            'Currently ',
+            this.state.count,
+            ' characters are added.',
+            React.createElement(
+                'div',
+                null,
+                this.state.count > 0 ? 'sending JSON ' + JSON.stringify(dc.interappToSend) : ''
+            ),
+            React.createElement(
+                'p',
+                null,
+                React.createElement(
+                    'div',
+                    { className: 'bladebutton', onClick: this.clickHandlerPost },
+                    'Click to send data to http://localhost:3001/'
+                )
+            )
+        );
+    }
+});
+'use strict';
 /*! breakingbad/breakingbad.jsx */
 rc.breakingbadPageComponent = React.createClass({
     displayName: 'breakingbadPageComponent',
@@ -187,35 +293,6 @@ rc.fireflyPageComponent = React.createClass({
             ),
             React.createElement(rc.fireflyDescriptions, null),
             React.createElement(rc.fireflyImages, null)
-        );
-    }
-});
-'use strict';
-/*! hannibal/hannibal.jsx */
-rc.hannibalPageComponent = React.createClass({
-    displayName: 'hannibalPageComponent',
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'hannibalpage' },
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/hannibalpage/hannibal.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                'Here we instanciate a shared child component called quizComponent which receives its configuration at the time of instanciation.'
-            ),
-            React.createElement(
-                'p',
-                null,
-                'This child component is simple and does not save its state when changing away to another page. To do this the state data should be stored in',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    'app.status'
-                )
-            ),
-            React.createElement(rc.quizComponent, { data: SiteConfig.quiz.hannibal })
         );
     }
 });
@@ -367,6 +444,35 @@ rc.homePageComponent = React.createClass({
                 ),
                 ' - Example of a component remembering state after navigating away. Also bubbled events.'
             )
+        );
+    }
+});
+'use strict';
+/*! hannibal/hannibal.jsx */
+rc.hannibalPageComponent = React.createClass({
+    displayName: 'hannibalPageComponent',
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'hannibalpage' },
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/hannibalpage/hannibal.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                'Here we instanciate a shared child component called quizComponent which receives its configuration at the time of instanciation.'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'This child component is simple and does not save its state when changing away to another page. To do this the state data should be stored in',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    'app.status'
+                )
+            ),
+            React.createElement(rc.quizComponent, { data: SiteConfig.quiz.hannibal })
         );
     }
 });
@@ -882,29 +988,6 @@ rc.walkingPanelCTA = React.createClass({
     }
 });
 'use strict';
-/*! mainmodal/templates/attackontitanModal/attackontitanModal.jsx */
-rc.attackontitanModal = React.createClass({
-    displayName: 'attackontitanModal',
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'attackontitanModal' },
-            React.createElement(
-                'h3',
-                null,
-                'Attack on Titan'
-            ),
-            React.createElement(
-                'p',
-                null,
-                'Attack on Titan is a Japanese anime and manga series. After his hometown is destroyed and his mother is killed, young Eren Jaegar vows to cleanse the earth of the giant humanoid Titans that have brought humanity to the brink of extinction.'
-            ),
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/animepage/attackontitan.jpg' })
-        );
-    }
-});
-'use strict';
 /*! mainmodal/templates/deathnoteModal/deathnoteModal.jsx */
 rc.deathnoteModal = React.createClass({
     displayName: 'deathnoteModal',
@@ -924,6 +1007,29 @@ rc.deathnoteModal = React.createClass({
                 'Death Note is a Japanese anime and manga series. Light Yagami, an ordinary university student, receives a death note which changes his life. The death note awakens his warped sense of justice and genius.'
             ),
             React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/animepage/deathnote.jpg' })
+        );
+    }
+});
+'use strict';
+/*! mainmodal/templates/attackontitanModal/attackontitanModal.jsx */
+rc.attackontitanModal = React.createClass({
+    displayName: 'attackontitanModal',
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'attackontitanModal' },
+            React.createElement(
+                'h3',
+                null,
+                'Attack on Titan'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'Attack on Titan is a Japanese anime and manga series. After his hometown is destroyed and his mother is killed, young Eren Jaegar vows to cleanse the earth of the giant humanoid Titans that have brought humanity to the brink of extinction.'
+            ),
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/animepage/attackontitan.jpg' })
         );
     }
 });
@@ -982,78 +1088,6 @@ rc.loader = React.createClass({
                 'div',
                 { className: 'loadingmessage' },
                 React.createElement('img', { className: 'spinner', src: SiteConfig.assetsDirectory + 'images/ui/spinner.gif' })
-            )
-        );
-    }
-});
-'use strict';
-/*! mainmodal/mainmodal.jsx */
-rc.mainmodal = React.createClass({
-    displayName: 'mainmodal',
-    getInitialState: function getInitialState() {
-        return {
-            show: false,
-            whichTemplate: ''
-        };
-    },
-    componentDidMount: function componentDidMount() {
-        var self = this;
-        grandCentral.off('modalHide').on('modalHide', function () {
-            self.setState({ show: false, whichTemplate: '' });
-        });
-        grandCentral.off('modalShow').on('modalShow', function (payLoad) {
-            self.setState({ show: true, whichTemplate: payLoad });
-        });
-    },
-    handleModalClose: function handleModalClose() {
-        grandCentral.trigger('modalHide');
-        if (app.status.currentFragString) {
-            if (app.status.currentFragString.indexOf('modalShow-') > -1) {
-                var newURL = '#/' + app.status.currentRoute;
-                var stringToRemove = 'modalShow-' + this.state.whichTemplate;
-                console.log('removing ' + stringToRemove + 'from the URL');
-                newURL = newURL.replace('/' + stringToRemove, '');
-                newURL = newURL.replace(stringToRemove + '/', '');
-                newURL = newURL.replace(stringToRemove, '');
-                app.navigate(newURL);
-            }
-        }
-    },
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        var self = this;
-        var classes = this.state.show ? 'absolutewrapper active' : 'absolutewrapper ';
-        var outputArray = [];
-        switch (this.state.whichTemplate) {
-            case 'attackontitanModal':
-                outputArray.push(React.createElement(rc.attackontitanModal, null));break;
-            case 'deathnoteModal':
-                outputArray.push(React.createElement(rc.deathnoteModal, null));break;
-        }
-        return React.createElement(
-            'div',
-            { className: classes },
-            React.createElement(
-                'div',
-                { className: 'greybacking' },
-                React.createElement(
-                    'div',
-                    { className: 'modalwrapper' },
-                    React.createElement(
-                        'div',
-                        { className: 'modalCloseButtonWrapper' },
-                        React.createElement(
-                            'div',
-                            { className: 'modalCloseButton', onClick: self.handleModalClose },
-                            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/ui/modal-close-btn.png' })
-                        )
-                    ),
-                    React.createElement(
-                        'div',
-                        { className: 'modalContentsWrapper' },
-                        outputArray
-                    )
-                )
             )
         );
     }
@@ -1155,9 +1189,86 @@ rc.nav = React.createClass({
 				'a',
 				{ className: this.getClassNameWithActive('jessicajones'), href: '#/jessicajones' },
 				'Jessica Jones'
+			),
+			React.createElement(
+				'a',
+				{ className: this.getClassNameWithActive('bladerunner'), href: '#/bladerunner' },
+				'Blade Runner'
 			)
 		);
 	}
+});
+'use strict';
+/*! mainmodal/mainmodal.jsx */
+rc.mainmodal = React.createClass({
+    displayName: 'mainmodal',
+    getInitialState: function getInitialState() {
+        return {
+            show: false,
+            whichTemplate: ''
+        };
+    },
+    componentDidMount: function componentDidMount() {
+        var self = this;
+        grandCentral.off('modalHide').on('modalHide', function () {
+            self.setState({ show: false, whichTemplate: '' });
+        });
+        grandCentral.off('modalShow').on('modalShow', function (payLoad) {
+            self.setState({ show: true, whichTemplate: payLoad });
+        });
+    },
+    handleModalClose: function handleModalClose() {
+        grandCentral.trigger('modalHide');
+        if (app.status.currentFragString) {
+            if (app.status.currentFragString.indexOf('modalShow-') > -1) {
+                var newURL = '#/' + app.status.currentRoute;
+                var stringToRemove = 'modalShow-' + this.state.whichTemplate;
+                console.log('removing ' + stringToRemove + 'from the URL');
+                newURL = newURL.replace('/' + stringToRemove, '');
+                newURL = newURL.replace(stringToRemove + '/', '');
+                newURL = newURL.replace(stringToRemove, '');
+                app.navigate(newURL);
+            }
+        }
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        var self = this;
+        var classes = this.state.show ? 'absolutewrapper active' : 'absolutewrapper ';
+        var outputArray = [];
+        switch (this.state.whichTemplate) {
+            case 'attackontitanModal':
+                outputArray.push(React.createElement(rc.attackontitanModal, null));break;
+            case 'deathnoteModal':
+                outputArray.push(React.createElement(rc.deathnoteModal, null));break;
+        }
+        return React.createElement(
+            'div',
+            { className: classes },
+            React.createElement(
+                'div',
+                { className: 'greybacking' },
+                React.createElement(
+                    'div',
+                    { className: 'modalwrapper' },
+                    React.createElement(
+                        'div',
+                        { className: 'modalCloseButtonWrapper' },
+                        React.createElement(
+                            'div',
+                            { className: 'modalCloseButton', onClick: self.handleModalClose },
+                            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/ui/modal-close-btn.png' })
+                        )
+                    ),
+                    React.createElement(
+                        'div',
+                        { className: 'modalContentsWrapper' },
+                        outputArray
+                    )
+                )
+            )
+        );
+    }
 });
 "use strict";
 /*! parentsadvisory/parentsadvisory.jsx */
