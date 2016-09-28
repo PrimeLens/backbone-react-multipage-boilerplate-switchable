@@ -64,12 +64,16 @@ rc.homePageComponent = React.createClass({
         The anime page is a demonstration of how to have event driven modals that can be deep linkable.
     </p>
 
-        <p>
+    <p>
         <a className={'pagetitle'} href="#/jessicajones">Jessica Jones</a> - 
         Example of a component remembering state after navigating away. Also bubbled events.
     </p>
 
-
+    <p>
+        <a className={'pagetitle'} href="#/bladerunner">Blade Runner</a> - 
+        here we addresses a situation where your app has grown too large and it is best split into two.
+        The Hermes functionality allows you to pass JSON directly to the next app loaded.
+    </p>
 </div>
 
 

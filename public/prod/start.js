@@ -321,8 +321,11 @@ rc.bladerunnerPageComponent = React.createClass({
         };
     },
     clickHandlerAddCharacter: function clickHandlerAddCharacter() {
-        dc.hermesToSend.characters.push(this.refs.inpText.value);
-        this.setState({ count: this.state.count + 1 });
+        if (this.refs.inpText.value) {
+            dc.hermesToSend.characters.push(this.refs.inpText.value);
+            this.refs.inpText.value = null;
+            this.setState({ count: this.state.count + 1 });
+        }
     },
     clickHandlerPost: function clickHandlerPost() {
         Hermes.post('http://localhost:3001/hermes', dc.hermesToSend);
@@ -358,33 +361,195 @@ rc.bladerunnerPageComponent = React.createClass({
                     'Empty object with no properties'
                 ));
             }
-        } else {
-            outputArray.push(React.createElement(
-                'div',
-                null,
-                'Nothing received'
-            ));
-        }
+        } else {}
         return React.createElement(
             'div',
             { id: 'bladerunner' },
             React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/bladerunnerpage/blade-runner.jpg' }),
-            'Data received from hermes post',
-            React.createElement('br', null),
+            outputArray.length == 0 ? '' : 'Data received from hermes post',
             React.createElement(
                 'div',
                 { className: 'readout' },
-                outputArray
+                outputArray.length != 0 ? outputArray : 'Data received from hermes post will appear here'
             ),
             React.createElement(
                 'p',
                 null,
-                'The Bladerunner page is demonstrating how we can send JSON data from one front end app to another that is hosted on a different server. Make sure you have a another copy of this boilerplate running at port 3001.  Clicking the button below will post JSON data about this movie to http://localhost:3001'
+                'The Bladerunner page addresses a situation where your app has grown too large and it is best split into two. When this happens the user will use a deep link to load the next app and any JSON data that has been retreived from the server is lost. You could call the server again but what if you wanted to pass JSON directly? For that we use the Hermes functionality coded into this boilerplate.'
             ),
             React.createElement(
                 'p',
                 null,
-                'Please type a name and add it to the list of characters. You can add more than one. Some suggested names from Blade Runner are Deckard, Rachael, Roy, Leon Kowalsk, Pris, J.F. Sebastian and Dr. Tyrell'
+                React.createElement(
+                    'strong',
+                    null,
+                    'TL;DR'
+                ),
+                React.createElement('br', null),
+                'We use Hermes library to send the JSON payload as a post request. The boilerpalte on the new server handles the request at ',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    '/hermes'
+                ),
+                ', writes the payload to a cookie and redirects to ',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    '/'
+                ),
+                '. There it reads the cookie and deletes it. It then sends index.html to the client with the payload rendered into the page.  XXS attacks are protected against. The boilerpalte javascript then picks up the data on load.'
+            ),
+            React.createElement(
+                'p',
+                null,
+                React.createElement(
+                    'strong',
+                    null,
+                    'Steps'
+                ),
+                React.createElement(
+                    'ol',
+                    null,
+                    React.createElement(
+                        'li',
+                        null,
+                        'First create a payload to send in ',
+                        React.createElement(
+                            'span',
+                            { className: 'codestyle' },
+                            'dc.hermesToSend'
+                        ),
+                        '.  To test use the Add Character button at bottom of this page.'
+                    ),
+                    React.createElement(
+                        'li',
+                        null,
+                        'On clicking the send button the code runs ',
+                        React.createElement(
+                            'span',
+                            { className: 'codestyle' },
+                            'Hermes.post(appurl, payload)'
+                        ),
+                        'in Hermes.js in lib_developer. This creates ',
+                        React.createElement(
+                            'span',
+                            { className: 'codestyle' },
+                            '<input>'
+                        ),
+                        ' inside a',
+                        React.createElement(
+                            'span',
+                            { className: 'codestyle' },
+                            '<form>'
+                        ),
+                        ' with action field for destination and submits it. To see this locally make sure you have a duplicate of the boiler running at port 3001. Edit the port number in server.js'
+                    ),
+                    React.createElement(
+                        'li',
+                        null,
+                        'The destination server boilerplate code at localhost:3001 receives the post request at ',
+                        React.createElement(
+                            'span',
+                            { className: 'codestyle' },
+                            '/hermes'
+                        ),
+                        'and parses the payload to verify its JSON.  It then writes the payload to a cookie with a lifetime of 30 seconds and redirects to the server side route \'/\''
+                    ),
+                    React.createElement(
+                        'li',
+                        null,
+                        'When the get request for \'/\' fires we check for the cookie, read the payload and delete the cookie.'
+                    ),
+                    React.createElement(
+                        'li',
+                        null,
+                        'Index.html is then served to the client from index.ejs server side template with the JSON payload written into a ',
+                        React.createElement(
+                            'span',
+                            { className: 'codestyle' },
+                            '<div>'
+                        ),
+                        ' along with a piece of embedded javascript.'
+                    ),
+                    React.createElement(
+                        'li',
+                        null,
+                        'The client receives index.html and the embedded javascript uses JSON.parse to read from the ',
+                        React.createElement(
+                            'span',
+                            { className: 'codestyle' },
+                            '<div>'
+                        ),
+                        'to once again verify that it is legitmate JSON and not malicious code. It then writes the payload to',
+                        React.createElement(
+                            'span',
+                            { className: 'codestyle' },
+                            'window.hermesReceived'
+                        )
+                    ),
+                    React.createElement(
+                        'li',
+                        null,
+                        'The Backbone/React javascript starts up and in router_developer ',
+                        React.createElement(
+                            'span',
+                            { className: 'codestyle' },
+                            'appStatusNowReady'
+                        ),
+                        'we run ',
+                        React.createElement(
+                            'span',
+                            { className: 'codestyle' },
+                            'Hermes.setup()'
+                        )
+                    ),
+                    React.createElement(
+                        'li',
+                        null,
+                        React.createElement(
+                            'span',
+                            { className: 'codestyle' },
+                            'Hermes.setup()'
+                        ),
+                        ' copies ',
+                        React.createElement(
+                            'span',
+                            { className: 'codestyle' },
+                            'window.hermesReceived'
+                        ),
+                        'to ',
+                        React.createElement(
+                            'span',
+                            { className: 'codestyle' },
+                            'dc.hermesReceived'
+                        ),
+                        ' and deletes ',
+                        React.createElement(
+                            'span',
+                            { className: 'codestyle' },
+                            'window.hermesReceived'
+                        ),
+                        'after which it looks in the payload for a property called ',
+                        React.createElement(
+                            'span',
+                            { className: 'codestyle' },
+                            'clientSideRoute'
+                        ),
+                        ' and redirects the client side Backbone router to that if it exists.'
+                    )
+                )
+            ),
+            React.createElement(
+                'p',
+                null,
+                React.createElement(
+                    'strong',
+                    null,
+                    'Example'
+                ),
+                React.createElement('br', null),
+                'Please type a name and add it to the list of characters. You can add more than one. Some suggested names from the Blade Runner movie are Deckard, Rachael, Roy, Leon and Pris. Make sure you have a copy of the boiler running locally at port 3001.'
             ),
             React.createElement('input', { className: 'bladeinput', type: 'text', ref: 'inpText' }),
             React.createElement(
@@ -395,11 +560,11 @@ rc.bladerunnerPageComponent = React.createClass({
             React.createElement('br', null),
             'Currently ',
             this.state.count,
-            ' characters are added.',
+            ' characters are added to dc.hermesToSend',
             React.createElement(
                 'div',
                 null,
-                this.state.count > 0 ? 'sending JSON ' + JSON.stringify(dc.hermesToSend) : ''
+                this.state.count > 0 ? 'dc.hermesToSend =  ' + JSON.stringify(dc.hermesToSend) : ''
             ),
             React.createElement(
                 'p',
@@ -409,7 +574,12 @@ rc.bladerunnerPageComponent = React.createClass({
                     { className: 'bladebutton', onClick: this.clickHandlerPost },
                     'Click to send data to http://localhost:3001/'
                 )
-            )
+            ),
+            React.createElement('br', null),
+            React.createElement('br', null),
+            React.createElement('br', null),
+            React.createElement('br', null),
+            React.createElement('br', null)
         );
     }
 });
@@ -713,6 +883,16 @@ rc.homePageComponent = React.createClass({
                     'Jessica Jones'
                 ),
                 ' - Example of a component remembering state after navigating away. Also bubbled events.'
+            ),
+            React.createElement(
+                'p',
+                null,
+                React.createElement(
+                    'a',
+                    { className: 'pagetitle', href: '#/bladerunner' },
+                    'Blade Runner'
+                ),
+                ' - here we addresses a situation where your app has grown too large and it is best split into two. The Hermes functionality allows you to pass JSON directly to the next app loaded.'
             )
         );
     }
@@ -1217,28 +1397,6 @@ rc.walkingPanelCTA = React.createClass({
         );
     }
 });
-/*! mainmodal/templates/deathnoteModal/deathnoteModal.jsx */
-rc.deathnoteModal = React.createClass({
-    displayName: 'deathnoteModal',
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'deathnoteModal' },
-            React.createElement(
-                'h3',
-                null,
-                'Death Note'
-            ),
-            React.createElement(
-                'p',
-                null,
-                'Death Note is a Japanese anime and manga series. Light Yagami, an ordinary university student, receives a death note which changes his life. The death note awakens his warped sense of justice and genius.'
-            ),
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/animepage/deathnote.jpg' })
-        );
-    }
-});
 /*! mainmodal/templates/attackontitanModal/attackontitanModal.jsx */
 rc.attackontitanModal = React.createClass({
     displayName: 'attackontitanModal',
@@ -1258,6 +1416,28 @@ rc.attackontitanModal = React.createClass({
                 'Attack on Titan is a Japanese anime and manga series. After his hometown is destroyed and his mother is killed, young Eren Jaegar vows to cleanse the earth of the giant humanoid Titans that have brought humanity to the brink of extinction.'
             ),
             React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/animepage/attackontitan.jpg' })
+        );
+    }
+});
+/*! mainmodal/templates/deathnoteModal/deathnoteModal.jsx */
+rc.deathnoteModal = React.createClass({
+    displayName: 'deathnoteModal',
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'deathnoteModal' },
+            React.createElement(
+                'h3',
+                null,
+                'Death Note'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'Death Note is a Japanese anime and manga series. Light Yagami, an ordinary university student, receives a death note which changes his life. The death note awakens his warped sense of justice and genius.'
+            ),
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/animepage/deathnote.jpg' })
         );
     }
 });

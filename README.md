@@ -46,7 +46,8 @@ Node and Gulp gather all the scripts from `/src` and `/srcbase` and output them 
 * event driven architecture (so components can communicate to eachother, examples given)
 * default nav, loader, header, footer, modal and pages that can be removed or altered
 * loader with a logic stack (see comments in code)
-* modal is event driven and contains templates
+* modal is event driven, contains templates and is deep linkable
+* a system called Hermes that safely allows JSON to be passed to an identical boiler on another server
 * all code files are well commented
 
 ## Management
