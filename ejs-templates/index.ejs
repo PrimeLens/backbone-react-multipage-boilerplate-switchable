@@ -21,7 +21,7 @@
             e.innerHTML = input;
             return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
         }
-        try { window.interappReceived = JSON.parse(htmlDecode("<%= payload %>")); } catch(e){}
+        try { window.hermesReceived = JSON.parse(htmlDecode("<%= payload %>")); } catch(e){}
     </script>    
 
 

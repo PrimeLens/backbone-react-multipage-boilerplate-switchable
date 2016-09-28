@@ -1,6 +1,6 @@
 /*  
     EXAMPLE
-    interapp.post('http://localhost:3000/interapp', {director: 'Ridley Scott', year : 1982});
+    Hermes.post('http://localhost:3000/interapp', {director: 'Ridley Scott', year : 1982});
 
     DEPENDENCIES
     jQuery ajax
@@ -27,15 +27,15 @@
 
 
 
-var interapp = ( function() {
+var Hermes = ( function() {
 
     function setup(){
-        if (window.interappReceived) {
-            dc.interappReceived = window.interappReceived;
-            window.interappReceived = undefined;
-            if (dc.interappReceived.clientSideRoute) {
-                if ( dc.interappReceived.clientSideRoute.substr(0, 2) != '#/' ) return;
-                app.navigate(dc.interappReceived.clientSideRoute);
+        if (window.hermesReceived) {
+            dc.hermesReceived = window.hermesReceived;
+            window.hermesReceived = undefined;
+            if (dc.hermesReceived.clientSideRoute) {
+                if ( dc.hermesReceived.clientSideRoute.substr(0, 2) != '#/' ) return;
+                app.navigate(dc.hermesReceived.clientSideRoute);
             }
         }
     }

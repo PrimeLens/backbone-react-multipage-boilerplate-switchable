@@ -69,37 +69,37 @@ rc.bladerunnerPageComponent = React.createClass({
         return { count: 0 };
     },
     componentWillMount: function componentWillMount() {
-        if (!dc.interappToSend) dc.interappToSend = {
+        if (!dc.hermesToSend) dc.hermesToSend = {
             clientSideRoute: '#/bladerunner', 
             characters: []
         };
     },
     clickHandlerAddCharacter: function clickHandlerAddCharacter() {
-        dc.interappToSend.characters.push(this.refs.inpText.value);
+        dc.hermesToSend.characters.push(this.refs.inpText.value);
         this.setState({ count: this.state.count + 1 });
     },
     clickHandlerPost: function clickHandlerPost() {
-        interapp.post('http://localhost:3001/interapp', dc.interappToSend);
+        Hermes.post('http://localhost:3001/hermes', dc.hermesToSend);
     },
     render: function render() {
         console.log(this.constructor.displayName + ' render()');
         var outputArray = [];
-        if (dc.interappReceived) {
-            if (_.isArray(dc.interappReceived)) {
-                _.each(dc.interappReceived, function (e, i) {
+        if (dc.hermesReceived) {
+            if (_.isArray(dc.hermesappReceived)) {
+                _.each(dc.hermesReceived, function (e, i) {
                     outputArray.push(React.createElement(
                         'div',
                         null,
                         JSON.stringify(e)
                     ));
                 });
-                if (dc.interappReceived.length === 0) outputArray.push(React.createElement(
+                if (dc.hermesReceived.length === 0) outputArray.push(React.createElement(
                     'div',
                     null,
                     'Empty array'
                 ));
             } else {
-                _.each(dc.interappReceived, function (v, k) {
+                _.each(dc.hermesReceived, function (v, k) {
                     outputArray.push(React.createElement(
                         'div',
                         null,
@@ -123,7 +123,7 @@ rc.bladerunnerPageComponent = React.createClass({
             'div',
             { id: 'bladerunner' },
             React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/bladerunnerpage/blade-runner.jpg' }),
-            'Data received from interapp post',
+            'Data received from hermes post',
             React.createElement('br', null),
             React.createElement(
                 'div',
@@ -153,7 +153,7 @@ rc.bladerunnerPageComponent = React.createClass({
             React.createElement(
                 'div',
                 null,
-                this.state.count > 0 ? 'sending JSON ' + JSON.stringify(dc.interappToSend) : ''
+                this.state.count > 0 ? 'sending JSON ' + JSON.stringify(dc.hermesToSend) : ''
             ),
             React.createElement(
                 'p',
@@ -293,6 +293,35 @@ rc.fireflyPageComponent = React.createClass({
             ),
             React.createElement(rc.fireflyDescriptions, null),
             React.createElement(rc.fireflyImages, null)
+        );
+    }
+});
+'use strict';
+/*! hannibal/hannibal.jsx */
+rc.hannibalPageComponent = React.createClass({
+    displayName: 'hannibalPageComponent',
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'hannibalpage' },
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/hannibalpage/hannibal.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                'Here we instanciate a shared child component called quizComponent which receives its configuration at the time of instanciation.'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'This child component is simple and does not save its state when changing away to another page. To do this the state data should be stored in',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    'app.status'
+                )
+            ),
+            React.createElement(rc.quizComponent, { data: SiteConfig.quiz.hannibal })
         );
     }
 });
@@ -444,35 +473,6 @@ rc.homePageComponent = React.createClass({
                 ),
                 ' - Example of a component remembering state after navigating away. Also bubbled events.'
             )
-        );
-    }
-});
-'use strict';
-/*! hannibal/hannibal.jsx */
-rc.hannibalPageComponent = React.createClass({
-    displayName: 'hannibalPageComponent',
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'hannibalpage' },
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/hannibalpage/hannibal.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                'Here we instanciate a shared child component called quizComponent which receives its configuration at the time of instanciation.'
-            ),
-            React.createElement(
-                'p',
-                null,
-                'This child component is simple and does not save its state when changing away to another page. To do this the state data should be stored in',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    'app.status'
-                )
-            ),
-            React.createElement(rc.quizComponent, { data: SiteConfig.quiz.hannibal })
         );
     }
 });
@@ -1093,6 +1093,78 @@ rc.loader = React.createClass({
     }
 });
 'use strict';
+/*! mainmodal/mainmodal.jsx */
+rc.mainmodal = React.createClass({
+    displayName: 'mainmodal',
+    getInitialState: function getInitialState() {
+        return {
+            show: false,
+            whichTemplate: ''
+        };
+    },
+    componentDidMount: function componentDidMount() {
+        var self = this;
+        grandCentral.off('modalHide').on('modalHide', function () {
+            self.setState({ show: false, whichTemplate: '' });
+        });
+        grandCentral.off('modalShow').on('modalShow', function (payLoad) {
+            self.setState({ show: true, whichTemplate: payLoad });
+        });
+    },
+    handleModalClose: function handleModalClose() {
+        grandCentral.trigger('modalHide');
+        if (app.status.currentFragString) {
+            if (app.status.currentFragString.indexOf('modalShow-') > -1) {
+                var newURL = '#/' + app.status.currentRoute;
+                var stringToRemove = 'modalShow-' + this.state.whichTemplate;
+                console.log('removing ' + stringToRemove + 'from the URL');
+                newURL = newURL.replace('/' + stringToRemove, '');
+                newURL = newURL.replace(stringToRemove + '/', '');
+                newURL = newURL.replace(stringToRemove, '');
+                app.navigate(newURL);
+            }
+        }
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        var self = this;
+        var classes = this.state.show ? 'absolutewrapper active' : 'absolutewrapper ';
+        var outputArray = [];
+        switch (this.state.whichTemplate) {
+            case 'attackontitanModal':
+                outputArray.push(React.createElement(rc.attackontitanModal, null));break;
+            case 'deathnoteModal':
+                outputArray.push(React.createElement(rc.deathnoteModal, null));break;
+        }
+        return React.createElement(
+            'div',
+            { className: classes },
+            React.createElement(
+                'div',
+                { className: 'greybacking' },
+                React.createElement(
+                    'div',
+                    { className: 'modalwrapper' },
+                    React.createElement(
+                        'div',
+                        { className: 'modalCloseButtonWrapper' },
+                        React.createElement(
+                            'div',
+                            { className: 'modalCloseButton', onClick: self.handleModalClose },
+                            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/ui/modal-close-btn.png' })
+                        )
+                    ),
+                    React.createElement(
+                        'div',
+                        { className: 'modalContentsWrapper' },
+                        outputArray
+                    )
+                )
+            )
+        );
+    }
+});
+'use strict';
 /*! nav/nav.jsx */
 rc.nav = React.createClass({
 	displayName: 'nav',
@@ -1197,78 +1269,6 @@ rc.nav = React.createClass({
 			)
 		);
 	}
-});
-'use strict';
-/*! mainmodal/mainmodal.jsx */
-rc.mainmodal = React.createClass({
-    displayName: 'mainmodal',
-    getInitialState: function getInitialState() {
-        return {
-            show: false,
-            whichTemplate: ''
-        };
-    },
-    componentDidMount: function componentDidMount() {
-        var self = this;
-        grandCentral.off('modalHide').on('modalHide', function () {
-            self.setState({ show: false, whichTemplate: '' });
-        });
-        grandCentral.off('modalShow').on('modalShow', function (payLoad) {
-            self.setState({ show: true, whichTemplate: payLoad });
-        });
-    },
-    handleModalClose: function handleModalClose() {
-        grandCentral.trigger('modalHide');
-        if (app.status.currentFragString) {
-            if (app.status.currentFragString.indexOf('modalShow-') > -1) {
-                var newURL = '#/' + app.status.currentRoute;
-                var stringToRemove = 'modalShow-' + this.state.whichTemplate;
-                console.log('removing ' + stringToRemove + 'from the URL');
-                newURL = newURL.replace('/' + stringToRemove, '');
-                newURL = newURL.replace(stringToRemove + '/', '');
-                newURL = newURL.replace(stringToRemove, '');
-                app.navigate(newURL);
-            }
-        }
-    },
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        var self = this;
-        var classes = this.state.show ? 'absolutewrapper active' : 'absolutewrapper ';
-        var outputArray = [];
-        switch (this.state.whichTemplate) {
-            case 'attackontitanModal':
-                outputArray.push(React.createElement(rc.attackontitanModal, null));break;
-            case 'deathnoteModal':
-                outputArray.push(React.createElement(rc.deathnoteModal, null));break;
-        }
-        return React.createElement(
-            'div',
-            { className: classes },
-            React.createElement(
-                'div',
-                { className: 'greybacking' },
-                React.createElement(
-                    'div',
-                    { className: 'modalwrapper' },
-                    React.createElement(
-                        'div',
-                        { className: 'modalCloseButtonWrapper' },
-                        React.createElement(
-                            'div',
-                            { className: 'modalCloseButton', onClick: self.handleModalClose },
-                            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/ui/modal-close-btn.png' })
-                        )
-                    ),
-                    React.createElement(
-                        'div',
-                        { className: 'modalContentsWrapper' },
-                        outputArray
-                    )
-                )
-            )
-        );
-    }
 });
 "use strict";
 /*! parentsadvisory/parentsadvisory.jsx */

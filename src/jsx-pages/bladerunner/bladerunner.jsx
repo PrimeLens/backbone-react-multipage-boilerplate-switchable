@@ -6,34 +6,34 @@ rc.bladerunnerPageComponent = React.createClass({
     },
 
     componentWillMount: function(){
-        if (!dc.interappToSend) dc.interappToSend = {
+        if (!dc.hermesToSend) dc.hermesToSend = {
             clientSideRoute : '#/bladerunner',   //  when the new app loads at port 3001 we want to go to #/bladerunner
             characters : []
         }
     },
 
     clickHandlerAddCharacter: function(){
-        dc.interappToSend.characters.push( this.refs.inpText.value );
+        dc.hermesToSend.characters.push( this.refs.inpText.value );
         this.setState({ count : this.state.count +1 });
     },
 
     clickHandlerPost: function(){
-        interapp.post('http://localhost:3001/interapp', dc.interappToSend);
+        Hermes.post('http://localhost:3001/hermes', dc.hermesToSend);
     },
 
     render:function(){
         console.log(this.constructor.displayName+' render()');
 
-        // pickup any data from dc.interappReceived and format it for outputArray
+        // pickup any data from dc.hermesReceived and format it for outputArray
         var outputArray = [];
-        if (dc.interappReceived) {
-            if ( _.isArray(dc.interappReceived) ){
-                _.each(dc.interappReceived, function(e,i){
+        if (dc.hermesReceived) {
+            if ( _.isArray(dc.hermesappReceived) ){
+                _.each(dc.hermesReceived, function(e,i){
                     outputArray.push( <div>{JSON.stringify(e)}</div> );
                 });
-                if (dc.interappReceived.length===0) outputArray.push( <div>Empty array</div> );
+                if (dc.hermesReceived.length===0) outputArray.push( <div>Empty array</div> );
             } else {
-                _.each(dc.interappReceived, function(v,k){
+                _.each(dc.hermesReceived, function(v,k){
                     outputArray.push( <div>{k+' : '+JSON.stringify(v)}</div> );
                 });
                 if (outputArray.length===0) outputArray.push( <div>Empty object with no properties</div> );
@@ -48,7 +48,7 @@ rc.bladerunnerPageComponent = React.createClass({
 
 <div id="bladerunner">
     <img src={SiteConfig.assetsDirectory+'images/bladerunnerpage/blade-runner.jpg'}/>
-    Data received from interapp post
+    Data received from hermes post
     <br/>
     <div className="readout">{outputArray}</div>    
     <p>
@@ -67,7 +67,7 @@ rc.bladerunnerPageComponent = React.createClass({
 
     <div>{ 
         this.state.count > 0 
-        ? 'sending JSON '+JSON.stringify(dc.interappToSend)
+        ? 'sending JSON '+JSON.stringify(dc.hermesToSend)
         : ''
     }</div>
     <p> 

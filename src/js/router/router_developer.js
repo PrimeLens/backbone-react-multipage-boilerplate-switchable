@@ -53,7 +53,7 @@ routerSetupConfig.appStatusNowReady =  function(){
     Nux.attachTrack();
 
     // setup interapp to receive any JSON sent between client side apps via POST request
-    interapp.setup();
+    Hermes.setup();
 
 };
 
