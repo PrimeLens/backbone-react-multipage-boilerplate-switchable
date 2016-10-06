@@ -12,7 +12,7 @@
 // http://stackoverflow.com/questions/33018779/using-gulp-without-global-gulp-edit-and-without-linking-to-the-bin-js-file
 // http://stackoverflow.com/questions/22115400/why-do-we-need-to-install-gulp-globally-and-locally
 
-// this gulp is set up to NOT use gulp serve. We want to use the express server provided instead as 
+// this gulp is set up to NOT use gulp serve. We want to use the express server provided instead as
 // there will be proxy endpoints.
 // so in effect gulp, is no different to grunt in the task it performs here
 
@@ -24,7 +24,7 @@ var gutil = require('gulp-util');
 var plumber = require('gulp-plumber');
 var runSequence = require('run-sequence');
 var concat = require('gulp-concat');
-var replace = require('gulp-replace');
+var replace = require('gulp-replace-task');
 var strip = require('gulp-strip-comments');
 var stripcss = require('gulp-strip-css-comments');
 var insert = require('gulp-insert');
@@ -36,13 +36,14 @@ var karma = require('karma').Server;
 var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var paths = require('./gulpconfig/gulpconfig.js');
+var del = require('del');
 
 
-gulp.task('default', function(){   
+gulp.task('default', function(){
     console.log('to use');
     console.log('npm run build');
     console.log('or');
-    console.log('npm run buildwatch');			  
+    console.log('npm run buildwatch');
 });
 
 // build
@@ -50,7 +51,7 @@ gulp.task('build', function(done){
     runSequence(['1:partials', '2:jsx', '3:cssBundle'], ['4:jsBundle'], done);
 });
 
-gulp.task('1:partials', function(){   
+gulp.task('1:partials', function(){
     return gulp.src(paths.partials)
     	.pipe(fc2json('htmlpartials.js', {extname:false, flat:true}))   // add  , {extname:false})) if they accept my pull request
     	.pipe(insert.prepend('window.htmlpartials = '))
@@ -58,7 +59,7 @@ gulp.task('1:partials', function(){
     	.pipe(gulp.dest('./srcbase/htmlcompiled'));
 });
 
-gulp.task('2:jsx', function(){   
+gulp.task('2:jsx', function(){
     return gulp.src(paths.jsx)
 		// insert header comment showing filename and tag it so its not deleted
 		.pipe(insert.transform(function(contents, file) {
@@ -86,13 +87,13 @@ gulp.task('2:jsx', function(){
         }))
         .pipe(plumber.stop())
     	// remove comments, cannot strip comments from jsx file as it crashes
-        .pipe(strip({ safe : true }))		
+        .pipe(strip({ safe : true }))
         .pipe(removeEmptyLines())
         .pipe(concat('jsxcompiled.js'))
-        .pipe(gulp.dest('./srcbase/jsxcompiled'));	
+        .pipe(gulp.dest('./srcbase/jsxcompiled'));
 });
 
-gulp.task('3:cssBundle', function(){   
+gulp.task('3:cssBundle', function(){
     return gulp.src(paths.sass)
         .pipe(plumber({
           errorHandler: function(error) {
@@ -124,13 +125,13 @@ gulp.task('3:cssBundle', function(){
         .pipe(removeEmptyLines())
         .pipe(addsrc.prepend('./src/css/bootstrap.min.css'))
         .pipe(concat('start.css'))
-        .pipe(gulp.dest('./public/prod'));           
+        .pipe(gulp.dest('./public/prod'));
 });
 
-gulp.task('4:jsBundle', function(){   
+gulp.task('4:jsBundle', function(){
     return gulp.src(paths.js)
         // Remove 'use strict';
-        .pipe(replace(/('|")use strict\1;/g, ''))
+        .pipe(replace(       [{ match : /('|")use strict\1;/g, replacement:''}        ])         )
         // insert header comment showing filename and tag it so its not deleted
         .pipe(insert.transform(function(contents, file) {
             var filename = file.path.replace(file.base,'');
@@ -142,7 +143,7 @@ gulp.task('4:jsBundle', function(){
         .pipe(removeEmptyLines())
         .pipe(addsrc.prepend(paths.thirdParty))
         .pipe(concat('start.js'))
-        .pipe(gulp.dest('./public/prod')) ;   
+        .pipe(gulp.dest('./public/prod')) ;
 });
 
 gulp.task('test', function(done) {
@@ -176,11 +177,61 @@ gulp.task('buildwatch', function(done) {
     gulp.watch(paths.unitTests, ['testwatch']);
 });
 
-function string_src(filename, string) {
-    var src = require('stream').Readable({ objectMode: true })
-    src._read = function () {
-        this.push(new gutil.File({ cwd: "", base: "", path: filename, contents: new Buffer(string) }));
-        this.push(null);
-    }
-    return src
+gulp.task('clean', function() {
+    return del([
+        // Delete everything inside of folder
+        './srcbase/htmlcompiled/**/*',
+        './srcbase/jsxcompiled/**/*'
+    ]);
+});
+
+var killdemofilepaths = require('./gulpconfig/killdemofilepaths');
+gulp.task('killdemofiles', function() {   return del( killdemofilepaths );  });
+gulp.task('killdemocode', function() {
+    gulp.src(
+        [
+            'src/js/router/router_developer.js',
+            'src/jsx-special/nav/nav.jsx',
+            'src/jsx-special/mainmodal/mainmodal.jsx'
+        ],
+        {base: './'}
+    )
+    .pipe(replace({
+        patterns: [
+            // the following four change the switch in mainmodal
+            { match: /rc\.attackontitanModal/g, replacement: 'rc.demoModal1' },        
+            { match: /rc\.deathnoteModal/g, replacement: 'rc.demoModal2' },
+            { match: /case\s'attackontitanModal''/g, replacement: '\/\/ case \'demoModal1\'' },        
+            { match: /case\s'deathnoteModal''/g, replacement: '\/\/ case \'demoModal2\'' },
+            // for router_developer.js  
+            // this pattern matches all of the developer routes
+            // the way it does NOT delete home,  exception is it doesnt match a word, it has ?path which doesn't match
+            // the way it does NOT delete badroute,  is the * causes it to not match
+            {
+            match: /'\w+\(\/\*path\)'\:\s+function\(f,\s+q\){\s+\w+.routeTunnel\('\w+',\s+'\w+',\s+\w+.\w+,\s+f,\s+q\)\;\s+},/g,
+            replacement: ''
+            }
+            // TO DO  the use strict has come back
+            // TO DO  need regex to clean out the buttons in nav.jsx
+            // TO DO   line to kill the insatciation of the exmachina view in router_developer
+      ]
+    }))
+    .pipe(gulp.dest('.'));
+});
+gulp.task('killdemo', function() {   runSequence(['killdemofiles', 'killdemocode']);   });
+gulp.task('killdemos', function() {   runSequence(['killdemofiles', 'killdemocode']);   });
+
+
+/*
+    // Not sure if string_src is still needed.  Added by tk on 2/5 for platform testing
+    // marked for deletion
+
+    function string_src(filename, string) {
+        var src = require('stream').Readable({ objectMode: true })
+        src._read = function () {
+            this.push(new gutil.File({ cwd: "", base: "", path: filename, contents: new Buffer(string) }));
+            this.push(null);
+        }
+        return src
 }
+*/
