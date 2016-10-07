@@ -177,8 +177,6 @@ gulp.task('buildwatch', function(done) {
     gulp.watch(paths.unitTests, ['testwatch']);
 });
 
-// This uses del
-// npm install --save-dev del
 gulp.task('clean', function() {
     return del([
         // Delete everything inside of folder
@@ -187,8 +185,6 @@ gulp.task('clean', function() {
     ]);
 });
 
-// This uses gulp-batch-replace
-// npm install --save-dev gulp-batch-replace
 var killdemofilepaths = require('./gulpconfig/killdemofilepaths');
 gulp.task('killdemofiles', function() {   return del( killdemofilepaths );  });
 gulp.task('killdemocode', function() {
@@ -201,19 +197,27 @@ gulp.task('killdemocode', function() {
         {base: './'}
     )
     .pipe(replace([
+        // the following four change the switch in mainmodal
     	[ /rc\.attackontitanModal/g, 'rc.demoModal1' ],
         [ /rc\.deathnoteModal/g, 'rc.demoModal2' ],
     	[ /case\s'attackontitanModal''/g, '// case \'demoModal1\'' ],
     	[ /case\s'deathnoteModal''/g, '// case \'demoModal2\'' },
-        // Remove routes in src/js/router/router-developer.js
+        // for router_developer.js
+        // this pattern matches all of the developer routes (including Ex Machina Backbone/jQuery view)
+        // the way it does NOT delete home,  exception is it doesnt match a word, it has ?path which doesn't match
+        // the way it does NOT delete badroute,  is the * causes it to not match
         [ /'\w+\(\/\*path\)'\:\s+function\(f,\s+q\){\s+\w+.routeTunnel\('\w+',\s+'\w+',\s+\w+.\w+,\s+f,\s+q\)\;\s+},\n/g, '' ],
         // Remove links form nav
         [ /\<a\s+className=\{this.getClassNameWithActive\('\w+'\)}\s+href="\#(.*)?"\>(.*)\<\/a\>\n/g, '']
     ]))
     .pipe(gulp.dest('.'));
+
+    // TO DO  the use strict has come back (This is removed by using gulp-batch-replace)
+    // TO DO  need regex to clean out the buttons in nav.jsx (this is covered by the last regex in the previous task)
+    // TO DO   line to kill the instantiation of the exmachina view in router_developer (this is covered by the updated regex for router)
 });
-gulp.task('killdemo', function() {   runSequence(['killdemofiles']);   });
-gulp.task('killdemos', function() {   runSequence(['killdemofiles']);   });
+gulp.task('killdemo', function() {   runSequence(['killdemofiles', 'killdemocode']);   });
+gulp.task('killdemos', function() {   runSequence(['killdemofiles', 'killdemocode']);   });
 
 
 /*
