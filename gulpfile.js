@@ -200,7 +200,7 @@ gulp.task('killdemocode', function() {
     	[ /rc\.attackontitanModal/g, 'rc.demoModal1' ],
         [ /rc\.deathnoteModal/g, 'rc.demoModal2' ],
     	[ /case\s'attackontitanModal''/g, '// case \'demoModal1\'' ],
-    	[ /case\s'deathnoteModal''/g, '// case \'demoModal2\'' },
+    	[ /case\s'deathnoteModal''/g, '// case \'demoModal2\'' ],
         // for router_developer.js
         // this pattern matches all of the developer routes (including Ex Machina Backbone/jQuery view)
         // the way it does NOT delete home,  exception is it doesnt match a word, it has ?path which doesn't match
