@@ -98,9 +98,13 @@ This is the same as creating a page component. Store either in `/jsx-special` or
 
 `gulp buildwatch` to clean then compile and place a watcher on the folder that will trigger a recompile in the event of a code change.
 
+`gulp clean` delete the compiled files.
+
 `node server` starts a server at http://localhost:3000 to change the port number edit `server.js` you will need different port numbers if you want more than one project open
 
 `gulp testwatch` is a newly added task that invokes the karma test runner to run all unit tests written for each component.
+
+`gulp killdemo` remove all examples and demo code, then run a build again.
 
 
 ## Order of compiling (for your reference)
