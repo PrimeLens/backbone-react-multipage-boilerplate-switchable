@@ -23,11 +23,13 @@ rc.stargatePageComponent = React.createClass({
     },
 
     buttonClickHandler:function(){
+        console.log(window.location.href + ": buttonClickHandler() ");
         window.top.testfunction(42);
     },
 
     domainButtonClickHandler:function(){
-        window.domain = "herokuapp.com";
+        console.log(window.location.href + ": domainButtonClickHandler() ");
+        document.domain = "herokuapp.com";
     },
 
     render:function(){
