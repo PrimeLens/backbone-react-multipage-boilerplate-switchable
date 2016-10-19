@@ -12,24 +12,27 @@ rc.stargatePageComponent = React.createClass({
         }
     },*/
 
-
-    render:function(){
-        console.log(this.constructor.displayName+' render()');
-
+    createMarkup:function(){
         var output;
         if(app.status.currentFragsArray[0] != "iframe"){
-            output = '<iframe src="https://still-cliffs-45326.herokuapp.com/#/stargate/iframe" />';
+            output = '<iframe width="800" height="600" src="https://still-cliffs-45326.herokuapp.com/#/stargate/iframe" />';
         }else{
             output = '<img src="images/stagatepage/Stargate.JPG" />';
         }
+        return {__html:output}
+    },
+    render:function(){
+        console.log(this.constructor.displayName+' render()');
+
+        
 
         // render,  and include received output
         return (
 
 <div id="bladerunner">
     
-    {output}
-    
+    <div dangerouslySetInnerHTML={this.createMarkup()} />
+            
     <br/><br/><br/><br/><br/>
 </div>
 
