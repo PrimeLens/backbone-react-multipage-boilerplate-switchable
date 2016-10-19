@@ -55,6 +55,8 @@ routerSetupConfig.appStatusNowReady =  function(){
     // setup interapp to receive any JSON sent between client side apps via POST request
     Hermes.setup();
 
+    document.domain = "herokuapp.com";
+
 };
 
 
