@@ -207,7 +207,9 @@ gulp.task('killdemocode', function() {
         // the way it does NOT delete badroute,  is the * causes it to not match
         [ /'\w+\(\/\*path\)'\:\s+function\(f,\s+q\){\s+\w+.routeTunnel\('\w+',\s+'\w+',\s+\w+.\w+,\s+f,\s+q\)\;\s+},\n/g, '' ],
         // Remove links form nav
-        [ /\<a\s+className=\{this.getClassNameWithActive\('\w+'\)}\s+href="\#(.*)?"\>(.*)\<\/a\>\n/g, '']
+        [ /\<a\s+className=\{this.getClassNameWithActive\('\w+'\)}\s+href="\#(.*)?"\>(.*)\<\/a\>\n/g, ''],
+        // this.exmachinaView = new ExmachinaView();
+        [ /this.\w+\s+=\s+new\s+\w+\(\)\;/g, '']
     ]))
     .pipe(gulp.dest('.'));
 
