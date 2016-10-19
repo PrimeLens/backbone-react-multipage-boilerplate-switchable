@@ -62,6 +62,31 @@ rc.animePageComponent = React.createClass({
     }
 });
 'use strict';
+/*! dexter/dexter.jsx */
+rc.dexterPageComponent = React.createClass({
+    displayName: 'dexterPageComponent',
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'dexterpage' },
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/dexterpage/dexter.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                'The Dexter page (as well as the True Blood page) bring in a Parents Advisory child component. Components such as parentsadvisory.jsx are stored in ',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    '/public/jsx-special'
+                ),
+                ' along with any other component that might be shared between pages.'
+            ),
+            React.createElement(rc.parentsadvisory, null)
+        );
+    }
+});
+'use strict';
 /*! bladerunner/bladerunner.jsx */
 rc.bladerunnerPageComponent = React.createClass({
     displayName: 'bladerunnerPageComponent',
@@ -363,31 +388,6 @@ rc.breakingbadPageComponent = React.createClass({
                 )
             ),
             React.createElement(rc.quizComponent, { data: SiteConfig.quiz.breakingbad })
-        );
-    }
-});
-'use strict';
-/*! dexter/dexter.jsx */
-rc.dexterPageComponent = React.createClass({
-    displayName: 'dexterPageComponent',
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'dexterpage' },
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/dexterpage/dexter.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                'The Dexter page (as well as the True Blood page) bring in a Parents Advisory child component. Components such as parentsadvisory.jsx are stored in ',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    '/public/jsx-special'
-                ),
-                ' along with any other component that might be shared between pages.'
-            ),
-            React.createElement(rc.parentsadvisory, null)
         );
     }
 });
@@ -938,36 +938,6 @@ rc.madmaxPageComponent = React.createClass({
     }
 });
 'use strict';
-/*! stargate/stargate.jsx */
-rc.stargatePageComponent = React.createClass({
-    displayName: 'stargatePageComponent',
-    getInitialState: function getInitialState() {
-        return { count: 0 };
-    },
-    createMarkup: function createMarkup() {
-        var output;
-        if (app.status.currentFragsArray[0] != "iframe") {
-            output = '<iframe width="800" height="600" src="https://still-cliffs-45326.herokuapp.com/#/stargate/iframe" />';
-        } else {
-            output = '<img src="images/stagatepage/Stargate.JPG" />';
-        }
-        return { __html: output };
-    },
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'bladerunner' },
-            React.createElement('div', { dangerouslySetInnerHTML: this.createMarkup() }),
-            React.createElement('br', null),
-            React.createElement('br', null),
-            React.createElement('br', null),
-            React.createElement('br', null),
-            React.createElement('br', null)
-        );
-    }
-});
-'use strict';
 /*! thrones/thrones.jsx */
 rc.thronesPageComponent = React.createClass({
     displayName: 'thronesPageComponent',
@@ -993,6 +963,72 @@ rc.thronesPageComponent = React.createClass({
                 React.createElement('br', null),
                 'translates to "all men must die"'
             )
+        );
+    }
+});
+'use strict';
+/*! stargate/stargate.jsx */
+rc.stargatePageComponent = React.createClass({
+    displayName: 'stargatePageComponent',
+    getInitialState: function getInitialState() {
+        return { count: 0 };
+    },
+    createMarkup: function createMarkup() {
+        var output;
+        if (app.status.currentFragsArray[0] != "iframe") {
+            output = '<iframe width="800" height="600" src="https://still-cliffs-45326.herokuapp.com/#/stargate/iframe" />';
+        } else {
+            output = '<img src="images/stargatepage/Stargate.JPG" />';
+        }
+        return { __html: output };
+    },
+    buttonClickHandler: function buttonClickHandler() {
+        window.top.testfunction(42);
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'bladerunner' },
+            React.createElement('div', { dangerouslySetInnerHTML: this.createMarkup() }),
+            React.createElement(
+                'button',
+                { onClick: this.buttonClickHandler },
+                'click me'
+            ),
+            React.createElement('br', null),
+            React.createElement('br', null),
+            React.createElement('br', null),
+            React.createElement('br', null),
+            React.createElement('br', null)
+        );
+    }
+});
+window.testfunction = function (data) {
+    console.log(window.location.href + ": testfunction(): ", data);
+};
+'use strict';
+/*! trueblood/trueblood.jsx */
+rc.truebloodPageComponent = React.createClass({
+    displayName: 'truebloodPageComponent',
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'truebloodpage' },
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/truebloodpage/trueblood.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                'The True Blood page (as well as the Dexter page) bring in a Parents Advisory child component. Components such as parentsadvisory.jsx are stored in ',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    '/public/jsx-special'
+                ),
+                ' along with any other component that might be shared between pages.'
+            ),
+            React.createElement(rc.parentsadvisory, null)
         );
     }
 });
@@ -1064,31 +1100,6 @@ rc.walkingPageComponent = React.createClass({
                 { className: 'panel' },
                 panel
             )
-        );
-    }
-});
-'use strict';
-/*! trueblood/trueblood.jsx */
-rc.truebloodPageComponent = React.createClass({
-    displayName: 'truebloodPageComponent',
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'truebloodpage' },
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/truebloodpage/trueblood.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                'The True Blood page (as well as the Dexter page) bring in a Parents Advisory child component. Components such as parentsadvisory.jsx are stored in ',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    '/public/jsx-special'
-                ),
-                ' along with any other component that might be shared between pages.'
-            ),
-            React.createElement(rc.parentsadvisory, null)
         );
     }
 });

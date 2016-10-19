@@ -17,10 +17,15 @@ rc.stargatePageComponent = React.createClass({
         if(app.status.currentFragsArray[0] != "iframe"){
             output = '<iframe width="800" height="600" src="https://still-cliffs-45326.herokuapp.com/#/stargate/iframe" />';
         }else{
-            output = '<img src="images/stagatepage/Stargate.JPG" />';
+            output = '<img src="images/stargatepage/Stargate.JPG" />';
         }
         return {__html:output}
     },
+
+    buttonClickHandler:function(){
+        window.top.testfunction(42);
+    },
+
     render:function(){
         console.log(this.constructor.displayName+' render()');
 
@@ -32,6 +37,8 @@ rc.stargatePageComponent = React.createClass({
 <div id="bladerunner">
     
     <div dangerouslySetInnerHTML={this.createMarkup()} />
+
+    <button onClick={this.buttonClickHandler} >click me</button>
             
     <br/><br/><br/><br/><br/>
 </div>
@@ -39,3 +46,7 @@ rc.stargatePageComponent = React.createClass({
         );
     }
 });
+
+window.testfunction = function(data){
+    console.log(window.location.href + ": testfunction(): ", data)
+}
