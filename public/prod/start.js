@@ -985,44 +985,6 @@ rc.hungergamesPageComponent = React.createClass({
         );
     }
 });
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-/*! inception/inception.jsx */
-rc.inceptionPageComponent = function (_React$Component) {
-    _inherits(InceptionPageComponent, _React$Component);
-    function InceptionPageComponent(props) {
-        _classCallCheck(this, InceptionPageComponent);
-        var _this = _possibleConstructorReturn(this, (InceptionPageComponent.__proto__ || Object.getPrototypeOf(InceptionPageComponent)).call(this, props));
-        _this.displayName = 'inceptionPageComponent';
-        if (typeof app.stores.inception === 'undefined' || app.stores.inception.level > 2) {
-            app.stores.inception = {};
-            app.stores.inception.level = 0;
-        }
-        return _this;
-    }
-    _createClass(InceptionPageComponent, [{
-        key: 'render',
-        value: function render() {
-            console.log(this.displayName + ' render()');
-            var inception = app.stores.inception.level < 2 ? React.createElement(rc.inceptionPageComponent, null) : null;
-            app.stores.inception.level++;
-            return React.createElement(
-                'div',
-                { className: 'inceptionpage clearfix' },
-                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/inceptionpage/inception.jpg' }),
-                React.createElement(
-                    'p',
-                    null,
-                    'Here we have an example of inception. Also, it is an example of creating a React component using ES6 class notation.'
-                ),
-                inception
-            );
-        }
-    }]);
-    return InceptionPageComponent;
-}(React.Component);
 /*! jessicajones/jessicajones.jsx */
 rc.jessicajonesPageComponent = React.createClass({
     displayName: 'jessicajonesPageComponent',
@@ -1085,6 +1047,70 @@ rc.jessicajonesPageComponent = React.createClass({
                 { className: 'itemContainer', onClick: this.handleBubbledClick },
                 outputArray
             )
+        );
+    }
+});
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+/*! inception/inception.jsx */
+rc.inceptionPageComponent = function (_React$Component) {
+    _inherits(InceptionPageComponent, _React$Component);
+    function InceptionPageComponent(props) {
+        _classCallCheck(this, InceptionPageComponent);
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(InceptionPageComponent).call(this, props));
+        _this.displayName = 'inceptionPageComponent';
+        if (typeof app.stores.inception === 'undefined' || app.stores.inception.level > 2) {
+            app.stores.inception = {};
+            app.stores.inception.level = 0;
+        }
+        return _this;
+    }
+    _createClass(InceptionPageComponent, [{
+        key: 'render',
+        value: function render() {
+            console.log(this.displayName + ' render()');
+            var inception = app.stores.inception.level < 2 ? React.createElement(rc.inceptionPageComponent, null) : null;
+            app.stores.inception.level++;
+            return React.createElement(
+                'div',
+                { className: 'inceptionpage clearfix' },
+                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/inceptionpage/inception.jpg' }),
+                React.createElement(
+                    'p',
+                    null,
+                    'Here we have an example of inception. Also, it is an example of creating a React component using ES6 class notation.'
+                ),
+                inception
+            );
+        }
+    }]);
+    return InceptionPageComponent;
+}(React.Component);
+/*! stargate/stargate.jsx */
+rc.stargatePageComponent = React.createClass({
+    displayName: 'stargatePageComponent',
+    getInitialState: function getInitialState() {
+        return { count: 0 };
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        var output;
+        if (app.status.currentFragsArray[0] != "iframe") {
+            output = '<iframe src="https://still-cliffs-45326.herokuapp.com/#/stargate/iframe" />';
+        } else {
+            output = '<img src="images/stagatepage/Stargate.JPG" />';
+        }
+        return React.createElement(
+            'div',
+            { id: 'bladerunner' },
+            output,
+            React.createElement('br', null),
+            React.createElement('br', null),
+            React.createElement('br', null),
+            React.createElement('br', null),
+            React.createElement('br', null)
         );
     }
 });
@@ -1172,34 +1198,6 @@ rc.madmaxPageComponent = React.createClass({
             );
         }
         return renderHandle;
-    }
-});
-/*! thrones/thrones.jsx */
-rc.thronesPageComponent = React.createClass({
-    displayName: 'thronesPageComponent',
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { className: 'whatevercssclass' },
-            React.createElement(
-                'p',
-                null,
-                'All the other pages follow specific css pattern. The purpose of this page is to demonstrate that this is not locked to this boilerplate. You can set your own.'
-            ),
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/thronespage/gamethrones.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                React.createElement(
-                    'span',
-                    { className: 'specialQuote' },
-                    'Valar morghulis'
-                ),
-                React.createElement('br', null),
-                'translates to "all men must die"'
-            )
-        );
     }
 });
 /*! trueblood/trueblood.jsx */
@@ -1292,6 +1290,34 @@ rc.walkingPageComponent = React.createClass({
                 'div',
                 { className: 'panel' },
                 panel
+            )
+        );
+    }
+});
+/*! thrones/thrones.jsx */
+rc.thronesPageComponent = React.createClass({
+    displayName: 'thronesPageComponent',
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { className: 'whatevercssclass' },
+            React.createElement(
+                'p',
+                null,
+                'All the other pages follow specific css pattern. The purpose of this page is to demonstrate that this is not locked to this boilerplate. You can set your own.'
+            ),
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/thronespage/gamethrones.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                React.createElement(
+                    'span',
+                    { className: 'specialQuote' },
+                    'Valar morghulis'
+                ),
+                React.createElement('br', null),
+                'translates to "all men must die"'
             )
         );
     }
@@ -1670,6 +1696,11 @@ rc.nav = React.createClass({
 				'a',
 				{ className: this.getClassNameWithActive('bladerunner'), href: '#/bladerunner' },
 				'Blade Runner'
+			),
+			React.createElement(
+				'a',
+				{ className: this.getClassNameWithActive('stargate'), href: '#/stagate' },
+				'Stargate'
 			)
 		);
 	}
@@ -1889,6 +1920,7 @@ routerSetupConfig.routes =  {
     'anime(/*path)': function(f, q){ this.routeTunnel('react', 'anime', rc.animePageComponent, f, q); },
     'jessicajones(/*path)': function(f, q){ this.routeTunnel('react', 'jessicajones', rc.jessicajonesPageComponent, f, q); },
     'bladerunner(/*path)': function(f, q){ this.routeTunnel('react', 'bladerunner', rc.bladerunnerPageComponent, f, q); },
+    'stargate(/*path)': function(f, q){ this.routeTunnel('react', 'stargate', rc.stargatePageComponent, f, q); },
     '*badroute': function(){ this.navigate('#', {trigger: true}); }
 };
 routerSetupConfig.prePageChange =  function(){
