@@ -1941,7 +1941,6 @@ routerSetupConfig.initialize = function() {
 routerSetupConfig.appStatusNowReady =  function(){
     Nux.attachTrack();
     Hermes.setup();
-    document.domain = "herokuapp.com";
 };
 routerSetupConfig.routes =  {
     '(?*path)': function(f, q){ this.routeTunnel('react', 'home', rc.homePageComponent, f, q); },
