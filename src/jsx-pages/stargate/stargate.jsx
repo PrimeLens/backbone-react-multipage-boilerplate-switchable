@@ -64,6 +64,8 @@ rc.stargatePageComponent = React.createClass({
     }
 });
 
+document.domain = "herokuapp.com";
+
 window.testfunction = function(data){
     console.log(window.location.href + ": testfunction(): ", data)
 }
