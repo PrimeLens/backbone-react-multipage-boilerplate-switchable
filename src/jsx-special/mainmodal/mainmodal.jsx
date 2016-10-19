@@ -50,8 +50,8 @@ rc.mainmodal = React.createClass({
         var classes = this.state.show ? 'absolutewrapper active' : 'absolutewrapper ';
         var outputArray = [];
         switch(this.state.whichTemplate) {
-            case 'attackontitanModal': outputArray.push(<rc.attackontitanModal/>);    break;
-            case 'deathnoteModal': outputArray.push(<rc.deathnoteModal/>);    break;
+            case 'attackontitanModal': outputArray.push(<rc.demoModal1/>);    break;
+            case 'deathnoteModal': outputArray.push(<rc.demoModal2/>);    break;
         }
 
         return ( 

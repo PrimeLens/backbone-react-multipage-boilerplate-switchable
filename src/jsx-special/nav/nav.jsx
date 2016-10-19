@@ -6,7 +6,7 @@ rc.nav = React.createClass({
     },
 	componentDidMount : function(){
 		var self= this;
-        // unbind before binding in case component unmounts/remounts, optionally use componentWillUnmount	
+        // unbind before binding in case component unmounts/remounts, optionally use componentWillUnmount
 	    grandCentral.off('pagechange').on('pagechange', function(data){
 			self.setState({
 				currentPage: data.currentPage
@@ -42,4 +42,3 @@ rc.nav = React.createClass({
         );
     }
 });
-	
