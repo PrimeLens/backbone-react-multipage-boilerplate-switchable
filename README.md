@@ -1,5 +1,6 @@
 # Backbone React Multipage Boilerplate (switchable)
 
+<<<<<<< HEAD
 Client side javascript web app boilerplate that allows the route to switch between react pages and jquery pages. Router is separated away from the rest of the app. Minimal use of dependencies to increase future-proofing and easy a pivot on tech stack.
 
 ## Definitions used in this readme for Framework, Boilerplate and Library
@@ -162,6 +163,12 @@ Use the node command `gulp testwatch` which is a newly added task that invokes t
 ## Final note on SASS being added
 - SASS support in gulp only covers nesting and variables
 - any SASS complexity you may want above that would be on your own fork and may not be supported by this gulp implementation
+=======
+Use the branch dropdown to see the versions within this repository
+
+* 2015-macys
+* 2016-macmillan
+>>>>>>> b20a557d1092163cbae8e8325096f4c6d6dde2ec
 
 ## Deploying to heroku
 - this boilerplate is ready to go for heroku git deployment
