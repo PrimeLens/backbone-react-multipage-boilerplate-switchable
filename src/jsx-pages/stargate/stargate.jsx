@@ -26,6 +26,10 @@ rc.stargatePageComponent = React.createClass({
         window.top.testfunction(42);
     },
 
+    domainButtonClickHandler:function(){
+        window.domain = "herokuapp.com";
+    },
+
     render:function(){
         console.log(this.constructor.displayName+' render()');
 
@@ -34,11 +38,22 @@ rc.stargatePageComponent = React.createClass({
         // render,  and include received output
         return (
 
-<div id="bladerunner">
+<div id="stargate">
     
     <div dangerouslySetInnerHTML={this.createMarkup()} />
 
-    <button onClick={this.buttonClickHandler} >click me</button>
+    <button onClick={this.buttonClickHandler} >Call window.top.testfunction(42)</button>
+    <br/><br/>
+    <button onClick={this.domainButtonClickHandler} >Set document.domain = "herokuapp.com"</button>
+
+    <p>
+        window.top.testfunction fails: <br/>
+        start.js:14 Uncaught SecurityError: Blocked a frame with origin "https://still-cliffs-45326.herokuapp.com" from accessing a frame with origin "https://infinite-atoll-33137.herokuapp.com". Protocols, domains, and ports must match.
+    </p>
+
+    <p>
+        change both parent and child document.domain to same superdomain.
+    </p>
             
     <br/><br/><br/><br/><br/>
 </div>
