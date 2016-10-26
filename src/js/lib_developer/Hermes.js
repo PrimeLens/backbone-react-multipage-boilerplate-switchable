@@ -46,8 +46,8 @@ var Hermes = ( function() {
         var $form = $('<form>', { method: 'post', action: appurl });
         // create and attach a virtual input with payload
         var $input = $('<input>').attr('type', 'hidden').attr('name', 'payload').attr('value', JSON.stringify(payload));
-        // send
-        $form.append($input).submit();        
+        // send (appendTo body needed to work in Firefox)
+        $form.append($input).appendTo("body").submit();        
     }
 
 	return {

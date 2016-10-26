@@ -185,23 +185,6 @@ body {
   border-color: #adadad;
   cursor: default;
   text-decoration: none; }
-/*! parentsadvisory/parentsadvisory.scss */
-.parentsadvisory {
-  padding: 14px;
-  text-align: center;
-  border: 3px solid white;
-  position: absolute;
-  background-color: #922;
-  color: white;
-  top: 210px;
-  left: 20px;
-  border-radius: 35px;
-  text-transform: uppercase;
-  font-size: 10px;
-  -webkit-transform: rotate(20deg);
-  transform: rotate(20deg); }
-.parentsadvisory strong {
-  font-size: 16px; }
 /*! quiz/quiz.scss */
 .quizheader {
   color: #aaa;
@@ -219,6 +202,23 @@ body {
   text-decoration: underline;
   margin: 20px 20px 40px 0;
   float: left; }
+/*! parentsadvisory/parentsadvisory.scss */
+.parentsadvisory {
+  padding: 14px;
+  text-align: center;
+  border: 3px solid white;
+  position: absolute;
+  background-color: #922;
+  color: white;
+  top: 210px;
+  left: 20px;
+  border-radius: 35px;
+  text-transform: uppercase;
+  font-size: 10px;
+  -webkit-transform: rotate(20deg);
+  transform: rotate(20deg); }
+.parentsadvisory strong {
+  font-size: 16px; }
 /*! anime/anime.scss */
 #animepage {
   padding-bottom: 200px; }
@@ -272,7 +272,6 @@ body {
   border-color: #adadad;
   cursor: default;
   text-decoration: none; }
-/*! dexter/dexter.scss */
 /*! breakingbad/breakingbad.scss */
 #breakingbadpage img {
   max-width: 300px;
@@ -281,6 +280,7 @@ body {
   margin: 0 20px 20px 0; }
 #breakingbadpage .panel {
   clear: both; }
+/*! dexter/dexter.scss */
 /*! firefly/firefly.scss */
 #fireflypage .mainpic {
   width: 100%;
@@ -302,14 +302,6 @@ body {
   height: 100px;
   float: left;
   margin: 10px; }
-/*! hannibal/hannibal.scss */
-#hannibalpage img {
-  max-width: 300px;
-  width: 100%;
-  float: left;
-  margin: 0 20px 20px 0; }
-#hannibalpage .quizcontainer {
-  clear: both; }
 /*! home/home.scss */
 #homepage .pagetitle {
   font-style: italic;
@@ -318,6 +310,29 @@ body {
 #homepage .pagetitle:hover {
   color: #a33;
   text-decoration: underline; }
+/*! hannibal/hannibal.scss */
+#hannibalpage img {
+  max-width: 300px;
+  width: 100%;
+  float: left;
+  margin: 0 20px 20px 0; }
+#hannibalpage .quizcontainer {
+  clear: both; }
+/*! inception/inception.scss */
+.inceptionpage {
+  border: 3px dotted #eee;
+  font-size: 1.75rem; }
+  .inceptionpage .inceptionpage {
+    float: left;
+    margin: 10px;
+    font-size: 1.25rem; }
+    .inceptionpage .inceptionpage .inceptionpage {
+      font-size: .75rem; }
+  .inceptionpage img {
+    width: 11.375em !important;
+    height: auto;
+    float: left;
+    margin-right: 10px; }
 /*! hungergames/hungergames.scss */
 #hungergamespage .hungerinput {
   display: inline-block; }
@@ -354,21 +369,6 @@ body {
   border-color: #adadad;
   cursor: default;
   text-decoration: none; }
-/*! inception/inception.scss */
-.inceptionpage {
-  border: 3px dotted #eee;
-  font-size: 1.75rem; }
-  .inceptionpage .inceptionpage {
-    float: left;
-    margin: 10px;
-    font-size: 1.25rem; }
-    .inceptionpage .inceptionpage .inceptionpage {
-      font-size: .75rem; }
-  .inceptionpage img {
-    width: 11.375em !important;
-    height: auto;
-    float: left;
-    margin-right: 10px; }
 /*! jessicajones/jessicajones.scss */
 #jessicajonespage .itemContainer,
 #jessicajonespage .itemReadout,

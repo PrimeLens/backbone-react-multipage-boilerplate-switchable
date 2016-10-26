@@ -467,35 +467,6 @@ rc.fireflyPageComponent = React.createClass({
     }
 });
 'use strict';
-/*! hannibal/hannibal.jsx */
-rc.hannibalPageComponent = React.createClass({
-    displayName: 'hannibalPageComponent',
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'hannibalpage' },
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/hannibalpage/hannibal.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                'Here we instanciate a shared child component called quizComponent which receives its configuration at the time of instanciation.'
-            ),
-            React.createElement(
-                'p',
-                null,
-                'This child component is simple and does not save its state when changing away to another page. To do this the state data should be stored in',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    'app.status'
-                )
-            ),
-            React.createElement(rc.quizComponent, { data: SiteConfig.quiz.hannibal })
-        );
-    }
-});
-'use strict';
 /*! home/home.jsx */
 rc.homePageComponent = React.createClass({
     displayName: 'homePageComponent',
@@ -657,6 +628,74 @@ rc.homePageComponent = React.createClass({
     }
 });
 'use strict';
+/*! hannibal/hannibal.jsx */
+rc.hannibalPageComponent = React.createClass({
+    displayName: 'hannibalPageComponent',
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'hannibalpage' },
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/hannibalpage/hannibal.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                'Here we instanciate a shared child component called quizComponent which receives its configuration at the time of instanciation.'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'This child component is simple and does not save its state when changing away to another page. To do this the state data should be stored in',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    'app.status'
+                )
+            ),
+            React.createElement(rc.quizComponent, { data: SiteConfig.quiz.hannibal })
+        );
+    }
+});
+'use strict';
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+/*! inception/inception.jsx */
+rc.inceptionPageComponent = function (_React$Component) {
+    _inherits(InceptionPageComponent, _React$Component);
+    function InceptionPageComponent(props) {
+        _classCallCheck(this, InceptionPageComponent);
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(InceptionPageComponent).call(this, props));
+        _this.displayName = 'inceptionPageComponent';
+        if (typeof app.stores.inception === 'undefined' || app.stores.inception.level > 2) {
+            app.stores.inception = {};
+            app.stores.inception.level = 0;
+        }
+        return _this;
+    }
+    _createClass(InceptionPageComponent, [{
+        key: 'render',
+        value: function render() {
+            console.log(this.displayName + ' render()');
+            var inception = app.stores.inception.level < 2 ? React.createElement(rc.inceptionPageComponent, null) : null;
+            app.stores.inception.level++;
+            return React.createElement(
+                'div',
+                { className: 'inceptionpage clearfix' },
+                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/inceptionpage/inception.jpg' }),
+                React.createElement(
+                    'p',
+                    null,
+                    'Here we have an example of inception. Also, it is an example of creating a React component using ES6 class notation.'
+                ),
+                inception
+            );
+        }
+    }]);
+    return InceptionPageComponent;
+}(React.Component);
+'use strict';
 /*! hungergames/hungergames.jsx */
 rc.hungergamesPageComponent = React.createClass({
     displayName: 'hungergamesPageComponent',
@@ -745,45 +784,6 @@ rc.hungergamesPageComponent = React.createClass({
         );
     }
 });
-'use strict';
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-/*! inception/inception.jsx */
-rc.inceptionPageComponent = function (_React$Component) {
-    _inherits(InceptionPageComponent, _React$Component);
-    function InceptionPageComponent(props) {
-        _classCallCheck(this, InceptionPageComponent);
-        var _this = _possibleConstructorReturn(this, (InceptionPageComponent.__proto__ || Object.getPrototypeOf(InceptionPageComponent)).call(this, props));
-        _this.displayName = 'inceptionPageComponent';
-        if (typeof app.stores.inception === 'undefined' || app.stores.inception.level > 2) {
-            app.stores.inception = {};
-            app.stores.inception.level = 0;
-        }
-        return _this;
-    }
-    _createClass(InceptionPageComponent, [{
-        key: 'render',
-        value: function render() {
-            console.log(this.displayName + ' render()');
-            var inception = app.stores.inception.level < 2 ? React.createElement(rc.inceptionPageComponent, null) : null;
-            app.stores.inception.level++;
-            return React.createElement(
-                'div',
-                { className: 'inceptionpage clearfix' },
-                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/inceptionpage/inception.jpg' }),
-                React.createElement(
-                    'p',
-                    null,
-                    'Here we have an example of inception. Also, it is an example of creating a React component using ES6 class notation.'
-                ),
-                inception
-            );
-        }
-    }]);
-    return InceptionPageComponent;
-}(React.Component);
 'use strict';
 /*! jessicajones/jessicajones.jsx */
 rc.jessicajonesPageComponent = React.createClass({
@@ -1451,26 +1451,6 @@ rc.nav = React.createClass({
 	}
 });
 "use strict";
-/*! parentsadvisory/parentsadvisory.jsx */
-rc.parentsadvisory = React.createClass({
-    displayName: "parentsadvisory",
-    render: function render() {
-        return React.createElement(
-            "div",
-            { className: "parentsadvisory" },
-            React.createElement(
-                "strong",
-                null,
-                "Don't"
-            ),
-            React.createElement("br", null),
-            "let kids",
-            React.createElement("br", null),
-            "watch this"
-        );
-    }
-});
-"use strict";
 /*! quiz/quiz.jsx */
 rc.quizComponent = React.createClass({
     displayName: "quizComponent",
@@ -1503,6 +1483,26 @@ rc.quizComponent = React.createClass({
                 { className: "submitquizbtn" },
                 "Submit"
             )
+        );
+    }
+});
+"use strict";
+/*! parentsadvisory/parentsadvisory.jsx */
+rc.parentsadvisory = React.createClass({
+    displayName: "parentsadvisory",
+    render: function render() {
+        return React.createElement(
+            "div",
+            { className: "parentsadvisory" },
+            React.createElement(
+                "strong",
+                null,
+                "Don't"
+            ),
+            React.createElement("br", null),
+            "let kids",
+            React.createElement("br", null),
+            "watch this"
         );
     }
 });
