@@ -55,6 +55,8 @@ routerSetupConfig.appStatusNowReady =  function(){
     // setup interapp to receive any JSON sent between client side apps via POST request
     Hermes.setup();
 
+    //document.domain = "herokuapp.com";
+
 };
 
 
@@ -90,6 +92,7 @@ routerSetupConfig.routes =  {
     'anime(/*path)': function(f, q){ this.routeTunnel('react', 'anime', rc.animePageComponent, f, q); },
     'jessicajones(/*path)': function(f, q){ this.routeTunnel('react', 'jessicajones', rc.jessicajonesPageComponent, f, q); },
     'bladerunner(/*path)': function(f, q){ this.routeTunnel('react', 'bladerunner', rc.bladerunnerPageComponent, f, q); },
+    'stargate(/*path)': function(f, q){ this.routeTunnel('react', 'stargate', rc.stargatePageComponent, f, q); },
 
 
     '*badroute': function(){ this.navigate('#', {trigger: true}); }

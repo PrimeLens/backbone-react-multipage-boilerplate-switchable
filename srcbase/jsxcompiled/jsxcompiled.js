@@ -338,6 +338,31 @@ rc.bladerunnerPageComponent = React.createClass({
     }
 });
 'use strict';
+/*! dexter/dexter.jsx */
+rc.dexterPageComponent = React.createClass({
+    displayName: 'dexterPageComponent',
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'dexterpage' },
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/dexterpage/dexter.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                'The Dexter page (as well as the True Blood page) bring in a Parents Advisory child component. Components such as parentsadvisory.jsx are stored in ',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    '/public/jsx-special'
+                ),
+                ' along with any other component that might be shared between pages.'
+            ),
+            React.createElement(rc.parentsadvisory, null)
+        );
+    }
+});
+'use strict';
 /*! breakingbad/breakingbad.jsx */
 rc.breakingbadPageComponent = React.createClass({
     displayName: 'breakingbadPageComponent',
@@ -363,31 +388,6 @@ rc.breakingbadPageComponent = React.createClass({
                 )
             ),
             React.createElement(rc.quizComponent, { data: SiteConfig.quiz.breakingbad })
-        );
-    }
-});
-'use strict';
-/*! dexter/dexter.jsx */
-rc.dexterPageComponent = React.createClass({
-    displayName: 'dexterPageComponent',
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'dexterpage' },
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/dexterpage/dexter.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                'The Dexter page (as well as the True Blood page) bring in a Parents Advisory child component. Components such as parentsadvisory.jsx are stored in ',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    '/public/jsx-special'
-                ),
-                ' along with any other component that might be shared between pages.'
-            ),
-            React.createElement(rc.parentsadvisory, null)
         );
     }
 });
@@ -755,7 +755,7 @@ rc.inceptionPageComponent = function (_React$Component) {
     _inherits(InceptionPageComponent, _React$Component);
     function InceptionPageComponent(props) {
         _classCallCheck(this, InceptionPageComponent);
-        var _this = _possibleConstructorReturn(this, (InceptionPageComponent.__proto__ || Object.getPrototypeOf(InceptionPageComponent)).call(this, props));
+        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(InceptionPageComponent).call(this, props));
         _this.displayName = 'inceptionPageComponent';
         if (typeof app.stores.inception === 'undefined' || app.stores.inception.level > 2) {
             app.stores.inception = {};
@@ -937,6 +937,71 @@ rc.madmaxPageComponent = React.createClass({
         return renderHandle;
     }
 });
+'use strict';
+/*! stargate/stargate.jsx */
+rc.stargatePageComponent = React.createClass({
+    displayName: 'stargatePageComponent',
+    getInitialState: function getInitialState() {
+        return { count: 0 };
+    },
+    createMarkup: function createMarkup() {
+        var output;
+        if (app.status.currentFragsArray[0] != "iframe") {
+            output = '<iframe width="800" height="600" src="https://still-cliffs-45326.herokuapp.com/#/stargate/iframe" />';
+        } else {
+            output = '<img src="images/stargatepage/Stargate.JPG" />';
+        }
+        return { __html: output };
+    },
+    buttonClickHandler: function buttonClickHandler() {
+        console.log(window.location.href + ": buttonClickHandler() ");
+        window.top.testfunction(42);
+    },
+    domainButtonClickHandler: function domainButtonClickHandler() {
+        console.log(window.location.href + ": domainButtonClickHandler() ");
+        document.domain = "herokuapp.com";
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'stargate' },
+            React.createElement('div', { dangerouslySetInnerHTML: this.createMarkup() }),
+            React.createElement(
+                'button',
+                { onClick: this.buttonClickHandler },
+                'Call window.top.testfunction(42)'
+            ),
+            React.createElement('br', null),
+            React.createElement('br', null),
+            React.createElement(
+                'button',
+                { onClick: this.domainButtonClickHandler },
+                'Set document.domain = "herokuapp.com"'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'window.top.testfunction fails: ',
+                React.createElement('br', null),
+                'start.js:14 Uncaught SecurityError: Blocked a frame with origin "https://still-cliffs-45326.herokuapp.com" from accessing a frame with origin "https://infinite-atoll-33137.herokuapp.com". Protocols, domains, and ports must match.'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'change both parent and child document.domain to same superdomain.'
+            ),
+            React.createElement('br', null),
+            React.createElement('br', null),
+            React.createElement('br', null),
+            React.createElement('br', null),
+            React.createElement('br', null)
+        );
+    }
+});
+window.testfunction = function (data) {
+    console.log(window.location.href + ": testfunction(): ", data);
+};
 'use strict';
 /*! thrones/thrones.jsx */
 rc.thronesPageComponent = React.createClass({
@@ -1446,6 +1511,11 @@ rc.nav = React.createClass({
 				'a',
 				{ className: this.getClassNameWithActive('bladerunner'), href: '#/bladerunner' },
 				'Blade Runner'
+			),
+			React.createElement(
+				'a',
+				{ className: this.getClassNameWithActive('stargate'), href: '#/stargate' },
+				'Stargate'
 			)
 		);
 	}
