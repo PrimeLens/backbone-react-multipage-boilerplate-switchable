@@ -84,8 +84,8 @@ There is a clear line between project files and boilerplate files. When working 
     });
 
 
-* **Create a view that is not a page**<br>
-This is the same as creating a page component. Store either in `/jsx-special` or in the folder for your page
+* **Create a component that is not a page**<br>
+This is the same as creating a page component. Store either in `/jsx-special` or in the child-components folder for your page
 
 * **Best Practices**<br>
   * When coding a React page don't use jQuery in the component. For $.ajax or $.cookie move the code into a library and reference it from there.
