@@ -182,7 +182,8 @@ gulp.task('clean', function() {
     return del([
         // Delete everything inside of folder
         './srcbase/htmlcompiled/**/*',
-        './srcbase/jsxcompiled/**/*'
+        './srcbase/jsxcompiled/**/*',
+        './public/prod/**/*'
     ]);
 });
 
@@ -219,8 +220,8 @@ gulp.task('killdemocode', function() {
     // TO DO  need regex to clean out the buttons in nav.jsx (this is covered by the last regex in the previous task)
     // TO DO   line to kill the instantiation of the exmachina view in router_developer (this is covered by the updated regex for router)
 });
-gulp.task('killdemo', function() {   runSequence(['killdemofiles', 'killdemocode', 'build']);   });
-gulp.task('killdemos', function() {   runSequence(['killdemofiles', 'killdemocode', 'build']);   });
+gulp.task('killdemo', function() {   runSequence(['killdemofiles', 'killdemocode', 'clean']);   });
+gulp.task('killdemos', function() {   runSequence(['killdemofiles', 'killdemocode', 'clean']);   });
 
 
 /*
