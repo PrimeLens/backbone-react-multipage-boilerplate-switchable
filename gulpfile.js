@@ -93,6 +93,7 @@ gulp.task('2:jsx', function(){
 });
 
 gulp.task('3:cssBundle', function(){
+    console.log(); // blank line so its easier to see refresh
     return gulp.src(paths.sass)
         .pipe(plumber({
           errorHandler: function(error) {
@@ -128,6 +129,7 @@ gulp.task('3:cssBundle', function(){
 });
 
 gulp.task('4:jsBundle', function(){
+    console.log(); // blank line so its easier to see refresh    
     return gulp.src(paths.js)
         // Remove 'use strict';
         .pipe(replace([ [ /('|")use strict\1;/g, '' ] ]))
