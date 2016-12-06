@@ -467,6 +467,35 @@ rc.fireflyPageComponent = React.createClass({
     }
 });
 'use strict';
+/*! hannibal/hannibal.jsx */
+rc.hannibalPageComponent = React.createClass({
+    displayName: 'hannibalPageComponent',
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'hannibalpage' },
+            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/hannibalpage/hannibal.jpg' }),
+            React.createElement(
+                'p',
+                null,
+                'Here we instanciate a shared child component called quizComponent which receives its configuration at the time of instanciation.'
+            ),
+            React.createElement(
+                'p',
+                null,
+                'This child component is simple and does not save its state when changing away to another page. To do this the state data should be stored in',
+                React.createElement(
+                    'span',
+                    { className: 'codestyle' },
+                    'app.status'
+                )
+            ),
+            React.createElement(rc.quizComponent, { data: SiteConfig.quiz.hannibal })
+        );
+    }
+});
+'use strict';
 /*! home/home.jsx */
 rc.homePageComponent = React.createClass({
     displayName: 'homePageComponent',
@@ -628,74 +657,6 @@ rc.homePageComponent = React.createClass({
     }
 });
 'use strict';
-/*! hannibal/hannibal.jsx */
-rc.hannibalPageComponent = React.createClass({
-    displayName: 'hannibalPageComponent',
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'hannibalpage' },
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/hannibalpage/hannibal.jpg' }),
-            React.createElement(
-                'p',
-                null,
-                'Here we instanciate a shared child component called quizComponent which receives its configuration at the time of instanciation.'
-            ),
-            React.createElement(
-                'p',
-                null,
-                'This child component is simple and does not save its state when changing away to another page. To do this the state data should be stored in',
-                React.createElement(
-                    'span',
-                    { className: 'codestyle' },
-                    'app.status'
-                )
-            ),
-            React.createElement(rc.quizComponent, { data: SiteConfig.quiz.hannibal })
-        );
-    }
-});
-'use strict';
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-/*! inception/inception.jsx */
-rc.inceptionPageComponent = function (_React$Component) {
-    _inherits(InceptionPageComponent, _React$Component);
-    function InceptionPageComponent(props) {
-        _classCallCheck(this, InceptionPageComponent);
-        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(InceptionPageComponent).call(this, props));
-        _this.displayName = 'inceptionPageComponent';
-        if (typeof app.stores.inception === 'undefined' || app.stores.inception.level > 2) {
-            app.stores.inception = {};
-            app.stores.inception.level = 0;
-        }
-        return _this;
-    }
-    _createClass(InceptionPageComponent, [{
-        key: 'render',
-        value: function render() {
-            console.log(this.displayName + ' render()');
-            var inception = app.stores.inception.level < 2 ? React.createElement(rc.inceptionPageComponent, null) : null;
-            app.stores.inception.level++;
-            return React.createElement(
-                'div',
-                { className: 'inceptionpage clearfix' },
-                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/inceptionpage/inception.jpg' }),
-                React.createElement(
-                    'p',
-                    null,
-                    'Here we have an example of inception. Also, it is an example of creating a React component using ES6 class notation.'
-                ),
-                inception
-            );
-        }
-    }]);
-    return InceptionPageComponent;
-}(React.Component);
-'use strict';
 /*! hungergames/hungergames.jsx */
 rc.hungergamesPageComponent = React.createClass({
     displayName: 'hungergamesPageComponent',
@@ -784,6 +745,45 @@ rc.hungergamesPageComponent = React.createClass({
         );
     }
 });
+'use strict';
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+/*! inception/inception.jsx */
+rc.inceptionPageComponent = function (_React$Component) {
+    _inherits(InceptionPageComponent, _React$Component);
+    function InceptionPageComponent(props) {
+        _classCallCheck(this, InceptionPageComponent);
+        var _this = _possibleConstructorReturn(this, (InceptionPageComponent.__proto__ || Object.getPrototypeOf(InceptionPageComponent)).call(this, props));
+        _this.displayName = 'inceptionPageComponent';
+        if (typeof app.stores.inception === 'undefined' || app.stores.inception.level > 2) {
+            app.stores.inception = {};
+            app.stores.inception.level = 0;
+        }
+        return _this;
+    }
+    _createClass(InceptionPageComponent, [{
+        key: 'render',
+        value: function render() {
+            console.log(this.displayName + ' render()');
+            var inception = app.stores.inception.level < 2 ? React.createElement(rc.inceptionPageComponent, null) : null;
+            app.stores.inception.level++;
+            return React.createElement(
+                'div',
+                { className: 'inceptionpage clearfix' },
+                React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/inceptionpage/inception.jpg' }),
+                React.createElement(
+                    'p',
+                    null,
+                    'Here we have an example of inception. Also, it is an example of creating a React component using ES6 class notation.'
+                ),
+                inception
+            );
+        }
+    }]);
+    return InceptionPageComponent;
+}(React.Component);
 'use strict';
 /*! jessicajones/jessicajones.jsx */
 rc.jessicajonesPageComponent = React.createClass({
@@ -1167,49 +1167,67 @@ rc.walkingPanelCTA = React.createClass({
         );
     }
 });
-'use strict';
+"use strict";
 /*! mainmodal/templates/attackontitanModal/attackontitanModal.jsx */
 rc.attackontitanModal = React.createClass({
-    displayName: 'attackontitanModal',
+    displayName: "attackontitanModal",
     render: function render() {
         console.log(this.constructor.displayName + ' render()');
         return React.createElement(
-            'div',
-            { id: 'attackontitanModal' },
+            "div",
+            { className: "modalwrapper" },
+            React.createElement(rc.modalCloseButton, null),
             React.createElement(
-                'h3',
-                null,
-                'Attack on Titan'
-            ),
-            React.createElement(
-                'p',
-                null,
-                'Attack on Titan is a Japanese anime and manga series. After his hometown is destroyed and his mother is killed, young Eren Jaegar vows to cleanse the earth of the giant humanoid Titans that have brought humanity to the brink of extinction.'
-            ),
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/animepage/attackontitan.jpg' })
+                "div",
+                { className: "modalContentsWrapper" },
+                React.createElement(
+                    "div",
+                    { id: "attackontitanModal" },
+                    React.createElement(
+                        "h3",
+                        null,
+                        "Attack on Titan"
+                    ),
+                    React.createElement(
+                        "p",
+                        null,
+                        "Attack on Titan is a Japanese anime and manga series. After his hometown is destroyed and his mother is killed, young Eren Jaegar vows to cleanse the earth of the giant humanoid Titans that have brought humanity to the brink of extinction."
+                    ),
+                    React.createElement("img", { src: SiteConfig.assetsDirectory + 'images/animepage/attackontitan.jpg' })
+                )
+            )
         );
     }
 });
-'use strict';
+"use strict";
 /*! mainmodal/templates/deathnoteModal/deathnoteModal.jsx */
 rc.deathnoteModal = React.createClass({
-    displayName: 'deathnoteModal',
+    displayName: "deathnoteModal",
     render: function render() {
         console.log(this.constructor.displayName + ' render()');
         return React.createElement(
-            'div',
-            { id: 'deathnoteModal' },
+            "div",
+            { className: "modalwrapper" },
+            React.createElement(rc.modalCloseButton, null),
             React.createElement(
-                'h3',
-                null,
-                'Death Note'
-            ),
-            React.createElement(
-                'p',
-                null,
-                'Death Note is a Japanese anime and manga series. Light Yagami, an ordinary university student, receives a death note which changes his life. The death note awakens his warped sense of justice and genius.'
-            ),
-            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/animepage/deathnote.jpg' })
+                "div",
+                { className: "modalContentsWrapper" },
+                React.createElement(
+                    "div",
+                    { id: "deathnoteModal" },
+                    React.createElement(
+                        "h3",
+                        null,
+                        "Death Note"
+                    ),
+                    React.createElement(
+                        "p",
+                        null,
+                        "Death Note is a Japanese anime and manga series. Light Yagami, an ordinary university student, receives a death note which changes his life. The death note awakens his warped sense of justice and genius."
+                    ),
+                    React.createElement("img", { src: SiteConfig.assetsDirectory + 'images/animepage/deathnote.jpg' })
+                )
+            )
         );
     }
 });
@@ -1285,63 +1303,52 @@ rc.mainmodal = React.createClass({
     componentDidMount: function componentDidMount() {
         var self = this;
         grandCentral.off('modalHide').on('modalHide', function () {
-            self.setState({ show: false, whichTemplate: '' });
-        });
-        grandCentral.off('modalShow').on('modalShow', function (payLoad) {
-            self.setState({ show: true, whichTemplate: payLoad });
-        });
-    },
-    handleModalClose: function handleModalClose() {
-        grandCentral.trigger('modalHide');
-        if (app.status.currentFragString) {
-            if (app.status.currentFragString.indexOf('modalShow-') > -1) {
+            var modalDeeplink = false;
+            if (app.status.currentFragString) {
+                if (app.status.currentFragString.indexOf('modalShow-') > -1) {
+                    modalDeeplink = true;
+                }
+            }
+            if (!modalDeeplink) {
+                self.setState({ show: false, whichTemplate: '' });
+            } else {
                 var newURL = '#/' + app.status.currentRoute;
-                var stringToRemove = 'modalShow-' + this.state.whichTemplate;
+                var stringToRemove = 'modalShow-' + self.state.whichTemplate;
                 console.log('removing ' + stringToRemove + 'from the URL');
                 newURL = newURL.replace('/' + stringToRemove, '');
                 newURL = newURL.replace(stringToRemove + '/', '');
                 newURL = newURL.replace(stringToRemove, '');
                 app.navigate(newURL);
             }
-        }
+        });
+        grandCentral.off('modalShow').on('modalShow', function (payLoad) {
+            self.setState({ show: true, whichTemplate: payLoad });
+        });
     },
     render: function render() {
         console.log(this.constructor.displayName + ' render()');
         var self = this;
-        var classes = this.state.show ? 'absolutewrapper active' : 'absolutewrapper ';
-        var outputArray = [];
+        var outputTemplate = [];
         switch (this.state.whichTemplate) {
             case 'attackontitanModal':
-                outputArray.push(React.createElement(rc.attackontitanModal, null));break;
+                outputTemplate.push(React.createElement(rc.attackontitanModal, null));break;
             case 'deathnoteModal':
-                outputArray.push(React.createElement(rc.deathnoteModal, null));break;
+                outputTemplate.push(React.createElement(rc.deathnoteModal, null));break;
         }
-        return React.createElement(
-            'div',
-            { className: classes },
-            React.createElement(
+        if (this.state.show) {
+            return React.createElement(
                 'div',
-                { className: 'greybacking' },
+                { className: 'absolutewrapper' },
                 React.createElement(
                     'div',
-                    { className: 'modalwrapper' },
-                    React.createElement(
-                        'div',
-                        { className: 'modalCloseButtonWrapper' },
-                        React.createElement(
-                            'div',
-                            { className: 'modalCloseButton', onClick: self.handleModalClose },
-                            React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/ui/modal-close-btn.png' })
-                        )
-                    ),
-                    React.createElement(
-                        'div',
-                        { className: 'modalContentsWrapper' },
-                        outputArray
-                    )
+                    { className: 'greybacking' },
+                    React.createElement('div', { className: 'modal-topspacer' }),
+                    outputTemplate
                 )
-            )
-        );
+            );
+        } else {
+            return null;
+        }
     }
 });
 'use strict';
@@ -1451,6 +1458,26 @@ rc.nav = React.createClass({
 	}
 });
 "use strict";
+/*! parentsadvisory/parentsadvisory.jsx */
+rc.parentsadvisory = React.createClass({
+    displayName: "parentsadvisory",
+    render: function render() {
+        return React.createElement(
+            "div",
+            { className: "parentsadvisory" },
+            React.createElement(
+                "strong",
+                null,
+                "Don't"
+            ),
+            React.createElement("br", null),
+            "let kids",
+            React.createElement("br", null),
+            "watch this"
+        );
+    }
+});
+"use strict";
 /*! quiz/quiz.jsx */
 rc.quizComponent = React.createClass({
     displayName: "quizComponent",
@@ -1487,22 +1514,21 @@ rc.quizComponent = React.createClass({
     }
 });
 "use strict";
-/*! parentsadvisory/parentsadvisory.jsx */
-rc.parentsadvisory = React.createClass({
-    displayName: "parentsadvisory",
+/*! mainmodal/ui/edgebuttons.jsx */
+rc.modalCloseButton = React.createClass({
+    displayName: "modalCloseButton",
+    handleModalClose: function handleModalClose() {
+        grandCentral.trigger('modalHide');
+    },
     render: function render() {
         return React.createElement(
             "div",
-            { className: "parentsadvisory" },
+            { className: "modalCloseButtonWrapper" },
             React.createElement(
-                "strong",
-                null,
-                "Don't"
-            ),
-            React.createElement("br", null),
-            "let kids",
-            React.createElement("br", null),
-            "watch this"
+                "div",
+                { className: "modalCloseButton", onClick: this.handleModalClose },
+                React.createElement("img", { src: SiteConfig.assetsDirectory + 'images/ui/modal-close-btn.png' })
+            )
         );
     }
 });

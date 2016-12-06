@@ -45,6 +45,34 @@ body {
   color: #777; }
 #exmachina a:hover {
   color: #a33; }
+/*! mainmodal/ui/edgebuttons.scss */
+@media (max-width: 767px) {
+  #modalcontainer .modalCloseButtonWrapper {
+    position: relative;
+    height: 10px; }
+  #modalcontainer .modalCloseButton {
+    position: absolute;
+    top: 0;
+    right: 0; } }
+@media (min-width: 768px) and (max-width: 991px) {
+  #modalcontainer .modalCloseButtonWrapper {
+    position: relative;
+    height: 0; }
+  #modalcontainer .modalCloseButton {
+    position: absolute;
+    top: -20px;
+    right: -20px; } }
+@media (min-width: 992px) {
+  #modalcontainer .modalCloseButtonWrapper {
+    position: relative;
+    height: 0; }
+  #modalcontainer .modalCloseButton {
+    position: absolute;
+    top: -20px;
+    right: -20px; } }
+#modalcontainer .modalCloseButton img {
+  display: block;
+  border: 0; }
 /*! mainmodal/templates/attackontitanModal/attackontitanModal.scss */
 /*! mainmodal/templates/deathnoteModal/deathnoteModal.scss */
 /*! header/header.scss */
@@ -125,8 +153,7 @@ body {
   position: absolute;
   top: 0;
   height: 100%;
-  width: 100%;
-  display: none; }
+  width: 100%; }
 #modalcontainer .greybacking {
   position: relative;
   top: 0;
@@ -134,8 +161,6 @@ body {
   width: 100%;
   height: 100%;
   background: rgba(77, 77, 77, 0.7); }
-#modalcontainer .absolutewrapper.active {
-  display: block; }
 #modalcontainer .modalwrapper {
   background: white;
   border-radius: 13px;
@@ -145,6 +170,11 @@ body {
   border: 0; }
 #modalcontainer .modalContentsWrapper {
   padding: 20px; }
+/*! mainmodal/modalcontentswrapper.scss */
+#modalcontainer .modalContentsWrapper {
+  padding: 20px; }
+#modalcontainer .modalContentsWrapper .btn {
+  display: inline-block; }
 /*! nav/nav.scss */
 #navcontainer {
   padding: 15px 20px 0;
@@ -185,23 +215,6 @@ body {
   border-color: #adadad;
   cursor: default;
   text-decoration: none; }
-/*! quiz/quiz.scss */
-.quizheader {
-  color: #aaa;
-  font-size: 20px;
-  font-weight: bold;
-  padding-top: 30px;
-  clear: both; }
-.quizitem {
-  font-size: 12px;
-  color: #888;
-  margin: 10px 0; }
-.submitquizbtn {
-  font-size: 12px;
-  color: #888;
-  text-decoration: underline;
-  margin: 20px 20px 40px 0;
-  float: left; }
 /*! parentsadvisory/parentsadvisory.scss */
 .parentsadvisory {
   padding: 14px;
@@ -219,6 +232,23 @@ body {
   transform: rotate(20deg); }
 .parentsadvisory strong {
   font-size: 16px; }
+/*! quiz/quiz.scss */
+.quizheader {
+  color: #aaa;
+  font-size: 20px;
+  font-weight: bold;
+  padding-top: 30px;
+  clear: both; }
+.quizitem {
+  font-size: 12px;
+  color: #888;
+  margin: 10px 0; }
+.submitquizbtn {
+  font-size: 12px;
+  color: #888;
+  text-decoration: underline;
+  margin: 20px 20px 40px 0;
+  float: left; }
 /*! anime/anime.scss */
 #animepage {
   padding-bottom: 200px; }
@@ -302,14 +332,6 @@ body {
   height: 100px;
   float: left;
   margin: 10px; }
-/*! home/home.scss */
-#homepage .pagetitle {
-  font-style: italic;
-  color: #777;
-  display: inline-block; }
-#homepage .pagetitle:hover {
-  color: #a33;
-  text-decoration: underline; }
 /*! hannibal/hannibal.scss */
 #hannibalpage img {
   max-width: 300px;
@@ -318,21 +340,14 @@ body {
   margin: 0 20px 20px 0; }
 #hannibalpage .quizcontainer {
   clear: both; }
-/*! inception/inception.scss */
-.inceptionpage {
-  border: 3px dotted #eee;
-  font-size: 1.75rem; }
-  .inceptionpage .inceptionpage {
-    float: left;
-    margin: 10px;
-    font-size: 1.25rem; }
-    .inceptionpage .inceptionpage .inceptionpage {
-      font-size: .75rem; }
-  .inceptionpage img {
-    width: 11.375em !important;
-    height: auto;
-    float: left;
-    margin-right: 10px; }
+/*! home/home.scss */
+#homepage .pagetitle {
+  font-style: italic;
+  color: #777;
+  display: inline-block; }
+#homepage .pagetitle:hover {
+  color: #a33;
+  text-decoration: underline; }
 /*! hungergames/hungergames.scss */
 #hungergamespage .hungerinput {
   display: inline-block; }
@@ -369,6 +384,21 @@ body {
   border-color: #adadad;
   cursor: default;
   text-decoration: none; }
+/*! inception/inception.scss */
+.inceptionpage {
+  border: 3px dotted #eee;
+  font-size: 1.75rem; }
+  .inceptionpage .inceptionpage {
+    float: left;
+    margin: 10px;
+    font-size: 1.25rem; }
+    .inceptionpage .inceptionpage .inceptionpage {
+      font-size: .75rem; }
+  .inceptionpage img {
+    width: 11.375em !important;
+    height: auto;
+    float: left;
+    margin-right: 10px; }
 /*! jessicajones/jessicajones.scss */
 #jessicajonespage .itemContainer,
 #jessicajonespage .itemReadout,
